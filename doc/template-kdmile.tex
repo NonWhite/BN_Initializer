@@ -1,0 +1,552 @@
+% by Mirella M. Moro; version: January/18/2012 @ 04:16pm
+% -- 01/18/2012: more discussion on SBBD + kdmile; overall revision
+% -- 09/03/2010: bib file with names for proceedings and journals; cls with shrinked {received}
+% -- 08/27/2010: appendix, table example, more explanation within comments, editors' data
+
+\documentclass[kdmile,a4paper]{kdmile} % NOTE: kdmile is published on A4 paper
+\usepackage{graphicx,url}  % for using figures and url format
+\usepackage[T1]{fontenc}   % avoids warnings such as "LaTeX Font Warning: Font shape 'OMS/cmtt/m/n' undefined"
+
+%\usepackage{cite} % NOTE: do **not** include this package because it conflicts with kdmile.bst
+
+% Standard definitions
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newdef{definition}[theorem]{Definition}
+\newdef{remark}[theorem]{Remark}
+
+% New environment definition
+\newenvironment{latexcode}
+{\ttfamily\vspace{0.1in}\setlength{\parindent}{18pt}}
+{\vspace{0.1in}}
+
+% ALL FIELDS UNTIL BEGIN{document} ARE MANDATORY
+
+
+% Includes headers with simplified name of the authors and article title
+\markboth{S. de Amo and A. P. L. de Carvalho and A. Plastino}
+{KDMiLe - Symposium on Knowledge Discovery, Mining and Learning}
+%  -> \markboth{}{}
+%         takes 2 arguments
+%         ex: \markboth{A.Plastino}{Any article title}
+
+
+% Title of the article
+\title{KDMiLe - Symposium on Knowledge Discovery, Mining and Learning}
+
+
+% List of authors
+%IF THERE ARE TWO or more institutions, please use:
+%\author{Name of Author1\inst{1}, Name of Author2\inst{2}, Name of Author3\inst{2}}
+\author{S. de Amo\inst{1}, A. P. L. de Carvalho\inst{2}, A. Plastino\inst{3}}
+
+
+%Affiliation and email
+\institute{Universidade Federal de Uberl\^andia, Brazil \\ \email{deamo@ufu.br}
+% IF THERE IS ANOTHER INSTITUTION:
+\and Universidade de São Paulo, Brazil  \\ \email{andre@icmc.usp.br}
+\and Universidade Federal Fluminense, Brazil  \\ \email{plastino@icmc.usp.br}
+}
+
+
+% Article abstract - it should be from 100 to 300 words
+\begin{abstract}
+The Symposium on Knowledge Discovery, Mining and Learning (KDMiLe) aims at integrating researchers, practitioners, developers, students and users to present theirs research results, to discuss ideas, and to exchange techniques, tools, and practical experiences related to the Data Mining and Machine Learning areas. 
+\end{abstract}
+
+% ACM Computing Classification System categories
+\category{H.2.8}{Database Management}{Database Applications} 
+\category{I.2.6}{Artificial Intelligence}{Learning}
+
+% Categories and Descriptors are available at the 1998 ACM Computing Classification System
+% http://www.acm.org/about/class/1998/
+%  -> \category{}{}{}
+%         takes 3 arguments for the Computing Reviews Classification Scheme.
+%         ex: \category{D.3.3}{Programming Languages}{Language Constructs and Features}
+%                   [data types and structures]
+%                   the last argument, in square brackets, is optional.
+
+
+
+% Article keywords
+\keywords{kdmile, template, data mining, machine learning}
+%  -> \keywords{} (in alphabetical order \keywords{document processing, sequences,
+%                      string searching, subsequences, substrings})
+
+
+% THE ARTICLE BEGINS
+\begin{document}
+
+% This is optional:
+\begin{bottomstuff}
+% similar to \thanks
+% for authors' addresses; research/grant statements
+\end{bottomstuff}
+
+\maketitle
+
+
+% ARTICLE NEW SECTION
+\section{Call for Contributions}
+KDMiLe is organized alternately in conjunction with The Brazilian Conference on Intelligent Systems (BRACIS) and the Symposium on Database Systems (SBBD). The KDMiLe Program Committee invites submissions containing new ideas and proposals, and also applications, in the Data Mining and Machine Learning areas. Submitted papers will be reviewed based on originality, relevance, technical soundness and clarity of presentation. 
+
+% ARTICLE NEW SUBSECTION
+\subsection{Scope and Topics}
+
+KDMiLe welcomes articles on a full range of research and applications on data mining and machine learning, including (but not limited to):
+
+% LIST OF ITEMS
+
+\begin{enumerate}
+\item \textbf{Data Mining Topics}
+
+\begin{itemize}
+\item Association Rules
+\item Classification
+\item Clustering
+\item Data Mining Aplications
+\item Data Mining Foundations
+\item Evaluation Methodology in Data Mining
+\item Feature Selection and Dimensionality Reduction
+\item Graph Mining
+\item Massive Data Mining
+\item Multimedia Data Mining
+\item Multirelational Mining
+\item Outlier Detection
+\item Parallel and Distributed Data Mining
+\item Pre and Post Processing
+\item Ranking and Preference Mining
+\item Privacy and Security in Data Mining
+\item Quality and Interest Metrics
+\item Recommender Systems based on Data Mining
+\item Sequential Patterns
+\item Social Network Mining
+\item Stream Data Mining
+\item Text Mining
+\item Time-Series Analysis
+\item Visual Data Mining
+\item Web Mining
+\end{itemize}
+
+\item \textbf{Machine Learning Topics}
+
+\begin{itemize}
+\item Active Learning
+\item Bayesian Inference
+\item Case-Based Reasoning
+\item Cognitive Models of Learning
+\item Constructive Induction and Theory Revision
+\item Cost-Sensitive Learning
+\item Ensemble Methods
+\item Evaluation Methodology in Machine Learning
+\item Fuzzy Learning Systems
+\item Inductive Logic Programming and Relational Learning
+\item Kernel Methods
+\item Knowledge-Intensive Learning 
+\item Learning Theory
+\item Machine Learning Applications
+\item Meta-Learning
+\item Multi-Agent and Co-Operative Learning
+\item Natural Language Processing
+\item Online Learning
+\item Probabilistic and Statistical Methods
+\item Ranking and Preference Learning
+\item Recommender Systems based on Machine Learning
+\item Reinforcement Learning
+\item Semi-Supervised Learning
+\item Supervised Learning
+\item Unsupervised Learning
+\end{itemize}
+
+\end{enumerate}
+
+\subsection{Types of Submission}
+
+KDMiLe welcomes \textit{research} articles that both lay theoretical foundations and provide new insights into the aforementioned areas and also \textit{application} articles proposing to adapt existing data mining and machine learning technologies in some specific context, innovative commercial  implementations as well as reports and analysis of experiences in applying recent research advances in data mining and machine learning  to practical situations.
+
+
+\subsection{Submission Instructions}
+
+Papers may be written in Portuguese or English, and may be submitted in two formats: 
+FULL PAPER (not exceeding 8 pages, for original work) and  SHORT PAPER (not exceeding 4 pages, for emerging ideas and research in progress).
+Papers exceeding this limit will be automatically rejected without being reviewed by the Program Committee. In addition, papers must be submitted in PDF format. Formats other than PDF will NOT be accepted. 
+
+
+
+\subsection{Format Instructions}
+
+Even though we provide a template, we do not encourage the use of Microsoft Word, particularly as the layout of the pages (the position of figures and paragraphs) can change between printouts. The camera ready version of your article must be in LATEX. You may ?translate? your Word article to Latex using proper tools such as \url{http://sourceforge.net/projects/rtf2latex2e}
+
+The templates for LATEX are available at:
+
+\begin{center}
+\url{http://jcris2014.icmc.usp.br/index.php/kdmile/templates}
+\end{center}
+
+This folder has the following files:
+
+\begin{itemize}
+	\item template-kdmile.pdf
+	\item kdmile-template.zip
+\end{itemize}
+
+where the compacted files have: 
+
+\begin{itemize}
+	\item kdmileb.bib - an example of bibliography entries
+	\item kdmile.cls - the latex template class for kdmile
+	\item kdmile.bst - the latex template for bibliography entries
+	\item template-kdmile.tex - an example of tex file
+\end{itemize}
+
+Prospective authors should take a look at the \textit{template-kdmile.tex} for more information on the format, for example: how to add more than one institution to the affiliation and  references to books \cite{Baeza-YatesR99}, book chapters \cite{BorgidaCL09}, conference papers \cite{FerreiraGALV09}, conference papers on book series (e.g., LNCS) \cite{SilvaLC96}, journal articles \cite{LaenderMNM09}, PhD thesis \cite{Moro07} and information published online\footnote{Note: in case the URL refers to a software, dataset source or any other information that does not have a proper author, it is better to include it as a footnote, e.g.: ``Biblioteca Digital Brasileira de Computa\c{c}\~{a}o: http://www.lbd.dcc.ufmg.br/bdbcomp''} \cite{xpath}. The file \textit{kdmileb.bib} has examples of how to name conference proceedings and journals. In addition, Section 2 overviews the most important Latex instructions and is a ``must-read'' for authors with little or no experience in Latex, and Section 3 presents the most common errors.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{LATEX Instructions}
+
+This section overviews some basic instructions for writing an article to KDMiLe using LATEX.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent{FIRST LINES}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The first lines of your tex file identify the document class, packages, new definitions and environments the article will use.
+Specifically:
+
+% Numbered list
+\begin{enumerate}
+	\item The document class must be $kdmile.cls$ and is defined as follows:
+	
+				\begin{latexcode} 
+		          $\backslash$documentclass[kdmile,a4paper]\{kdmile\}
+		    \end{latexcode}
+				
+		\rmfamily Note that kdmile is published on A4 paper.
+
+  \item You may use as many packages as you want. However, we suggest you use $graphicx$ and $url$ for figures and url format, and $fontenc$ for avoiding warnings such as ``\textit{LaTeX Font Warning: Font shape 'OMS/cmtt/m/n' undefined}''. You can define them as follows:
+    
+    	\begin{latexcode} 
+				$\backslash$usepackage\{graphicx,url\} 
+		
+				$\backslash$usepackage[T1]\{fontenc\}\vspace{0.1in}
+			\end{latexcode}
+		
+		Please note that including the package $cite$ may conflict with our template for bibliographic references ($kdmile.bst$).
+	
+	\item You may also use new definitions, such as the ones included in kdmile template:
+	
+	
+			\begin{latexcode} 
+		  $\backslash$newtheorem\{theorem\}\{Theorem\}[section] 
+		  
+			$\backslash$newtheorem\{conjecture\}[theorem]\{Conjecture\}
+			
+			$\backslash$newtheorem\{corollary\}[theorem]\{Corollary\}
+			
+			$\backslash$newtheorem\{proposition\}[theorem]\{Proposition\}
+			
+			$\backslash$newtheorem\{lemma\}[theorem]\{Lemma\}
+			
+			$\backslash$newdef\{definition\}[theorem]\{Definition\}
+			
+			$\backslash$newdef\{remark\}[theorem]\{Remark\}
+			\end{latexcode}
+			
+	\item You may also add new environments, such as the one included in kdmile template:
+
+		\begin{latexcode} 
+				$\backslash$newenvironment\{latexcode\} 
+				
+		    \{$\backslash$vspace\{0.1in\}$\backslash$setlength\{$\backslash$parindent\}\{18pt\}\} 
+		    
+				\{$\backslash$vspace\{0.1in\}\}
+		\end{latexcode}
+		 		
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent{MANDATORY FIELDS}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The initial lines are followed by mandatory fields which compose the article metadata. It is very important that all of them be correctly written as follows.
+
+\begin{enumerate}
+
+	\item Each article has a left and right-headers composed of two parts: the abbreviated names of the authors and the title. Both parts are defined as follows:
+	
+		\begin{latexcode} 
+			$\backslash$markboth\{A. Plastino and S. de Amo and A. P. L. de Carvalho\}\{KDMiLe - Symposium on Knowledge Discovery,  Mining and Learning\} 
+		\end{latexcode}
+	
+		Note that the first parameter has the authors, which are defined following these rules:
+		
+\begin{itemize}
+	\item If there is one author, then use author's full name, such as \textit{Alexandre Plastino}.
+	\item If there are two or three authors, then abbreviate each author's first name such as \textit{A.Plastino and S. de Amo and A.P.L. de Carvalho}.
+	\item If there are more than three authors, then the format is \textit{A. Plastino et. al.}.
+\end{itemize}
+	
+	The second parameter is the title. If the title is too long, contract it by omitting subtitles and phrases, \textit{not} by abbreviating words.
+	
+	\item The title of the article is defined as follows:
+	
+		\begin{latexcode}
+				$\backslash$title\{KDMiLe - Symposium on Knowledge Discovery,  $\backslash\backslash$ Mining and Learning\}
+		\end{latexcode}
+	
+		Note that if you want to break the title in two or more lines, just add a line within it with two consecutive backlashes ($\backslash\backslash$).
+	
+	\item After the title, you need to define the name of the authors and their affiliations, as follows.
+
+		\begin{latexcode}
+				$\backslash$author\{A. Plastino, V. Braganholo\}
+				
+				$\backslash$institute\{Universidade Federal Fluminense, Brazil $\backslash\backslash$
+				
+				$\backslash$email\{$\backslash$\{plastino,vanessa$\backslash$\}@ic.uff.br\}
+				
+		\end{latexcode}
+		
+	Note that both authors belong to the same university. If you have authors from different places, you write their information as follows:
+		
+		\begin{latexcode}		
+				$\backslash$author\{S. de Amo$\backslash$inst\{1\}, A. P. L. de Carvalho$\backslash$inst\{2\}\}
+				
+				$\backslash$institute\{Universidade Federal de Uberl\^andia, Brazil $\backslash\backslash$
+				
+				$\backslash$email\{deamo@ufu.br\} 
+				
+				$\backslash$and
+				
+				$\backslash$institute\{Universidade de S\~ao Paulo, Brazil $\backslash\backslash$
+				
+				$\backslash$email\{andre@icmc.usp.br\} 
+ 
+		\end{latexcode}
+
+		
+	\item The next step is to add the abstract within its environment, as follows.
+	
+		\begin{latexcode}		
+				$\backslash$begin\{abstract\}
+				
+Text of your abstract using from 100 to 300 words, without \textbf{any references}. 
+
+Also, do avoid breaking it into paragraphs.
+				
+				$\backslash$end\{abstract\}
+		\end{latexcode}
+					
+	\item After the abstract, you should include information for the ACM Computing Classification, as follows.
+	
+	\begin{latexcode}		
+				$\backslash$category\{H.4.0\}\{Information Systems Applications\}\{General\}
+	\end{latexcode}
+	
+	where the last argument (which contains the subject descriptors) is optional, since some categories have none. 
+	Multiple subject descriptors are separated by $\backslash$\textit{and} commands, for example:  
+	\begin{latexcode}
+	
+	$\backslash$category\{I.7.2\}\{Text Processing\}\{Document Preparation\}
+	
+	[Languages $\backslash$and Photocomposition])
+	\end{latexcode}
+	
+	If you have more than one category, use a separate $\backslash$\textit{category} declaration. 
+	The list of categories is available at the website \ttfamily{http://www.acm.org/about/class/1998/}. \rmfamily
+
+	\item Then, the keywords are specified in alphabetical order as follows.
+	
+	\begin{latexcode}
+		$\backslash$keywords\{kdmile,template\}
+	\end{latexcode}
+
+	Note that keywords can also be expressions, such as \textit{Data Mining, Machine Learning}.
+
+	\item The article then begins as follows.
+	
+	\begin{latexcode}
+	   $\backslash$begin\{document\}
+	\end{latexcode}
+	
+	\item It is common to thank funding agencies for research grants. If necessary, that information is defined in the \textit{bottomstuff} environment, as follows.
+	
+	\begin{latexcode}
+		$\backslash$begin\{bottomstuff\}
+	
+		This work was partially funded by CNPq grant number XYZ. 
+	
+		$\backslash$end\{bottomstuff\}	
+	\end{latexcode}
+	
+	\item All the previous items complete the initial part of the article. Then, you need to use the \textit{$\backslash$maketitle} command, which generates and formats all the previous items, as follows.
+	
+		\begin{latexcode}
+	   $\backslash$maketitle
+	\end{latexcode}
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%
+\noindent{BODY CONTENT}
+%%%%%%%%%%%%%%%%%%%%%%
+
+The article then follows with its regular content with sections and subsections as follows.
+
+	\begin{latexcode}
+		$\backslash$section\{Section title\} \\
+		\rmfamily which defines a section in first level (i.e., \textit{1. Section title}).
+	
+		\ttfamily$\backslash$subsection\{Subsection title\} \\
+		\rmfamily which defines a section in second level (i.e., \textit{1.1. Subsection title}).
+	
+		\ttfamily$\backslash$subsubsection\{Subsubsection title\} 
+		\rmfamily defines a section in third level (i.e., \textit{1.1.1. Subsubsection title}).
+	\end{latexcode}
+
+	For further information, we refer to the following web sources:
+	
+	\ttfamily
+\begin{itemize}
+	\item http://en.wikibooks.org/wiki/LaTeX
+	\item http://www.latex-project.org/
+\end{itemize}
+	
+	\rmfamily
+
+%%%%%%%%%%%%%%%%%%%%%%
+\noindent{FINISHING YOUR ARTICLE}
+%%%%%%%%%%%%%%%%%%%%%%
+
+At the end of your article, you may add appendix sections as follows.
+
+\begin{latexcode}
+	$\backslash$appendix
+	
+	$\backslash$section\{Title of first appendix section\}
+
+	Text text text
+\end{latexcode}
+
+After the appendix, you may also add a section for acknowledgments, as follows. Note that funding agencies should be mentioned as defined by the aforementioned environment $\backslash bottomstuff$.
+
+\begin{latexcode}
+				$\backslash$begin\{ack\}
+				
+				Any acknowledgment you want.
+				
+				$\backslash$end\{ack\}
+\end{latexcode}
+
+Then, you add the dates (if you do not add these lines, the footer of the title page will be wrong), as follows:
+
+\begin{latexcode}
+	$\backslash$begin\{received\}
+	$\backslash$end\{received\}
+\end{latexcode}
+
+Finally, you must refer to the bibliography style and file, as follows.
+
+	\begin{latexcode}
+		$\backslash$bibliographystyle\{kdmile\}
+
+		$\backslash$bibliography\{kdmileb\}
+	\end{latexcode}
+
+\noindent where the file $kdmileb.bib$ has all references. We try to keep the names of proceedings and journals following the same pattern. All references must be defined in the bib file, as follows. 
+
+\begin{latexcode}
+@MISC\{xpath, \\\indent\indent
+  author = \{Anders Berglund and Scott Boag and Don Chamberlin and \\\indent\indent
+  Mary F. Fern$\backslash$'\{a\}ndez and Michael Kay  and Jonathan Robie and \\\indent\indent
+  J$\backslash$'\{e\}r$\backslash$\^\{o\}me Sim$\backslash$'\{e\}on\},\\\indent\indent
+  title = \{\{XML Path Language (XPath) 2.0, W3C Recommendation\}\},\\\indent\indent
+  howpublished = \{http://www.w3.org/TR/xpath20\},\\\indent\indent
+  year = \{2007\} \}\\
+
+@INBOOK\{BorgidaCL09,\\\indent\indent
+  chapter = \{\{Logical Database Design: from Conceptual to Logical Schema\}\},\\\indent\indent
+  pages = \{1645-1649\},\\\indent\indent
+  title = \{\{Encyclopedia of Database Systems\}\},\\\indent\indent
+  publisher = \{Springer\},\\\indent\indent
+  year = \{2009\},\\\indent\indent
+  editor = \{Liu Ling and Tamer M. $\backslash$"\{O\}zsu\},\\\indent\indent
+  author = \{Alexander Borgida and Marco A. Casanova and Alberto H. F. Laender\},\\\indent\indent
+  address = \{Berlin\} \}\\
+
+@INPROCEEDINGS\{FerreiraGALV09,\\\indent\indent
+  author = \{Anderson A. Ferreira and Marcos Andr\{$\backslash$'e\} Gon$\backslash$c\{c\}alves and Jussara\\\indent\indent
+	M. Almeida and Alberto H. F. Laender and Adriano Veloso\},\\\indent\indent
+  title = \{\{SyGAR - A Synthetic Data Generator for Evaluating Name Disambiguation\\\indent\indent
+	Methods\}\},\\\indent\indent
+  booktitle = ecdl,\\\indent\indent
+  year = \{2009\},\\\indent\indent
+  pages = \{437-441\},\\\indent\indent
+  address = \{Corfu, Greece\} \}\\
+
+@ARTICLE\{LaenderMNM09,\\\indent\indent
+  author = \{Alberto H. F. Laender and Mirella M. Moro and Cristiano Nascimento\\\indent\indent
+	and Patr$\backslash$'\{$\backslash$i\}cia Martins\},\\\indent\indent
+  title = \{\{An X-ray on Web-available XML Schemas\}\},\\\indent\indent
+  journal = sigmodrecord,\\\indent\indent
+  year = \{2009\},\\\indent\indent
+  volume = \{38\},\\\indent\indent
+  pages = \{37-42\},\\\indent\indent
+  number = \{1\} \}\\
+
+@PHDTHESIS\{Moro07,\\\indent\indent
+  author = \{Mirella M. Moro\},\\\indent\indent
+  title = \{\{The Role of Structural Aggregation for Query Processing over XML Data\}\},\\\indent\indent
+  school = \{University of California, Riverside (UCR)\},\\\indent\indent
+  year = \{2007\},\\\indent\indent
+  address = \{USA\} \}\\
+
+@INBOOK\{SilvaLC96,\\\indent\indent
+  chapter = \{\{An Approach to Maintaining Optimized Relational Representations\\\indent\indent
+	of Entity-Relationship Schemas\}\},\\\indent\indent
+  pages = \{292-308\},\\\indent\indent
+  title = \{Conceptual Modeling - ER'96\},\\\indent\indent
+  publisher = \{Springer\},\\\indent\indent
+  year = \{1996\},\\\indent\indent
+  editor = \{Bernhard Thalheim\},\\\indent\indent
+  author = \{Altigran Soares da Silva and Alberto H. F. Laender and Marco A. Casanova\},\\\indent\indent
+  volume = \{1920\},\\\indent\indent
+  series = \{Lecture Notes in Computer Science\},\\\indent\indent
+  booktitle = er \}
+  
+\end{latexcode}
+
+%%%%%%%%%%%%%%%%%%%%5
+\section{Most Common Errors}
+
+This section lists the most common errors when writing your paper. Note that \textit{any} of these errors will certainly make the editors contact you for correction.
+
+\begin{itemize}
+	\item Files do not compile. Editors will create the pdf files from the tex sources you submitted.
+	\item Refering to work as ``paper'': you should refer to your work as article.
+	\item kdmile metadata different from pdf file: author names must be exactly the same in the pdf as in the metadata at kdmile website [including abbreviations and uppercase letters].
+	\item Generic categories: the item ``Categories and Subject Descriptors'' should be other than ``Databases'' (since that is too generic).
+	\item Wrong header: with two or three authors, the header is as ``A. Plastino and S. de Amo and A. P. L. de Carvalho''; otherwise, it is ``A. Plastino et. al.'' (use $\backslash markboth$).
+	\item Acknowledgments as section/subsection: acknowledgments must be in the appropriate place (using environment $\backslash bottomstuff$).
+	\item Long/wrong abstract: abstract should have only one paragraph; in the kdmile metadata, it cannot have tex commands.
+	\item Incomplete/wrong references: *all* references must strictly follow kdmile template, i.e., conference/workshop papers with complete authors, title, proceedings name, year, paper initial and final pages, and city/country address (no series, no url, no date, no total number of pages, no publisher - see template example); journal articles must have authors, title, journal name, pages, both volume and number; double check the template for conference papers published on Lecture Notes; webpage can be footnote instead of reference.
+	\item Undefined references.
+	\item Style: try to avoid orphan words (one word alone in one line), orphan lines (one line alone at the beginning of a page), single subsections (e.g., section 3, subsection 3.1, section 4); place figures and tables at the top \url{[t]} or bottom \url{[b]} of your pages.
+	\item File compiles with warnings: try to eliminate all warnings, they may affect the final pdf.
+	\item Wrong characters: words in Portuguese (even inside bib file) must have proper characters (e.g., Computa$\backslash$c\{c\}$\backslash$\textasciitilde\{a\}o).
+	\item Outdated template: check the website for the updated template (which corrected some errors from the previous one).
+\end{itemize}
+	
+% INCLUDE BIBLIOGRAPHY WHICH MUST FOLLOW kdmile.bst TEMPLATE
+\bibliographystyle{kdmile}
+\bibliography{kdmileb}
+% For information on how to write bibliography entries, 
+% see file kdmileb.bib
+
+\begin{received}
+\end{received}
+
+\end{document}

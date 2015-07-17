@@ -1,0 +1,33 @@
+\section{Melhora no aprendizado de redes bayesianas}
+\label{sec:melhora}
+
+Um paso importante no Algoritmo~\ref{code:original} está na primeira linha onde é criada uma solução inicial para o problema baseada em uma permutação dos atributos do conjunto de dados. O Algoritmo~\ref{code:melhora} mostra uma modificação do algoritmo anterior em que a solução inicial não é feita a partir de uma permutação.
+
+\begin{lstlisting}[ caption = Melhora do algoritmo~\ref{code:original} , label = code:melhora ]
+	L = BN_Initializer( x[ 0 ] , x[ 1 ] , ... , x[ n ] )
+	while k < NUM_RESTARTS :
+		best = find_order( L )
+		if score( best ) > score( L ) :
+			L = best
+\end{lstlisting}
+
+A implementação da função é mostrada no Algoritmo~\ref{code:init} e tem duas partes. A primeira parte é encontrar os melhores pais para cada um dos atributos do conjunto de dados. A segunda parte recebe os melhores pais e retorna um conjunto de arcos de realimentação (Feedback arcset, em inglês).
+
+\begin{lstlisting}[ caption = Gerar uma solução inicial , label = code:init ]
+	for i in range( n ) :
+		pa_x[ i ] = findBestParents( x[ i ] )
+	return feedbackArcSet( pa_x[ 0 ] , ... pa_x[ n - 1 ] )
+\end{lstlisting}
+
+A ideia geral da segunda parte é que dados os pais para cada atributo e tendo todas as conexões entre os atributos não se pode formar um grafo sem ciclos. Então o problema é mudar de um grafo com ciclos para um sem ciclos (DAG, em inglês) o que é conhecido como o conjunto de arcos de realimentação ou Feedback Arcset (FAS).
+
+Encontrar o FAS de um grafo é um problema NP-Hard, mas existem vários métodos de aproximação. O método implementado para este artigo é descrito a continuação:
+
+\begin{enumerate}
+	\item Elegir um nó do grafo aleatoriamente
+	\item Faça uma busca em profundidade desde ese nó e marque todos os arcos visitados que não fazem ciclos
+	\item Todos os arcos do grafo que não foram marcados são invertidos
+	\item Retornar o novo grafo
+\end{enumerate}
+
+Na seguinte seção este algoritmo será comparado com o algoritmo original na seção~\ref{sec:aprendizado} usando vários conjuntos de dados.

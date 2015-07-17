@@ -1,29 +1,25 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[kdmile,a4paper]{kdmile}
  
 \usepackage{mystyle}
+
+\input{./tex/paperinfo}
+\input{./tex/abstract}
  
 \begin{document}
+	\begin{bottomstuff}
+	\end{bottomstuff}
+	\maketitle
+	\input{./tex/introduction}
+	\input{./tex/learning}
+	\input{./tex/improvelearning}
+	\input{./tex/experiments}
+	\input{./tex/conclusions}
 
-\pagestyle{empty}
-\input{./tex/capa}
-\clearpage
-\input{./tex/abstract}
+	\bibliographystyle{kdmile}
+	\bibliography{kdmileb}
 
-\tableofcontents
-\clearpage
-\listoffigures
-\clearpage
-
-\pagestyle{plain}
-\input{./tex/input}
-\input{./tex/manualconstruction}
-\input{./tex/experiments}
-\input{./tex/difficulties}
-\input{./tex/conclusions}
-
-\bibliographystyle{plain}
-\bibliography{bibliography.bib}
-
-\input{./tex/appendix}
+	\input{./tex/appendix}
+	\begin{received}
+	\end{received}
  
 \end{document}

@@ -1,0 +1,31 @@
+\section{Aprendizado de redes bayesianas}
+\label{sec:aprendizado}
+
+O Algoritmo~\ref{code:original} mostra um pseudocódigo da versão original do método de aprendizado de redes bayesianas.
+
+\begin{lstlisting}[ caption = Busca local no espaço de ordenamentos , label = code:original ]
+	L = Permutation( x[ 0 ] , x[ 1 ] , ... , x[ n ] )
+	while k < NUM_RESTARTS :
+		best = find_order( L )
+		if score( best ) > score( L ) :
+			L = best
+\end{lstlisting}
+
+Além disso, a função ${find\_order}$ é mostrada a continuação. O método ${swap}$ troca os valores entre as posições $i$ e ${i+1}$ de $L$.
+
+\begin{lstlisting}[ caption = Find\_Order , label = code:findorder ]
+	best_i = 0
+	best_diff = -INF
+	score_orig = score( L )
+	for i in range( n - 1 ) :
+		swap( L , i )
+		d_i = score( L ) - score_orig
+		if d_i > best_diff :
+			best_diff = d_i
+			best_i = i
+		swap( L , i )
+	swap( L , best_i )
+	return L
+\end{lstlisting}
+
+Na seção~\ref{sec:experimentos} este algoritmo será usado para encontrar redes bayesianas para vários conjuntos de dados.
