@@ -8,7 +8,7 @@ class Generator :
 		self.model = modelobj
 	
 	def synthethicData( self , modelname ) :
-		modelname = os.path.basename( modelname )
+		#modelname = os.path.basename( modelname )
 		rows_to_generate = int( GENERATED_DATA * TRAINING_DATA_PERCENTAGE )
 		self.generateData( GEN_TRAINING_FILE % modelname , rows_to_generate )
 		rows_to_generate = int( GENERATED_DATA * TEST_DATA_PERCENTAGE )

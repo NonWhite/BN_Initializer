@@ -32,9 +32,12 @@ class Model :
 				for ch in childs :
 					self.network[ field ][ 'childs' ].append( ch )
 					self.network[ ch ][ 'parents' ].append( field )
+		print "Finding topological order for network"
 		self.topological = topological( self.network , fieldset )
+		print "Top. Order = %s" % self.topological
 
 	def trainmodel( self ) :
+		print "Training model..."
 		self.probs = dict( [ ( field , {} ) for field in self.data.fields ] )
 		for field in self.network :
 			xi = [ field ]
@@ -110,14 +113,14 @@ class Model :
 		y = self.data.evaluate( ysetfield )
 		N = len( self.data.rows )
 		resp = 0.0
-		for xidct in x :
-			xkey , xval = xdict.keys()[ 0 ] , xidct.values()[ 0 ]
+		for xdict in x :
+			xkey , xval = xdict.keys()[ 0 ] , xdict.values()[ 0 ]
 			for ydict in y :
 				ij = copy( ydict )
 				ijk = copy( ij )
 				ijk[ xkey ] = xval
-				Nijk = self.data.getcount( ijk ) + self.data.bdeuprior( ijk )
-				Nij = self.data.getcount( ij ) + self.data.bdeuprior( ij )
+				Nijk = self.data.getcount( ijk ) + self.bdeuprior( ijk )
+				Nij = self.data.getcount( ij ) + self.bdeuprior( ij )
 				resp += ( Nijk / N * log( Nijk / Nij ) )
 		self.entropyvalues[ field ][ cond ] = -resp
 		return -resp
@@ -131,4 +134,12 @@ class Model :
 			resp *= len( self.data.evaluate( [ field ] ) )
 		self.sizevalues[ field ][ cond ] = resp
 		return resp
+	
+	def hashedarray( self , setfields ) :
+		resp = ''
+		if not setfields : return resp
+		for field in self.data.fields :
+			if field not in setfields : continue
+			resp += "%s, " % field
+		return resp[ :-2 ]
 # TODO: Prove that all works (specially bic_score, entropy, size)
