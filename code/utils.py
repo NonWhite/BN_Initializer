@@ -1,4 +1,5 @@
 from random import randint
+import os
 import itertools
 
 ''' ======== FILES PARAMETERS ======== '''
@@ -6,7 +7,7 @@ DATA_DIR = '../data/'
 RESULTS_DIR = '../results/'
 TRAINING_FILE = DATA_DIR + 'training.csv'
 TEST_FILE = DATA_DIR + 'test.csv'
-MODELS = [ DATA_DIR + x for x in [ 'model1.txt' , 'model2.txt' , 'model3.txt' ] ]
+MODELS = [ DATA_DIR + f for f in os.listdir( DATA_DIR ) if f.endswith( '.mdl' ) ]
 
 ''' ======== CONSTANTS ======== '''
 FIELD_DELIMITER = ','
@@ -23,13 +24,13 @@ EPSILON = 1e-7
 ''' ======== GENERATION PARAMETERS ======== '''
 TRAINING_DATA_PERCENTAGE = 0.65
 TEST_DATA_PERCENTAGE = 1 - TRAINING_DATA_PERCENTAGE
-GENERATED_DATA = 30000
+GENERATED_DATA = 5000
 GEN_TRAINING_FILE = DATA_DIR + 'gentraining_%s'
 GEN_TEST_FILE = DATA_DIR + 'gentest_%s'
 SIZE_TO_GET_RAND_VALUE = 100
 
 ''' ======== LEARNING PARAMETERS ======== '''
-MAX_NUM_PARENTS = 3
+MAX_NUM_PARENTS = 4
 NUM_ORDERING_SAMPLES = 100
 NUM_GREEDY_RESTARTS = 5
 
@@ -61,13 +62,15 @@ def dfs( graph , node , visited , indegree , topo_order ) :
 def compare( fa , fb ) :
 	return -1 if fa + EPSILON < fb else 1 if fa - EPSILON > fb else 0
 
-def getsubconj( data ) :
-	length = len( data )
-	data = [ ( k , data[ k ] ) for k in data ]
-	resp = []
-	for i in range( 1 , length + 1 ) :
-		resp.append( [ dict( list( x ) ) for x in itertools.combinations( data , i ) ] )
+def getsubconj( data , keys ) :
+	resp = dict( [ ( k , data[ k ] ) for k in keys ] )
 	return resp
+	#length = len( data )
+	#data = [ ( k , data[ k ] ) for k in data ]
+	#resp = []
+	#for i in range( 1 , length + 1 ) :
+	#	resp.append( [ dict( list( x ) ) for x in itertools.combinations( data , i ) ] )
+	#return resp
 
 if __name__ == "__main__" :
 	a = { 'a': 1 , 'b' : 2 , 'c': 3 }
