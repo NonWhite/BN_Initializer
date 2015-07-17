@@ -65,14 +65,3 @@ def compare( fa , fb ) :
 def getsubconj( data , keys ) :
 	resp = dict( [ ( k , data[ k ] ) for k in keys ] )
 	return resp
-	#length = len( data )
-	#data = [ ( k , data[ k ] ) for k in data ]
-	#resp = []
-	#for i in range( 1 , length + 1 ) :
-	#	resp.append( [ dict( list( x ) ) for x in itertools.combinations( data , i ) ] )
-	#return resp
-
-if __name__ == "__main__" :
-	a = { 'a': 1 , 'b' : 2 , 'c': 3 }
-	x = getsubconj( a )
-	for r in x : print r
