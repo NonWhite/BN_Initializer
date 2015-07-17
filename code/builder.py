@@ -1,9 +1,5 @@
 from utils import *
 from copy import deepcopy as copy
-from random import randint as random
-from math import log
-import os
-import sys
 import os.path
 from data import Data
 from model import Model
@@ -23,26 +19,16 @@ class BNBuilder :
 		self.model.trainmodel()
 		return self.model.testmodel()
 	
-	def hashedarray( self , setfields ) :
-		resp = ''
-		if not setfields : return resp
-		for field in self.data.fields :
-			if field not in setfields : continue
-			resp += "%s, " % field
-		return resp[ :-2 ]
-	
-#class Learner( Evaluator ) :
 	def buildNetwork( self , outfilepath = 'out.txt' ) :
 		self.out = open( outfilepath , 'w' )
-		self.preprocesscounters()
 		network = self.randomSampling()
 		self.out.write( "BEST NETWORK:\n" )
 		self.printnetwork( network )
 		self.saveBestNetwork( network )
 	
 	def saveBestNetwork( self , network ) :
-		best_file = os.path.basename( self.sources[ 0 ] )
-		dirname = os.path.dirname( self.sources[ 0 ] )
+		best_file = os.path.basename( self.data.source )
+		dirname = os.path.dirname( self.data.source )
 		best_file = dirname + '/best_' + best_file.replace( 'gentraining_' , '' )
 		with open( best_file , 'w' ) as f :
 			for field in self.data.fields :
@@ -50,11 +36,12 @@ class BNBuilder :
 		self.modelfile = best_file
 	
 	def randomSampling( self ) :
-		self.out.write( 'Building network for %s\n' % ','.join( self.sources ) )
+		self.out.write( 'Building network for %s\n' % self.data.source )
 		node = { 'parents': [] , 'childs' : [] }
 		best_networks = []
-		self.entropyvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
-		self.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+		self.model = Model( self.data )
+		self.model.entropyvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+		self.model.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		for k in range( NUM_ORDERING_SAMPLES ) :
 			lst_fields = shuffle( self.data.fields )
 			network = dict( [ ( field , copy( node ) ) for field in self.data.fields ] )
@@ -65,7 +52,7 @@ class BNBuilder :
 				field = lst_fields[ i ]
 				print "======== Field #%s: %s ========" % ( i , field )
 				best_parents = []
-				best_score = ( -INT_MAX if i > 0 else self.bic_score( field , best_parents ) )
+				best_score = ( -INT_MAX if i > 0 else self.model.bic_score( field , best_parents ) )
 				for t in range( NUM_GREEDY_RESTARTS ) :
 					if i == 0 : break # First field doesn't have parents
 					parents = []
@@ -76,9 +63,9 @@ class BNBuilder :
 							new_parent = lst_fields[ pos ]
 							if new_parent not in parents : break
 						parents.append( new_parent )
-						current = self.bic_score( field , parents )
+						current = self.model.bic_score( field , parents )
 						if compare( current , best_score ) > 0 :
-							print "BEST_SCORE CHANGED"
+							#print "BEST SCORE CHANGED"
 							best_score = current
 							best_parents = copy( parents )
 				self.addRelation( network , field , best_parents , best_score )
@@ -86,6 +73,28 @@ class BNBuilder :
 			best_networks.append( copy( network ) )
 		sorted( best_networks , key = lambda netw : netw[ 'score' ] , reverse = True )
 		return best_networks[ 0 ]
+	
+	# TODO
+	def greedySearch( self ) :
+		best_order , best_network = self.getinitialorder()
+		for k in range( NUM_ORDERINGS ) :
+			cur_order , cur_network = self.find_order( best_order )
+			if self.score( cur_network ) > self.score( best_order ) :
+				best_order = copy( cur_order )
+				best_network = copy( cur_network )
+		return best_network
+	
+	# TODO
+	def getinitialorder( self ) :
+		return self.data.fields
+	
+	#TODO
+	def find_order( self , order ) :
+		return order
+	
+	# TODO
+	def score( self , network ) :
+		return 0.0
 	
 	def addRelation( self , network , field , parents , score ) :
 		network[ field ][ 'parents' ] = copy( parents )
@@ -97,44 +106,13 @@ class BNBuilder :
 		for field in self.data.fields :
 			self.out.write( "%s: %s\n" % ( field , ','.join( network[ field ][ 'childs' ] ) ) )
 		self.out.write( '\n' )
+		self.out.flush()
 
 if __name__ == "__main__" :
 	builder = BNBuilder( TRAINING_FILE , savefilter = True , ommit = [ 'fnlgwt' ] )
+	#builder.loadAndTestModel( DATA_DIR + 'model1.txt' )
+	outfile = RESULTS_DIR + 'test.txt'
+	builder.buildNetwork( outfilepath = outfile )
 	builder.addTrainingSet( TEST_FILE )
-	builder.loadAndTestModel( DATA_DIR + 'model1.txt' )
-	
-	'''
-	# EXTRACTOR
-	sources = TRAINING_FILE
-	extractor = Extractor( sources , savefilter = True , ommit = [ 'fnlgwt' ] , discretize = True )
-	extractor.printstats()
-
-	# EVALUATOR
-	training_data = TRAINING_FILE
-	test_data = [ TEST_FILE ]
-	models = MODELS
-	evaluator = Evaluator( training_data , savefilter = True , ommit = [ 'fnlgwt' ] , discretize = True )
-	evaluator.addTrainingSet( test_data )
-	for mod in models :
-		evaluator.loadAndTestModel( mod )
-		evaluator.synthethicData( mod )
-
-	# LEARNER
-	# === SYNTHETIC DATA ===
-	for i in range( 1 , 4 ) :
-		training_data = DATA_DIR + ( 'gentraining_model%s.txt' ) % i
-		test_data = DATA_DIR + ( 'gentest_model%s.txt' ) % i
-		learner = Learner( training_data )
-		output_data = RESULTS_DIR + ( 'gentraining_model%s.txt' ) % i
-		learner.buildNetwork( outfilepath = output_data )
-		learner.addTrainingSet( [ test_data ] )
-		loglikelihood = learner.loadAndTestModel( learner.modelfile )
-		learner.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
-	# === REAL DATA ===
-	output_data = RESULTS_DIR + 'realdata.txt'
-	learner = Learner( TRAINING_FILE , savefilter = True , ommit = [ 'fnlgwt' ] , discretize = True )
-	learner.addTrainingSet( [ TEST_FILE ] )
-	learner.buildNetwork( outfilepath = output_data )
-	loglikelihood = learner.loadAndTestModel( learner.modelfile )
-	learner.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
-	'''
+	loglikelihood = builder.loadAndTestModel( builder.modelfile )
+	builder.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
