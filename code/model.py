@@ -142,4 +142,3 @@ class Model :
 			if field not in setfields : continue
 			resp += "%s, " % field
 		return resp[ :-2 ]
-# TODO: Prove that all works (specially bic_score, entropy, size)
