@@ -31,6 +31,8 @@ class Data :
 			self.fields = self.extractFromLine( lines[ 0 ] )
 			ommit_pos = [ self.fields.index( ommit ) for ommit in self.ommitedfields ]
 			for v in ommit_pos : self.fields.remove( self.fields[ v ] )
+			self.fields = [ field.replace( '-' , '_' ) for field in self.fields ]
+			print self.fields
 			lines = lines[ 1: ]
 			print "TOTAL ROWS = %7s" % len( lines )
 			newrows = [ self.extractFromLine( l , ommit_pos ) for l in lines if l.find( '?' ) < 0 ]
@@ -58,7 +60,7 @@ class Data :
 				self.fieldtypes[ field ] = NUMERIC_FIELD
 			else :
 				self.fieldtypes[ field ] = LITERAL_FIELD
-	
+
 	def extractFromLine( self , line , ommit_positions = [] ) :
 		x = line[ :-1 ].split( FIELD_DELIMITER )
 		x = [ v.strip() for v in x ]
@@ -72,8 +74,7 @@ class Data :
 			for field in self.fields :
 				value = row[ field ]
 				if self.fieldtypes[ field ] == LITERAL_FIELD :
-					if value not in self.stats[ field ] : self.stats[ field ][ value ] = 0
-					self.stats[ field ][ value ] += 1
+					self.stats[ field ][ value ] = self.stats[ field ].get( value , 0 ) + 1
 				else :
 					if not self.stats[ field ] : self.stats[ field ] = copy( num_stats )
 					value = float( value )
@@ -93,7 +94,7 @@ class Data :
 			if self.fieldtypes[ field ] != NUMERIC_FIELD : continue
 			for row in self.rows :
 				row[ field ] = ( 1 if row[ field ] > self.stats[ field ][ 'median' ] else 0 )
-	
+
 	def calculatecounters( self ) :
 		print "Pre-calculating all queries from data"
 		self.counters = {}
@@ -108,12 +109,12 @@ class Data :
 				if H not in self.counters : self.counters[ H ] = 0.0
 				self.counters[ H ] += 1.0
 			if idx % 1000 == 0 : print idx
-	
+
 	def getcount( self , fields ) :
 		F = self.hashed( fields )
 		if F not in self.counters : self.counters[ F ] = 0.0
 		return self.counters[ F ]
-	
+
 	def hashed( self , cond ) :
 		resp = ''
 		if not cond : return resp
@@ -148,7 +149,7 @@ class Data :
 				print "Max = %s" % self.stats[ field ][ 'max' ]
 				print "Mean = %s" % self.stats[ field ][ 'mean' ]
 				print "Median = %s" % self.stats[ field ][ 'median' ]
-	
+
 	def evaluate( self , setfields , pos = 0 ) :
 		if pos == len( setfields ) : return []
 		field = setfields[ pos ]

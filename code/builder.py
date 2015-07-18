@@ -22,6 +22,7 @@ class BNBuilder :
 	def buildNetwork( self , outfilepath = 'out.txt' ) :
 		self.out = open( outfilepath , 'w' )
 		network = self.randomSampling()
+		#network = self.greedySearch()
 		self.out.write( "BEST NETWORK:\n" )
 		self.printnetwork( network )
 		self.saveBestNetwork( network )
@@ -74,12 +75,12 @@ class BNBuilder :
 		sorted( best_networks , key = lambda netw : netw[ 'score' ] , reverse = True )
 		return best_networks[ 0 ]
 	
-	# TODO
+	# TODO: Test
 	def greedySearch( self ) :
 		best_order , best_network = self.getinitialorder()
 		for k in range( NUM_ORDERINGS ) :
 			cur_order , cur_network = self.find_order( best_order )
-			if self.score( cur_network ) > self.score( best_order ) :
+			if compare( self.score( cur_network ) , self.score( best_order ) ) > 0 :
 				best_order = copy( cur_order )
 				best_network = copy( cur_network )
 		return best_network
@@ -111,8 +112,10 @@ class BNBuilder :
 if __name__ == "__main__" :
 	builder = BNBuilder( TRAINING_FILE , savefilter = True , ommit = [ 'fnlgwt' ] )
 	#builder.loadAndTestModel( DATA_DIR + 'model1.txt' )
+	'''
 	outfile = RESULTS_DIR + 'test.txt'
 	builder.buildNetwork( outfilepath = outfile )
 	builder.addTrainingSet( TEST_FILE )
 	loglikelihood = builder.loadAndTestModel( builder.modelfile )
 	builder.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
+	'''
