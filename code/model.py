@@ -35,13 +35,19 @@ class Model :
 		print "Finding topological order for network"
 		self.topological = topological( self.network , fieldset )
 		print "Top. Order = %s" % self.topological
-
+	
+	def setnetwork( self , network , topo_order = None ) :
+		self.network = copy( network )
+		if not topo_order : self.topological = topological( self.network , self.data.fields )
+		else : self.topological = topo_order
+		self.trainmodel()
+	
 	def trainmodel( self ) :
 		print "Training model..."
 		self.probs = dict( [ ( field , {} ) for field in self.data.fields ] )
-		for field in self.network :
+		for field in self.data.fields :
 			xi = [ field ]
-			pa_xi = [ f for f in self.network[ field ][ 'parents' ] ]
+			pa_xi = self.network[ field ][ 'parents' ]
 			self.calculateprobabilities( xi , pa_xi )
 	
 	# DATA LOG_LIKELIHOOD
@@ -97,8 +103,14 @@ class Model :
 			prior *= tam
 		return ESS / prior
 	
+	def score( self ) :
+		resp = 0.0
+		for field in self.data.fields :
+			resp += self.bic_score( field , self.network[ field ][ 'parents' ] )
+		return resp
+	
 	def bic_score( self , xsetfield , ysetfield ) :
-		print "Calculating BIC( %s | %s )" % ( xsetfield , ysetfield )
+		#print "Calculating BIC( %s | %s )" % ( xsetfield , ysetfield )
 		N = len( self.data.rows )
 		H = self.entropy( xsetfield , ysetfield )
 		S = self.size( xsetfield , ysetfield )
