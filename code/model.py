@@ -107,9 +107,13 @@ class Model :
 		resp = 0.0
 		for field in self.data.fields :
 			resp += self.bic_score( field , self.network[ field ][ 'parents' ] )
+		self.network[ 'score' ] = resp
 		return resp
 	
 	def bic_score( self , xsetfield , ysetfield ) :
+		field = xsetfield
+		cond = self.hashedarray( ysetfield )
+		if cond in self.bicvalues[ field ] : return self.bicvalues[ field ][ cond ]
 		#print "Calculating BIC( %s | %s )" % ( xsetfield , ysetfield )
 		N = len( self.data.rows )
 		H = self.entropy( xsetfield , ysetfield )
