@@ -79,13 +79,17 @@ class BNBuilder :
 		self.model.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.model.bicvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		print "Building bayesian network"
+		start = cpu_time()
 		best_model = self.getinitialorder()
+		self.out.write( "TIME(initialization) = %s\n" % ( cpu_time() - start ) )
+		start = cpu_time()
 		for k in xrange( NUM_GREEDY_ITERATIONS ) :
 			print "Iteration #%s" % (k+1)
 			cur_model = self.find_order( best_model )
 			if compare( cur_model.score() , best_model.score()  ) < 0 :
 				best_model = copy( cur_model )
 			self.printnetwork( cur_model.network )
+		self.out.write( "TIME(building) = %s\n" % ( cpu_time() - start ) )
 		return best_model.network
 
 	def getinitialorder( self ) :
