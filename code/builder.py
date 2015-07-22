@@ -1,8 +1,9 @@
 from utils import *
 from copy import deepcopy as copy
-import os.path
 from data import Data
 from model import Model
+import os.path
+import sys
 
 class BNBuilder :
 	def __init__( self , source , savefilter = False , ommit = [] , discretize = True , outfile = 'out.csv' , initialrandom = True ) :
@@ -42,30 +43,29 @@ class BNBuilder :
 		node = { 'parents': [] , 'childs' : [] }
 		best_networks = []
 		self.model = Model( self.data )
-		for k in range( NUM_ORDERING_SAMPLES ) :
+		for k in xrange( NUM_ORDERING_SAMPLES ) :
 			lst_fields = shuffle( self.data.fields )
 			network = dict( [ ( field , copy( node ) ) for field in self.data.fields ] )
 			network[ 'score' ] = 0.0
 			self.out.write( "Building network #%s\n" % ( k + 1 ) )
 			print "Building network #%s" % ( k + 1 )
-			for i in range( len( lst_fields ) ) :
+			for i in xrange( len( lst_fields ) ) :
 				field = lst_fields[ i ]
 				print "======== Field #%s: %s ========" % ( i , field )
 				best_parents = []
-				best_score = ( -INT_MAX if i > 0 else self.model.bic_score( field , best_parents ) )
-				for t in range( NUM_GREEDY_RESTARTS ) :
+				best_score = ( INT_MAX if i > 0 else self.model.bic_score( field , best_parents ) )
+				for t in xrange( NUM_GREEDY_RESTARTS ) :
 					if i == 0 : break # First field doesn't have parents
 					parents = []
 					max_num_parents = min( MAX_NUM_PARENTS , i )
-					for n in range( max_num_parents ) :
+					for n in xrange( max_num_parents ) :
 						while True :
 							pos = randint( 0 , i - 1 )
 							new_parent = lst_fields[ pos ]
 							if new_parent not in parents : break
 						parents.append( new_parent )
 						current = self.model.bic_score( field , parents )
-						if compare( current , best_score ) > 0 :
-							#print "BEST SCORE CHANGED"
+						if compare( current , best_score ) < 0 :
 							best_score = current
 							best_parents = copy( parents )
 				self.addRelation( network , field , best_parents , best_score )
@@ -74,20 +74,20 @@ class BNBuilder :
 		sorted( best_networks , key = lambda netw : netw[ 'score' ] , reverse = True )
 		return best_networks[ 0 ]
 
-	''' TODO: Test this '''
 	def greedySearch( self ) :
 		self.model.entropyvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.model.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+		self.model.bicvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+		print "Building bayesian network"
 		best_model = self.getinitialorder()
-		print " ================================================================================================================================= "
-		for k in range( NUM_GREEDY_ITERATIONS ) :
+		for k in xrange( NUM_GREEDY_ITERATIONS ) :
 			print "Iteration #%s" % (k+1)
 			cur_model = self.find_order( best_model )
-			if compare( cur_model.score() , best_model.score()  ) > 0 :
+			if compare( cur_model.score() , best_model.score()  ) < 0 :
 				best_model = copy( cur_model )
+			self.printnetwork( cur_model.network )
 		return best_model.network
 
-	''' TODO: Test this '''
 	def getinitialorder( self ) :
 		model = copy( self.model )
 		if self.initialrandom :
@@ -97,28 +97,28 @@ class BNBuilder :
 		else :
 			print "Building graph with best parents for each field"
 			greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
-			best_score = -INT_MAX
-			print "Feedback arc set for each node"
+			best_score = INT_MAX
+			print "Getting feedback arc set for each node"
+			print "GREEDY GRAPH"
+			for f in self.data.fields : print "%s: %s" % ( f , greedy_graph[ f ][ 'parents' ] )
 			for field in self.data.fields :
-				print "Building network with root = %s" % field
+				print " === Building network with root %s === " % field.upper()
 				network = self.clean_graph()
 				visited = {}
 				graph = copy( greedy_graph )
-				print "GRAPH"
-				for f in self.data.fields : print "%s: %s" % ( f , graph[ f ][ 'childs' ] )
 				self.dfs( graph , field , visited , network )
-				print "NETWORK"
-				for f in self.data.fields : print "%s: %s" % ( f , network[ f ][ 'childs' ] )
 				print "Changing some edges directions"
-				self.change( graph , network )
+				self.changedirections( graph , network )
+				#print "NETWORK"
+				#for f in self.data.fields : print "%s: %s" % ( f , network[ f ][ 'childs' ] )
 				self.model.setnetwork( network )
 				print "Calculating BIC Score for network"
 				cur_score = self.model.score()
-				if compare( cur_score , best_score ) > 0 :
+				if compare( cur_score , best_score ) < 0 :
 					best_score = cur_score
-					model = copy( self.model() )
+					model = copy( self.model )
 		return model
-	
+
 	def dfs( self , graph , node , visited , network ) :
 		visited[ node ] = True
 		for child in graph[ node ][ 'childs' ] :
@@ -128,8 +128,8 @@ class BNBuilder :
 			if child not in network[ node ][ 'childs' ] : network[ node ][ 'childs' ].append( child )
 			if node not in network[ child ][ 'parents' ]: network[ child ][ 'parents' ].append( node )
 			self.dfs( graph , child , visited , network )
-	
-	def change( self , graph , network ) :
+
+	def changedirections( self , graph , network ) :
 		for field in self.data.fields :
 			if field not in graph : continue
 			for par in graph[ field ][ 'parents' ] :
@@ -138,19 +138,19 @@ class BNBuilder :
 			for ch in graph[ field ][ 'childs' ] :
 				if field not in network[ ch ][ 'childs' ] : network[ ch ][ 'childs' ].append( field )
 				if ch not in network[ field ][ 'parents' ] : network[ field ][ 'parents' ].append( ch )
-	
+
 	def clean_graph( self ) :
 		node = { 'parents': [] , 'childs' : [] }
 		network = dict( [ ( field , copy( node ) ) for field in self.data.fields ] )
 		network[ 'score' ] = 0.0
 		return network
-	
+
 	def find_greedy_network( self , topo_order , all_options = False ) :
 		network = self.clean_graph()
-		for i in range( len( topo_order ) ) :
+		for i in xrange( len( topo_order ) ) :
 			if all_options :
-				options = copy( self.data.fields )
-				options.remove( self.data.fields[ i ] )
+				options = copy( topo_order )
+				options.remove( topo_order[ i ] )
 			else :
 				options = topo_order[ :i ]
 			field = topo_order[ i ]
@@ -160,34 +160,49 @@ class BNBuilder :
 		return network
 
 	def find_order( self , model ) :
-		best = copy( model )
+		best_model = copy( model )
 		order = model.topological
-		score = model.score()
-		for i in range( len( order ) - 1 ) :
-			new_order = copy( order )
-			new_order[ i ] , new_order[ i + 1 ] = new_order[ i + 1 ] , new_order[ i ]
-			network = self.find_greedy_network( new_order )
+		best_score = INT_MAX
+		for i in xrange( len( order ) - 1 ) :
+			network = copy( best_model.network )
+			self.swap_fields( network , order[ i ] , order[ i + 1 ] )
+			#new_order = copy( order )
+			#new_order[ i ] , new_order[ i + 1 ] = new_order[ i + 1 ] , new_order[ i ]
+			#network = self.find_greedy_network( new_order )
 			self.model.setnetwork( network )
 			cur_score = self.model.score()
-			if compare( cur_score , score ) > 0 :
-				score = cur_score
-				best = copy( self.model )
-		return best
+			if compare( cur_score , best_score ) < 0 :
+				best_score = cur_score
+				best_model = copy( self.model )
+		return best_model
+	
+	def swap_fields( self , network , field_one , field_two ) :
+		for field in self.data.fields :
+			if field_one in network[ field ][ 'childs' ] :
+				network[ field ][ 'childs' ].remove( field_one )
+				network[ field ][ 'childs' ].append( field_two )
+				network[ field_one ][ 'parents' ].remove( field )
+				network[ field_two ][ 'parents' ].append( field )
+			if field_two in network[ field ][ 'childs' ] :
+				network[ field ][ 'childs' ].remove( field_two )
+				network[ field ][ 'childs' ].append( field_one )
+				network[ field_two ][ 'parents' ].remove( field )
+				network[ field_one ][ 'parents' ].append( field )
 
 	def find_best_parents( self , field , options ) :
 		best_parents = []
 		best_score = self.model.bic_score( field , best_parents )
-		for p in range( MAX_NUM_PARENTS ) :
+		for p in xrange( MAX_NUM_PARENTS ) :
 			opt_parents = []
-			opt_score = -INT_MAX
+			opt_score = INT_MAX
 			for opt in options :
 				cur_parents = copy( best_parents )
 				cur_parents.append( opt )
 				cur_score = self.model.bic_score( field , cur_parents )
-				if compare( cur_score , opt_score ) > 0 :
+				if compare( cur_score , opt_score ) < 0 :
 					opt_score = cur_score
 					opt_parents = copy( cur_parents )
-			if compare( opt_score , best_score ) > 0 :
+			if compare( opt_score , best_score ) < 0 :
 				best_score = opt_score
 				best_parents = copy( opt_parents )
 				options.remove( best_parents[ -1 ] )
@@ -207,11 +222,25 @@ class BNBuilder :
 		self.out.write( '\n' )
 		self.out.flush()
 
+	def setInitialRandom( self , initialrandom ) :
+		self.initialrandom = initialrandom
+
 if __name__ == "__main__" :
-	builder = BNBuilder( TRAINING_FILE , savefilter = True , ommit = [ 'fnlgwt' ] , initialrandom = False )
-	#builder.loadAndTestModel( DATA_DIR + 'model1.txt' )
-	outfile = RESULTS_DIR + 'test.txt'
-	builder.buildNetwork( outfilepath = outfile )
-	builder.addTrainingSet( TEST_FILE )
-	loglikelihood = builder.loadAndTestModel( builder.modelfile )
-	builder.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
+	if len( sys.argv ) == 5 :
+		training_file , test_file , ommit_fields , out_file = sys.argv[ 1: ]
+		ommit_fields = [ f.strip() for f in ommit_fields.split( ',' ) ]
+		''' Run with initial random '''
+		print "========== RUNNING WITH RANDOM PERMUTATION =========="
+		builder = BNBuilder( training_file , savefilter = True , ommit = ommit_fields , initialrandom = True )
+		builder.buildNetwork( outfilepath = out_file % 'random' )
+		builder.addTrainingSet( test_file )
+		loglikelihood = builder.loadAndTestModel( builder.modelfile )
+		builder.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
+		
+		''' Run with initial solution '''
+		print "========== RUNNING WITH INITIAL SOLUTION =========="
+		builder.setInitialRandom( False )
+		builder.buildNetwork( outfilepath = out_file % 'heuristic' )
+		builder.addTrainingSet( test_file )
+		loglikelihood = builder.loadAndTestModel( builder.modelfile )
+		builder.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
