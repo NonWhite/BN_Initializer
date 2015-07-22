@@ -18,7 +18,7 @@ class Generator :
 		print "Generating data (%s rows) in %s" % ( num_rows , filename )
 		with open( filename , 'w' ) as f :
 			f.write( ','.join( self.model.topological ) + '\n' )
-			for x in range( num_rows ) :
+			for x in xrange( num_rows ) :
 				row = self.generateRow()
 				line = [ row[ field ] for field in self.model.topological ]
 				f.write( ','.join( line ) + '\n' )
@@ -38,7 +38,7 @@ class Generator :
 			probs.append( ( val[ field ] , int( SIZE_TO_GET_RAND_VALUE * cond_prob ) ) )
 		rand = []
 		for ( val , q ) in probs :
-			for x in range( q ) : rand.append( val )
+			for x in xrange( q ) : rand.append( val )
 		pos = randint( 0 , len( rand ) - 1 )
 		return str( shuffle( rand )[ pos ] )
 
