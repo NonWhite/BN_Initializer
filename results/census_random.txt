@@ -1,0 +1,65 @@
+TIME(initialization) = 3.425055
+SCORE = -562.315373394
+age: sex,marital_status,education,occupation,relationship,race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: 
+sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
+capital_gain: 
+capital_loss: 
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -562.315373394
+age: sex,marital_status,education,occupation,relationship,race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: 
+sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
+capital_gain: 
+capital_loss: 
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -562.315373394
+age: sex,marital_status,education,occupation,relationship,race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: 
+sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
+capital_gain: 
+capital_loss: 
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -562.315373394
+age: sex,marital_status,education,occupation,relationship,race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: 
+sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
+capital_gain: 
+capital_loss: 
+hours_per_week: 
+native_country: 
+annual_income: 
+

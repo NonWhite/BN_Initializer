@@ -1,4 +1,4 @@
-age,workclass,education,education-num,marital-status,occupation,relationship,race,sex,capital-gain,capital-loss,hours-per-week,native-country,annual-income
+age,workclass,education,education_num,marital_status,occupation,relationship,race,sex,capital_gain,capital_loss,hours_per_week,native_country,annual_income
 1,State-gov,Bachelors,1,Never-married,Adm-clerical,Not-in-family,White,Male,1,1,1,United-States,<=50K
 1,Self-emp-not-inc,Bachelors,1,Married-civ-spouse,Exec-managerial,Husband,White,Male,1,1,1,United-States,<=50K
 1,Private,HS-grad,1,Divorced,Handlers-cleaners,Not-in-family,White,Male,1,1,1,United-States,<=50K
