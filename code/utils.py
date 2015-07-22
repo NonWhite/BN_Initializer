@@ -2,6 +2,7 @@ from random import randint
 import subprocess as sub
 import os
 import itertools
+import resource
 
 ''' ======== FILES PARAMETERS ======== '''
 DATA_DIR = '../data/'
@@ -31,17 +32,17 @@ GEN_TEST_FILE = DATA_DIR + 'gentest_%s'
 SIZE_TO_GET_RAND_VALUE = 100
 
 ''' ======== LEARNING PARAMETERS ======== '''
-MAX_NUM_PARENTS = 3
+MAX_NUM_PARENTS = 4
 NUM_ORDERING_SAMPLES = 100
 NUM_GREEDY_RESTARTS = 5
-NUM_GREEDY_ITERATIONS = 5
+NUM_GREEDY_ITERATIONS = 10
 
 ''' ======== QUERY CSV COMMAND ======== '''
 QUERY_CSV_COMMAND = './querycsv.py -i %s "select %s, count(*) from %s group by %s;"'
 
 def shuffle( arr ) :
 	new_arr = list( arr )
-	for i in range( len( new_arr ) - 1 , 0 , -1 ) :
+	for i in xrange( len( new_arr ) - 1 , 0 , -1 ) :
 		pos = randint( 0 , i )
 		new_arr[ i ] , new_arr[ pos ] = new_arr[ pos ] , new_arr[ i ]
 	return new_arr
@@ -86,11 +87,10 @@ def parse_query_response( output ) :
 	out = out[ 2:-1 ]
 	resp = []
 	for row in out :
-		data = dict( [ ( fields[ i ] , row[ i ] ) for i in range( num_fields ) ] )
+		data = dict( [ ( fields[ i ] , row[ i ] ) for i in xrange( num_fields ) ] )
 		new_row = [ data , int( row[ num_fields ] ) ]
 		resp.append( new_row )
 	return resp
 
-# TODO
 def cpu_time() :
-	return 0.0
+	return resource.getrusage( resource.RUSAGE_SELF )[ 0 ]
