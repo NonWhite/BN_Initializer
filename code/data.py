@@ -16,7 +16,7 @@ class Data :
 	def init( self ) :
 		self.preprocess()
 		self.calculatestats()
-		self.printstats()
+		#self.printstats()
 		self.discretizefields()
 		self.export()
 
@@ -99,10 +99,9 @@ class Data :
 		print "Pre-calculating all queries from data"
 		self.counters = {}
 		self.subconj = []
-		for i in range( 1 , len( self.fields ) + 1 ) :
+		for i in xrange( 1 , len( self.fields ) + 1 ) :
 			self.subconj.extend( [ list( x ) for x in itertools.combinations( self.fields , i ) ] )
-		self.rows = self.rows[ :100 ] # TODO: Delete
-		for idx in range( len( self.rows ) ) :
+		for idx in xrange( len( self.rows ) ) :
 			row = self.rows[ idx ]
 			for sub in self.subconj :
 				H = self.hashed( getsubconj( row , sub ) )
