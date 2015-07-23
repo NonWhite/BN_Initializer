@@ -1,2 +1,19 @@
-\section{Introdução}
-\label{sec:introducao}
+\section{Introduction}
+\label{sec:introduction}
+
+Bayesian Networks are models that represent efficiently probability distributions between the atributes of a data set. They are defined by two components:
+\begin{itemize}
+	\item A directed acyclic graph (DAG), where the nodes are the atributes of the data set and the edges are the independence relationship between the atributes.
+	\item The conditional probability distributions between the atributes and their parents. These are defined by the network's structure.
+\end{itemize}
+Formally, a bayesian network is defined by:
+\[ G = ( V , E ), where\ V = \{ X_1 , X_2 , \ldots , X_n \} \]
+\[ P( X_1 , X_2 , \ldots , X_n ) = \prod_{i=1}^{n} P( X_i \mid {Pa}_G( X_i ) ) \]
+where ${Pa}_G( X_i )$ is the set of atributes that are parents of $X_i$.\\
+
+This definition shows that having less parents for an atribute helps in doing less computations in order to use the network for prediction or inference, but the problem of learning Bayesian networks from data is a NP-hard problem~\cite{MSResearch04}. For this reason, the common approach to solve this problem is to use heuristic search methods, commonly using a scoring function, like the bayesian information criterion (BIC)~\cite{BIC91} or the minimum description length (MDL)~\cite{MDL94}.
+
+% FALTA CITAR AQUI SOBRE: Greedy Search, Feedback Arc Set
+In this article we focus on the Greedy Search method that gets a random initial solution and do a local search between the space of orderings of the atributes. We also propose a new method for generating an informed initial solution which is based on the Feedback Arc Set Problem (FASP).
+
+The article is structured as follows: We begin in Section~\ref{sec:learning} explaining the Greedy Search algorithm. In Section~\ref{sec:improve}, we describe the new algorithm for generating initial solutions. Section~\ref{sec:experiments} shows the experiments using both approaches and comparing them (in time and scoring) with multiple data sets. Finally, in Section~\ref{sec:conclusions} we give some conclusions about the two approaches.

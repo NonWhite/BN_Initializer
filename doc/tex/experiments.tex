@@ -1,3 +1,57 @@
-\section{Experimentos}
-\label{sec:experimentos}
+\section{Experiments and Results}
+\label{sec:experiments}
 
+\subsection{Configuration}
+\label{subsec:configuration}
+	Table~\ref{tab:datasets} shows the characteristics of each data set used in the experiments.
+	\begin{table}[ h ]
+		\centering
+		\begin{tabular}{ | l | c | c | }
+			\hline
+			Name & n (\#attributes) & N (\#instances) \\ \hline
+			Census & 13 & 45000 \\ \hline
+			Dataset 2 & $n_2$ & $N_2$ \\ \hline
+			Dataset 3 & $n_3$ & $N_3$ \\ \hline
+			Dataset 4 & $n_4$ & $N_4$ \\ \hline
+		\end{tabular}
+		\caption{Data sets}
+		\label{tab:datasets}
+	\end{table}
+	
+	Also, the values for each general parameter are given below.
+	\begin{itemize}
+		\item Training/test percentage instances: 65\% / 35\%
+		\item Maximum number of parents ($d$): 4
+		\item Number of iterations in Local Search ($K$): 100
+	\end{itemize}
+
+\subsection{Results}
+\label{subsec:results}
+	After running both algorithms for each data sets, we compare the cost (Data Log-Likelihood) and the CPU Time. Tables~\ref{tab:costs} and~\ref{tab:times} show them respectively.
+	\begin{table}[ h ]
+		\centering
+		\begin{tabular}{ | l | c | c | }
+			\hline
+			Name & Random Sol. & Informed Sol. \\ \hline
+			Census & -165350 & -14683 \\ \hline
+			Dataset 2 & $n_2$ & $N_2$ \\ \hline
+			Dataset 3 & $n_3$ & $N_3$ \\ \hline
+			Dataset 4 & $n_4$ & $N_4$ \\ \hline
+		\end{tabular}
+		\caption{Data Log-Likelihood using each approach}
+		\label{tab:costs}
+	\end{table}
+	
+	\begin{table}[ h ]
+		\centering
+		\begin{tabular}{ | l | c | c | }
+			\hline
+			Name & Random Sol. & Informed Sol. \\ \hline
+			Census & 10.2 / 72.14 & 93.51 / 48.89 \\ \hline
+			Dataset 2 & $n_2$ & $N_2$ \\ \hline
+			Dataset 3 & $n_3$ & $N_3$ \\ \hline
+			Dataset 4 & $n_4$ & $N_4$ \\ \hline
+		\end{tabular}
+		\caption{CPU Time (in seconds) for initializing/searching using each approach}
+		\label{tab:times}
+	\end{table}

@@ -1,31 +1,50 @@
-\section{Aprendizado de redes bayesianas}
-\label{sec:aprendizado}
+\section{Learning bayesian networks}
+\label{sec:learning}
 
-O Algoritmo~\ref{code:original} mostra um pseudocódigo da versão original do método de aprendizado de redes bayesianas.
+\subsection{Definition of the problem}
+\label{subsec:definition}
 
-\begin{lstlisting}[ caption = Busca local no espaço de ordenamentos , label = code:original ]
-	L = Permutation( x[ 0 ] , x[ 1 ] , ... , x[ n ] )
-	while k < NUM_RESTARTS :
-		best = find_order( L )
-		if score( best ) > score( L ) :
-			L = best
+The problem of learning the structure of a Bayesian network is stated as: Given a training data set $D $, select the network (DAG) $G$ that maximizes the scoring function ${sc}( G , D )$.\\
+In this article, we will use the bayesian information criterion (BIC) as scoring function that is defined as follows:
+	\[ {sc}( G , D ) = {BIC}( G , D ) = {DLL}( G ) + \frac{\log N}{2} {size}( G ) \]
+where
+	\[ {DLL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} \]
+	\[ {size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| \]
+Also, $N$ is the number of instances in the data set, $n$ the number of atributes in the data set,$N_{ijk}$ the number of instances that has the values $i$, $j$ and $k$ (the same way for $N_{ij}$). Finally, $\Omega_i$ is the size of the set of possible values for the attribute $i$.
+
+Having in consideration all these formulas, we can decompose the score function in order to calculate for one attribute.
+	\[ {BIC}( X_i , {Pa}( X_i ) ) = {DLL}( X_i , {Pa}( X_i ) ) + \frac{\log N}{2} {size}( X_i , {Pa}( X_i ) ) \]
+
+Using all the formulas, we can reduce the problem to the following formula:
+	\[ G = \max_G \sum_{i=1}^{n} {BIC}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_P {BIC}( X_i , P ) \]
+
+In other words, to get a better network, we need to pick the best set of parents $P$ for each attribute. But the main problem with searching $P$ is that we have $2^{n-1}$ possible set of parents for each attribute, it means, an exponential number of possible sets based on the number of attributes in the data set.
+
+In order to avoid this problem is added a new constraint $d$, where $d$ is the maximum number of parents for each attribute, so we have only $2^d$ possible sets.
+	\[ G = \max_G \sum_{i=1}^{n} {BIC}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{|P|\leq d} {BIC}( X_i , P ) \]
+
+\subsection{Greedy Search Algorithm}
+\label{subsec:greedysearch}
+
+Greedy Search algorithm is a popular and effective solution to the problem of learning the structure of a Bayesian network. Algorithm~\ref{code:original} shows its pseudocode.
+
+\begin{lstlisting}[ caption = Greedy Search , label = code:original ]
+	L = Permutation( |$X_1$| , |$\ldots$| , |$X_n$| )
+	For a number of iterations |$K$| do
+		current_sol = find_order( L )
+		if score( current_sol ) > score( L ) :
+			L = current_sol
+	Return L
 \end{lstlisting}
 
-Além disso, a função ${find\_order}$ é mostrada a continuação. O método ${swap}$ troca os valores entre as posições $i$ e ${i+1}$ de $L$.
+A pseudocode for ${find\_order}$ is showed below.
 
 \begin{lstlisting}[ caption = Find\_Order , label = code:findorder ]
-	best_i = 0
-	best_diff = -INF
-	score_orig = score( L )
-	for i in range( n - 1 ) :
-		swap( L , i )
-		d_i = score( L ) - score_orig
-		if d_i > best_diff :
-			best_diff = d_i
-			best_i = i
-		swap( L , i )
-	swap( L , best_i )
-	return L
+	For each |$i$| do
+		|$L_i$| = [ L[ 1 ] , |$\ldots$| , L[ i + 1 ] , L[ i ] , |$\ldots$| , L[ n ] ]
+		if score( |$L_i$| ) > score( L )
+			best = |$L_i$|
+	Return best
 \end{lstlisting}
 
-Na seção~\ref{sec:experimentos} este algoritmo será usado para encontrar redes bayesianas para vários conjuntos de dados.
+The main idea of the algorithm is to generate an initial solution using a permutation of the attributes. After that, for a number of iterations $K$, perform swaps between consecutive attributes and calculate their score in order to find a better solution. Finally, return the best solution after all the iterations. In section~\ref{sec:experiments}, this algorithm will be used for learning structure of Bayesian networks using multiple data sets.

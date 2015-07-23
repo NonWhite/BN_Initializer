@@ -1,33 +1,40 @@
-\section{Melhora no aprendizado de redes bayesianas}
-\label{sec:melhora}
+\section{Generating informed initial solutions}
+\label{sec:improve}
 
-Um paso importante no Algoritmo~\ref{code:original} está na primeira linha onde é criada uma solução inicial para o problema baseada em uma permutação dos atributos do conjunto de dados. O Algoritmo~\ref{code:melhora} mostra uma modificação do algoritmo anterior em que a solução inicial não é feita a partir de uma permutação.
+An important step in algorithm~\ref{code:original} is in the first line, where is created a initial solution for the data set that is based on a permutation of the attributes.In this section, we propose another way to generate an initial solution. Basically, the first line will be changed to another method as is showed in Algorithm~\ref{code:improve}.
 
-\begin{lstlisting}[ caption = Melhora do algoritmo~\ref{code:original} , label = code:melhora ]
-	L = BN_Initializer( x[ 0 ] , x[ 1 ] , ... , x[ n ] )
-	while k < NUM_RESTARTS :
-		best = find_order( L )
-		if score( best ) > score( L ) :
-			L = best
+\begin{lstlisting}[ caption = Modification of Local Search , label = code:improve ]
+	L = Informed_solution( |$X_1$| , |$\ldots$| , |$X_n$| )
+	For a number of iterations |$K$| do
+		current_sol = find_order( L )
+		if score( current_sol ) > score( L ) :
+			L = current_sol
+	Return L
 \end{lstlisting}
 
-A implementação da função é mostrada no Algoritmo~\ref{code:init} e tem duas partes. A primeira parte é encontrar os melhores pais para cada um dos atributos do conjunto de dados. A segunda parte recebe os melhores pais e retorna um conjunto de arcos de realimentação (Feedback arcset, em inglês).
-
-\begin{lstlisting}[ caption = Gerar uma solução inicial , label = code:init ]
-	for i in range( n ) :
-		pa_x[ i ] = findBestParents( x[ i ] )
-	return feedbackArcSet( pa_x[ 0 ] , ... pa_x[ n - 1 ] )
-\end{lstlisting}
-
-A ideia geral da segunda parte é que dados os pais para cada atributo e tendo todas as conexões entre os atributos não se pode formar um grafo sem ciclos. Então o problema é mudar de um grafo com ciclos para um sem ciclos (DAG, em inglês) o que é conhecido como o conjunto de arcos de realimentação ou Feedback Arcset (FAS).
-
-Encontrar o FAS de um grafo é um problema NP-Hard, mas existem vários métodos de aproximação. O método implementado para este artigo é descrito a continuação:
-
+The method for generating an informed solution is as follows:
 \begin{enumerate}
-	\item Elegir um nó do grafo aleatoriamente
-	\item Faça uma busca em profundidade desde ese nó e marque todos os arcos visitados que não fazem ciclos
-	\item Todos os arcos do grafo que não foram marcados são invertidos
-	\item Retornar o novo grafo
+	\item Find the set of best parents (using the constraint $d$ in previous section) for each attribute
+	\item Build a graph using the relations between attributes and their best parents as edges
+	\item For each node $X$ in the graph do
+		\begin{enumerate}
+			\item Do a depth-first search (DFS) on the graph using $X$ as root
+			\item Change the edge's directions that made cycles to obtain a DAG
+			\item Calculate the network's score
+		\end{enumerate}
+	\item Choose the best network and return it
 \end{enumerate}
 
-Na seguinte seção este algoritmo será comparado com o algoritmo original na seção~\ref{sec:aprendizado} usando vários conjuntos de dados.
+In step 1, we find the best parents for each attribute $X_i$ performing a greedy search like follows:
+\begin{enumerate}
+	\item Start with an empty set P
+	\item If $|P| = d$, return $P$
+	\item Select $X_k \not \in P$ that maximizes ${BIC}( X_i , P \cup X_k )$ and $i \neq k$
+	\item If exists $X_k$, add $X_k$ to $P$ and go to step 2
+\end{enumerate}
+
+With all the sets calculated, we use that relations as edges to build a graph. Notice that this graph can have cycles and a Bayesian network does not have cycles.\\
+% CONSEGUIR REFERENCIA A FASP
+The problem to transform an unweighted directed graph with cycles to a DAG is called Feedback Arc Set Problem (or FASP). This problem is NP-Hard, but exists approximations for solving it. A popular one is similar to step 3, but it only choose a random node and do not compare all possible ways. As we need to obtain the best possible initial solution, a loop over the attributes is done and step 3.c is added for comparison between them. Finally, we return the best network.
+
+This modification of Local Search will be used in next section to learn Bayesian networks with multiple data sets.
