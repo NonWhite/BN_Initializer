@@ -3,7 +3,7 @@ from copy import deepcopy as copy
 import os.path
 
 class Data :
-	def __init__( self , source , savefilter = False , ommit = [] , discretize = True , outfile = 'out.log' ) :
+	def __init__( self , source , savefilter = False , ommit = [] , discretize = True , outfile = 'out.csv' ) :
 		self.source = source
 		self.savefiltered = savefilter
 		self.fields = None
@@ -93,21 +93,33 @@ class Data :
 		for field in self.fields :
 			if self.fieldtypes[ field ] != NUMERIC_FIELD : continue
 			for row in self.rows :
-				row[ field ] = ( 1 if row[ field ] > self.stats[ field ][ 'median' ] else 0 )
+				row[ field ] = ( 1 if float( row[ field ] ) > self.stats[ field ][ 'median' ] else 0 )
 
 	def calculatecounters( self ) :
-		print "Pre-calculating all queries from data"
+		counter_file = "%s/%s%s" % ( os.path.dirname( self.source ) , os.path.basename( self.source ).split( '_' )[ 0 ] , '_counters.txt' )
 		self.counters = {}
-		self.subconj = []
-		for i in xrange( 1 , len( self.fields ) + 1 ) :
-			self.subconj.extend( [ list( x ) for x in itertools.combinations( self.fields , i ) ] )
-		for idx in xrange( len( self.rows ) ) :
-			row = self.rows[ idx ]
-			for sub in self.subconj :
-				H = self.hashed( getsubconj( row , sub ) )
-				if H not in self.counters : self.counters[ H ] = 0.0
-				self.counters[ H ] += 1.0
-			if idx % 1000 == 0 : print idx
+		if os.path.isfile( counter_file ) :
+			print "Reading from %s all counters" % counter_file
+			with open( counter_file , 'r' ) as f :
+				lines = [ l[ :-1 ].split( ' ' ) for l in f.readlines() ]
+				for L in lines :
+					self.counters[ L[ 0 ] ] = float( L[ 1 ] )
+		else :
+			print "Pre-calculating all queries from data"
+			self.subconj = []
+			for i in xrange( 1 , len( self.fields ) + 1 ) :
+				self.subconj.extend( [ list( x ) for x in itertools.combinations( self.fields , i ) ] )
+			for idx in xrange( len( self.rows ) ) :
+				row = self.rows[ idx ]
+				for sub in self.subconj :
+					H = self.hashed( getsubconj( row , sub ) )
+					if H not in self.counters : self.counters[ H ] = 0.0
+					self.counters[ H ] += 1.0
+				if idx % 1000 == 0 : print idx
+			print "Saving in %s all counters" % counter_file
+			with open( counter_file , 'w' ) as f :
+				for ( key , value ) in self.counters.iteritems() :
+					f.write( "%s %s\n" % ( key , value ) )
 
 	def getcount( self , fields ) :
 		F = self.hashed( fields )
@@ -119,8 +131,8 @@ class Data :
 		if not cond : return resp
 		for field in self.fields :
 			if field not in cond : continue
-			resp += "%s:%s, " % ( field , cond[ field ] )
-		return resp[ :-2 ]
+			resp += "%s:%s," % ( field , cond[ field ] )
+		return resp[ :-1 ]
 
 	def export( self ) :
 		if not self.savefiltered : return
@@ -168,3 +180,7 @@ class Data :
 				r[ field ] = x
 				resp.append( r )
 		return resp
+
+if __name__ == '__main__' :
+	data = Data( '../data/census_training.csv' )
+	data.printstats()
