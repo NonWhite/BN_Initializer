@@ -2,7 +2,7 @@ import os
 from subprocess import call
 
 DATASET_FILE = 'sets.txt'
-PROGRAM = 'python ../code/builder.py %s %s %s %s'
+PROGRAM = 'pypy ../code/builder.py %s %s %s %s'
 
 if __name__ == "__main__" :
 	with open( DATASET_FILE , 'r' ) as f :
