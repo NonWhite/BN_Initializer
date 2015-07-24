@@ -1,9 +1,17 @@
 \section{Generating informed initial solutions}
 \label{sec:improve}
 
-An important step in algorithm~\ref{code:original} is in the first line, where is created a initial solution for the data set that is based on a permutation of the attributes.In this section, we propose another way to generate an initial solution. Basically, the first line will be changed to another method as is showed in Algorithm~\ref{code:improve}.
+% TODO: An introduction to the section
 
-\begin{lstlisting}[ caption = Modification of Local Search , label = code:improve ]
+\subsection{Feedback Arc Set Problem}
+\label{subsec:fasp}
+
+\subsection{Informed solutions}
+\label{subsec:solutions}
+
+An important step in algorithm~\ref{code:greedysearch} is in the first line, where is created a initial solution for the data set that is based on a permutation of the attributes.In this section, we propose another way to generate an initial solution. Basically, the first line will be changed to another method as is showed in Algorithm~\ref{code:improve}.
+
+\begin{lstlisting}[ caption = Modification of Greedy Search , label = code:improve ]
 	L = Informed_solution( |$X_1$| , |$\ldots$| , |$X_n$| )
 	For a number of iterations |$K$| do
 		current_sol = find_order( L )
@@ -18,23 +26,22 @@ The method for generating an informed solution is as follows:
 	\item Build a graph using the relations between attributes and their best parents as edges
 	\item For each node $X$ in the graph do
 		\begin{enumerate}
-			\item Do a depth-first search (DFS) on the graph using $X$ as root
+			\item Do a depth-first search (DFS) on the graph using $X$ as root and mark the edges that made cycles (the ones that go to a visited node)
 			\item Change the edge's directions that made cycles to obtain a DAG
 			\item Calculate the network's score
 		\end{enumerate}
 	\item Choose the best network and return it
 \end{enumerate}
 
-In step 1, we find the best parents for each attribute $X_i$ performing a greedy search like follows:
+In step 1, we find the best parents for each attribute $X_i$ performing an exhaustive search bounded by the maximum number of parents parameter $d$, like follows:
 \begin{enumerate}
-	\item Start with an empty set P
-	\item If $|P| = d$, return $P$
-	\item Select $X_k \not \in P$ that maximizes ${BIC}( X_i , P \cup X_k )$ and $i \neq k$
-	\item If exists $X_k$, add $X_k$ to $P$ and go to step 2
+	\item Generate all possible parent sets for $X_i$ with at most size $d$
+	\item For each parent set $P$ calculate ${sc}( X_i , P )$
+	\item Return the set $P$ that maximizes ${sc}( X_i , P )$
 \end{enumerate}
 
 With all the sets calculated, we use that relations as edges to build a graph. Notice that this graph can have cycles and a Bayesian network does not have cycles.\\
 % CONSEGUIR REFERENCIA A FASP
-The problem to transform an unweighted directed graph with cycles to a DAG is called Feedback Arc Set Problem (or FASP). This problem is NP-Hard, but exists approximations for solving it. A popular one is similar to step 3, but it only choose a random node and do not compare all possible ways. As we need to obtain the best possible initial solution, a loop over the attributes is done and step 3.c is added for comparison between them. Finally, we return the best network.
+The problem to transform an unweighted directed graph with cycles to a DAG is called Feedback Arc Set Problem (or FASP). This problem is NP-Hard, but there are approximations for solving it. A popular one is similar to step 3, but it only choose a random node and do not compare all possible ways. As we need to obtain the best possible initial solution, a loop over the attributes is done and step 3.c is added for comparison between them. Finally, we return the best network.
 
 This modification of Local Search will be used in next section to learn Bayesian networks with multiple data sets.

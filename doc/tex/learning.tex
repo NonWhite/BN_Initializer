@@ -1,50 +1,68 @@
 \section{Learning bayesian networks}
 \label{sec:learning}
 
+% TODO: Abstract for the section
+% i.e. In this section, ...
+
 \subsection{Definition of the problem}
 \label{subsec:definition}
 
-The problem of learning the structure of a Bayesian network is stated as: Given a training data set $D $, select the network (DAG) $G$ that maximizes the scoring function ${sc}( G , D )$.\\
-In this article, we will use the bayesian information criterion (BIC) as scoring function that is defined as follows:
-	\[ {sc}( G , D ) = {BIC}( G , D ) = {DLL}( G ) + \frac{\log N}{2} {size}( G ) \]
+The problem of learning the structure of a Bayesian network is stated as: Given a training data set $D $, select the network (DAG) $G$ that maximizes the scoring function ${sc}( G , D )$.
+A general definition of a scoring function is as follows:
+	\[ {sc}( G , D ) = F( G ) + \varphi( N ) \times P( G ) ,\]
+where $N$ is the size of the data set $D$, $F( G )$ is a data fitness function, $\varphi( N )$ is a function of data size and $P( G )$ measures the model complexity of $G$.\\
+For instance, using the Bayesian information criterion (BIC) as scoring function we have:
+	\[ {sc}( G , D ) = {BIC}( G , D ) = {LL}( G ) + \frac{\log N}{2} {size}( G ) ,\]
 where
-	\[ {DLL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} \]
-	\[ {size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| \]
-Also, $N$ is the number of instances in the data set, $n$ the number of atributes in the data set,$N_{ijk}$ the number of instances that has the values $i$, $j$ and $k$ (the same way for $N_{ij}$). Finally, $\Omega_i$ is the size of the set of possible values for the attribute $i$.
+	\[ {LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} ,\]
+	\[ {size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| ,\]
+$N$ is the number of instances in the data set, $n$ the number of atributes, $N_{ijk}$ the number of instances where attributes has the values $i$, $j$ and $k$ (the same way for $N_{ij}$). Finally, $\Omega_i$ is the size of the set of possible values for the attribute $X_i$.
+Most scoring functions, BIC included, has the property to be decomposable, so we can reduce the problem to the following formula:
+	\[ G = \max_G \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) , \]
+where ${Pa}( X_i )$ is the set of parents of attribute $X_i$ in $G$.
+In other words, to get a better network, we need to pick a configuration that has the maximum sum of scores among their attributes. But the main problem with searching ${Pa}( X_i)$ is that we have $2^{n-1}$ possible set of parents for each attribute. It means, an exponential number of possible sets based on the number of attributes in the data set.\\
+In order to avoid this problem is added a new constraint $d$, where $d$ is the maximum number of parents for each attribute, so we have only $2^d$ possible sets. This means $|{Pa}( X_i )| \leq d$ for all attributes.
 
+% START COMMENT BLOCK
+\begin{comment}
 Having in consideration all these formulas, we can decompose the score function in order to calculate for one attribute.
 	\[ {BIC}( X_i , {Pa}( X_i ) ) = {DLL}( X_i , {Pa}( X_i ) ) + \frac{\log N}{2} {size}( X_i , {Pa}( X_i ) ) \]
 
 Using all the formulas, we can reduce the problem to the following formula:
 	\[ G = \max_G \sum_{i=1}^{n} {BIC}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_P {BIC}( X_i , P ) \]
 
-In other words, to get a better network, we need to pick the best set of parents $P$ for each attribute. But the main problem with searching $P$ is that we have $2^{n-1}$ possible set of parents for each attribute, it means, an exponential number of possible sets based on the number of attributes in the data set.
-
-In order to avoid this problem is added a new constraint $d$, where $d$ is the maximum number of parents for each attribute, so we have only $2^d$ possible sets.
+In other words, to get a better network, we need to pick the best set of parents $P$ for each attribute. 
 	\[ G = \max_G \sum_{i=1}^{n} {BIC}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{|P|\leq d} {BIC}( X_i , P ) \]
+\end{comment}
+% END COMMENT BLOCK
 
 \subsection{Greedy Search Algorithm}
 \label{subsec:greedysearch}
 
-Greedy Search algorithm is a popular and effective solution to the problem of learning the structure of a Bayesian network. Algorithm~\ref{code:original} shows its pseudocode.
+% Explain other types of greedy search
+% Equivalence-based
+% 	http://research.microsoft.com/en-us/um/people/dmax/publications/inclusion.pdf
+%	http://www.jmlr.org/papers/volume3/chickering02b/chickering02b.pdf
+% Structure-based (using deletion, inversion, suppression)
+% 	http://ofrancois.tuxfamily.org/carb/node9_ct.html
 
-\begin{lstlisting}[ caption = Greedy Search , label = code:original ]
-	L = Permutation( |$X_1$| , |$\ldots$| , |$X_n$| )
-	For a number of iterations |$K$| do
-		current_sol = find_order( L )
+Finally, a Order-based Greedy Search is a popular and effective solution to the problem of learning the structure of a Bayesian network. Algorithm~\ref{code:greedysearch} shows its pseudocode, where the function ${swap}$ (in line~\ref{line:swap}) swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$.
+
+\begin{lstlisting}[ caption = Order-based Greedy Search , label = code:greedysearch ]
+	L = GetOrder( |$X_1$| , |$\ldots$| , |$X_n$| , conf )
+	best_score = score( L )
+	For a number of iterations |$K$| or until it converges do
+		current_sol = L
+		For each |$i$| = 1 to n-1 do
+			|$L_i$| = swap( L , |$i$| , |$i+1$| ) |\label{line:swap}|
+			if score( |$L_i$| ) > score( current_sol )
+				current_sol = |$L_i$|
 		if score( current_sol ) > score( L ) :
 			L = current_sol
 	Return L
 \end{lstlisting}
-
-A pseudocode for ${find\_order}$ is showed below.
-
-\begin{lstlisting}[ caption = Find\_Order , label = code:findorder ]
-	For each |$i$| do
-		|$L_i$| = [ L[ 1 ] , |$\ldots$| , L[ i + 1 ] , L[ i ] , |$\ldots$| , L[ n ] ]
-		if score( |$L_i$| ) > score( L )
-			best = |$L_i$|
-	Return best
-\end{lstlisting}
-
-The main idea of the algorithm is to generate an initial solution using a permutation of the attributes. After that, for a number of iterations $K$, perform swaps between consecutive attributes and calculate their score in order to find a better solution. Finally, return the best solution after all the iterations. In section~\ref{sec:experiments}, this algorithm will be used for learning structure of Bayesian networks using multiple data sets.
+The main idea of this algorithm is to generate an initial order of the attributes based on the ${conf}$ parameter (for instance, ${conf}$ can say that the order has to be random generated). After that, for a number of iterations $K$ or until the solution converges (the best solution's score does not improve) perform swaps between adjacent attributes and calculate their score in order to find a better solution. Finally, return the best solution when the stop condition holds.\\
+So we need to calculate the score for an order of the attributes and we know from subsection~\ref{subsec:definition} that, in general, to obtain the score for a network is an NP-hard problem because of the exponential number of possible sets of parents. But given an order the problem can be reduced as follows:
+	\[ G = \max_G \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}:|P|\leq d} {sc}( X_i , P ) ,\]
+where $X_j < X_i$ means that $X_j$ appears before $X_i$ in the order of the attributes. This means that we have to maximize the score for every attribute independently the other ones.\\
+In section~\ref{sec:experiments}, the order-based version of the algorithm will be used for learning structure of Bayesian networks using multiple data sets.
