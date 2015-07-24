@@ -35,7 +35,7 @@ SIZE_TO_GET_RAND_VALUE = 100
 MAX_NUM_PARENTS = 4
 NUM_ORDERING_SAMPLES = 100
 NUM_GREEDY_RESTARTS = 5
-NUM_GREEDY_ITERATIONS = 10
+NUM_GREEDY_ITERATIONS = 100
 
 ''' ======== QUERY CSV COMMAND ======== '''
 QUERY_CSV_COMMAND = './querycsv.py -i %s "select %s, count(*) from %s group by %s;"'
