@@ -1,3 +1,7 @@
+# Data directory
+*_new.*
+*_counters.*
+
 ## Python binaries
 *.pyc
 
