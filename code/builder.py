@@ -82,14 +82,21 @@ class BNBuilder :
 		start = cpu_time()
 		best_model = self.getinitialorder()
 		self.out.write( "TIME(initialization) = %s\n" % ( cpu_time() - start ) )
-		start = cpu_time()
+		num_iterations = NUM_GREEDY_ITERATIONS
 		for k in xrange( NUM_GREEDY_ITERATIONS ) :
-			print "Iteration #%s" % (k+1)
+			print " === Iteration #%s === " % (k+1)
 			cur_model = self.find_order( best_model )
-			if compare( cur_model.score() , best_model.score()  ) < 0 :
+			best_score = best_model.score()
+			cur_score = cur_model.score()
+			if compare( cur_score , best_score ) > 0 :
 				best_model = copy( cur_model )
+				print "BEST SCORE = %s" % best_score
+			else :
+				num_iterations = k + 1
+				break
 			self.printnetwork( cur_model.network )
-		self.out.write( "TIME(building) = %s\n" % ( cpu_time() - start ) )
+		self.out.write( "TIME(total) = %s\n" % ( cpu_time() - start ) )
+		self.out.write( "NUM ITERATIONS = %s\n" % num_iterations )
 		return best_model.network
 
 	def getinitialorder( self ) :
@@ -170,9 +177,6 @@ class BNBuilder :
 		for i in xrange( len( order ) - 1 ) :
 			network = copy( best_model.network )
 			self.swap_fields( network , order[ i ] , order[ i + 1 ] )
-			#new_order = copy( order )
-			#new_order[ i ] , new_order[ i + 1 ] = new_order[ i + 1 ] , new_order[ i ]
-			#network = self.find_greedy_network( new_order )
 			self.model.setnetwork( network )
 			cur_score = self.model.score()
 			if compare( cur_score , best_score ) < 0 :
@@ -237,14 +241,8 @@ if __name__ == "__main__" :
 		print "========== RUNNING WITH RANDOM PERMUTATION =========="
 		builder = BNBuilder( training_file , savefilter = True , ommit = ommit_fields , initialrandom = True )
 		builder.buildNetwork( outfilepath = out_file % 'random' )
-		builder.addTrainingSet( test_file )
-		loglikelihood = builder.loadAndTestModel( builder.modelfile )
-		builder.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
 		
 		''' Run with initial solution '''
 		print "========== RUNNING WITH INITIAL SOLUTION =========="
 		builder.setInitialRandom( False )
 		builder.buildNetwork( outfilepath = out_file % 'heuristic' )
-		builder.addTrainingSet( test_file )
-		loglikelihood = builder.loadAndTestModel( builder.modelfile )
-		builder.out.write( "DATA LOG-LIKELIHOOD = %s" % loglikelihood )
