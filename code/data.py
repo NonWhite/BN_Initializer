@@ -107,7 +107,7 @@ class Data :
 		else :
 			print "Pre-calculating all queries from data"
 			self.subconj = []
-			for i in xrange( 1 , len( self.fields ) + 1 ) :
+			for i in xrange( 1 , MAX_NUM_PARENTS + 2 ) :
 				self.subconj.extend( [ list( x ) for x in itertools.combinations( self.fields , i ) ] )
 			for idx in xrange( len( self.rows ) ) :
 				row = self.rows[ idx ]
