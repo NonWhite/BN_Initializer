@@ -1,64 +1,51 @@
-TIME(initialization) = 3.425055
-SCORE = -562.315373394
-age: sex,marital_status,education,occupation,relationship,race
+TIME(initialization) = 4.137651
+SCORE = -194615.882311
+age: 
 workclass: 
 education: 
-education_num: 
+education_num: annual_income,sex,hours_per_week
 marital_status: 
 occupation: 
-relationship: 
-race: 
-sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
-capital_gain: 
-capital_loss: 
+relationship: relationship,education
+race: age
+sex: capital_gain,capital_loss
+capital_gain: race,native_country
+capital_loss: occupation,workclass,marital_status
 hours_per_week: 
 native_country: 
 annual_income: 
 
-SCORE = -562.315373394
-age: sex,marital_status,education,occupation,relationship,race
+SCORE = -171615.515916
+age: 
 workclass: 
 education: 
-education_num: 
+education_num: sex,hours_per_week,education_num
 marital_status: 
 occupation: 
-relationship: 
-race: 
-sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
-capital_gain: 
-capital_loss: 
+relationship: relationship,education
+race: age
+sex: capital_gain,capital_loss
+capital_gain: race,native_country
+capital_loss: occupation,workclass,marital_status
 hours_per_week: 
 native_country: 
 annual_income: 
 
-SCORE = -562.315373394
-age: sex,marital_status,education,occupation,relationship,race
+TIME(total) = -549723.144937
+NUM ITERATIONS = 3
+BEST NETWORK:
+SCORE = -171615.515916
+age: 
 workclass: 
 education: 
-education_num: 
+education_num: sex,hours_per_week,education_num
 marital_status: 
 occupation: 
-relationship: 
-race: 
-sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
-capital_gain: 
-capital_loss: 
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = -562.315373394
-age: sex,marital_status,education,occupation,relationship,race
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: 
-sex: hours_per_week,annual_income,capital_loss,education_num,capital_gain
-capital_gain: 
-capital_loss: 
+relationship: relationship,education
+race: age
+sex: capital_gain,capital_loss
+capital_gain: race,native_country
+capital_loss: occupation,workclass,marital_status
 hours_per_week: 
 native_country: 
 annual_income: 
