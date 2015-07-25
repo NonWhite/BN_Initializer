@@ -6,11 +6,10 @@ import os.path
 import sys
 
 class BNBuilder :
-	def __init__( self , source , savefilter = False , ommit = [] , discretize = True , outfile = 'out.csv' , initialrandom = True ) :
+	def __init__( self , source , savefilter = False , ommit = [] , discretize = True , outfile = 'out.csv' ) :
 		self.data = Data( source , savefilter , ommit , discretize , outfile )
 		self.data.calculatecounters()
 		self.model = Model( dataobj = self.data )
-		self.initialrandom = initialrandom
 
 	def addTrainingSet( self , testfile ) :
 		self.model.addtrainingset( testfile , self.data.ommitedfields )
@@ -38,97 +37,36 @@ class BNBuilder :
 				f.write( "%s:%s\n" % ( field , ', '.join( network[ field ][ 'childs' ] ) ) )
 		self.modelfile = best_file
 
-	def randomSampling( self ) :
-		self.out.write( 'Building network for %s\n' % self.data.source )
-		node = { 'parents': [] , 'childs' : [] }
-		best_networks = []
-		self.model = Model( self.data )
-		for k in xrange( NUM_ORDERING_SAMPLES ) :
-			lst_fields = shuffle( self.data.fields )
-			network = dict( [ ( field , copy( node ) ) for field in self.data.fields ] )
-			network[ 'score' ] = 0.0
-			self.out.write( "Building network #%s\n" % ( k + 1 ) )
-			print "Building network #%s" % ( k + 1 )
-			for i in xrange( len( lst_fields ) ) :
-				field = lst_fields[ i ]
-				print "======== Field #%s: %s ========" % ( i , field )
-				best_parents = []
-				best_score = ( INT_MAX if i > 0 else self.model.bic_score( field , best_parents ) )
-				for t in xrange( NUM_GREEDY_RESTARTS ) :
-					if i == 0 : break # First field doesn't have parents
-					parents = []
-					max_num_parents = min( MAX_NUM_PARENTS , i )
-					for n in xrange( max_num_parents ) :
-						while True :
-							pos = randint( 0 , i - 1 )
-							new_parent = lst_fields[ pos ]
-							if new_parent not in parents : break
-						parents.append( new_parent )
-						current = self.model.bic_score( field , parents )
-						if compare( current , best_score ) < 0 :
-							best_score = current
-							best_parents = copy( parents )
-				self.addRelation( network , field , best_parents , best_score )
-			self.printnetwork( network )
-			best_networks.append( copy( network ) )
-		sorted( best_networks , key = lambda netw : netw[ 'score' ] , reverse = True )
-		return best_networks[ 0 ]
-
 	def greedySearch( self ) :
 		self.model.entropyvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.model.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.model.bicvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
-		print "Building bayesian network"
+		print "Learning bayesian network"
 		start = cpu_time()
-		best_model = self.getinitialorder()
+		init_models = self.initialize()
+		best_model = None
 		self.out.write( "TIME(initialization) = %s\n" % ( cpu_time() - start ) )
-		num_iterations = NUM_GREEDY_ITERATIONS
-		for k in xrange( NUM_GREEDY_ITERATIONS ) :
-			print " === Iteration #%s === " % (k+1)
-			cur_model = self.find_order( best_model )
-			best_score = best_model.score()
-			cur_score = cur_model.score()
-			if compare( cur_score , best_score ) > 0 :
-				best_model = copy( cur_model )
-				print "BEST SCORE = %s" % best_score
-			else :
-				num_iterations = k + 1
-				break
-			self.printnetwork( cur_model.network )
-		self.out.write( "TIME(total) = %s\n" % ( cpu_time() - start ) )
-		self.out.write( "NUM ITERATIONS = %s\n" % num_iterations )
+		for i in range( len( init_models ) ) :
+			print " ====== INITIAL SOLUTION #%s ======" % (i+1)
+			cur_model = copy( init_models[ i ] )
+			num_iterations = NUM_GREEDY_ITERATIONS
+			for k in xrange( num_iterations ) :
+				print " === Iteration #%s === " % (k+1)
+				adj_model = self.find_order( cur_model )
+				adj_score = adj_model.score()
+				cur_score = cur_model.score()
+				if compare( adj_score , cur_score ) > 0 :
+					cur_model = copy( adj_model )
+					print "BEST SCORE = %s" % cur_score
+				else :
+					num_iterations = k + 1
+					break
+				self.printnetwork( cur_model.network )
+			self.out.write( "TIME(total) = %s\n" % ( cpu_time() - start ) )
+			self.out.write( "NUM ITERATIONS = %s\n" % num_iterations )
+			if not best_model or compare( cur_model.score() , best_model.score() ) > 0 :
+				best_model = cur_model
 		return best_model.network
-
-	def getinitialorder( self ) :
-		model = copy( self.model )
-		if self.initialrandom :
-			order = shuffle( self.data.fields )
-			network = self.find_greedy_network( order , all_options = False )
-			model.setnetwork( network , topo_order = order )
-		else :
-			print "Building graph with best parents for each field"
-			greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
-			best_score = INT_MAX
-			print "Getting feedback arc set for each node"
-			print "GREEDY GRAPH"
-			for f in self.data.fields : print "%s: %s" % ( f , greedy_graph[ f ][ 'parents' ] )
-			for field in self.data.fields :
-				print " === Building network with root %s === " % field.upper()
-				network = self.clean_graph()
-				visited = {}
-				graph = copy( greedy_graph )
-				self.dfs( graph , field , visited , network )
-				print "Changing some edges directions"
-				self.changedirections( graph , network )
-				#print "NETWORK"
-				#for f in self.data.fields : print "%s: %s" % ( f , network[ f ][ 'childs' ] )
-				self.model.setnetwork( network )
-				print "Calculating BIC Score for network"
-				cur_score = self.model.score()
-				if compare( cur_score , best_score ) < 0 :
-					best_score = cur_score
-					model = copy( self.model )
-		return model
 
 	def dfs( self , graph , node , visited , network ) :
 		visited[ node ] = True
@@ -200,22 +138,14 @@ class BNBuilder :
 	def find_best_parents( self , field , options ) :
 		best_parents = []
 		best_score = self.model.bic_score( field , best_parents )
-		for p in xrange( MAX_NUM_PARENTS ) :
-			opt_parents = []
-			opt_score = INT_MAX
-			for opt in options :
-				cur_parents = copy( best_parents )
-				cur_parents.append( opt )
-				cur_score = self.model.bic_score( field , cur_parents )
-				if compare( cur_score , opt_score ) < 0 :
-					opt_score = cur_score
-					opt_parents = copy( cur_parents )
-			if compare( opt_score , best_score ) < 0 :
-				best_score = opt_score
-				best_parents = copy( opt_parents )
-				options.remove( best_parents[ -1 ] )
-			else :
-				break
+		parents = []
+		for tam in xrange( MAX_NUM_PARENTS ) :
+			parents.extend( [ list( L ) for L in itertools.combinations( options , tam ) ] )
+		for p in parents :
+			cur_score = self.model.bic_score( field , p )
+			if compare( cur_score , best_score ) < 0 :
+				best_score = cur_score
+				best_parents = copy( p )
 		return best_parents
 
 	def addRelation( self , network , field , parents , score ) :
@@ -230,19 +160,63 @@ class BNBuilder :
 		self.out.write( '\n' )
 		self.out.flush()
 
-	def setInitialRandom( self , initialrandom ) :
-		self.initialrandom = initialrandom
+	def setInitialSolutionType( self , desc ) :
+		if desc == 'random' : self.initialize = self.random_solutions
+		elif desc == 'unweighted' : self.initialize = self.unweighted_solutions
+		elif desc == 'weighted' : self.initialize = self.weighted_solutions
 
+	def random_solutions( self ) :
+		solutions = []
+		num_fields = len( self.data.fields )
+		model = copy( self.model )
+		for k in range( num_fields ) :
+			order = shuffle( self.data.fields )
+			network = self.find_greedy_network( order , all_options = False )
+			model.setnetwork( network , topo_order = order )
+			solutions.append( model )
+		return solutions
+
+	# TODO: Test this
+	def unweighted_solutions( self ) :
+		print "Building graph with best parents for each field"
+		greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
+		print "GREEDY GRAPH"
+		for f in self.data.fields : print "%s: %s" % ( f , greedy_graph[ f ][ 'parents' ] )
+		print "Getting feedback arc set for each node"
+		solutions = []
+		for field in self.data.fields :
+			print " === Building network with root %s === " % field.upper()
+			network = self.clean_graph()
+			visited = {}
+			graph = copy( greedy_graph )
+			self.dfs( graph , field , visited , network )
+			print "Changing edge's directions that made cycles"
+			self.changedirections( graph , network )
+			#print "NETWORK"
+			#for f in self.data.fields : print "%s: %s" % ( f , network[ f ][ 'childs' ] )
+			model = copy( self.model )
+			model.setnetwork( network )
+			solutions.append( model )
+		return solutions
+
+	# TODO: Implement this
+	def weighted_solutions( self ) :
+		return [ '' ] * 10
+	
 if __name__ == "__main__" :
-	if len( sys.argv ) == 5 :
-		training_file , test_file , ommit_fields , out_file = sys.argv[ 1: ]
+	if len( sys.argv ) == 4 :
+		dataset_file , ommit_fields , out_file = sys.argv[ 1: ]
 		ommit_fields = [ f.strip() for f in ommit_fields.split( ',' ) ]
-		''' Run with initial random '''
+		builder = BNBuilder( dataset_file , savefilter = True , ommit = ommit_fields )
+
 		print "========== RUNNING WITH RANDOM PERMUTATION =========="
-		builder = BNBuilder( training_file , savefilter = True , ommit = ommit_fields , initialrandom = True )
+		builder.setInitialSolutionType( 'random' )
 		builder.buildNetwork( outfilepath = out_file % 'random' )
 		
-		''' Run with initial solution '''
-		print "========== RUNNING WITH INITIAL SOLUTION =========="
-		builder.setInitialRandom( False )
-		builder.buildNetwork( outfilepath = out_file % 'heuristic' )
+		print "========== RUNNING WITH DFS =========="
+		builder.setInitialSolutionType( 'unweighted' )
+		builder.buildNetwork( outfilepath = out_file % 'unweighted' )
+		
+		print "========== RUNNING WITH MST + DFS =========="
+		builder.setInitialSolutionType( 'weighted' )
+		builder.buildNetwork( outfilepath = out_file % 'weighted' )
