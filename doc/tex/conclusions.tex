@@ -1,11 +1,13 @@
-\section{Conclusions}
+\section{Conclusions and Future Work}
 \label{sec:conclusions}
 
 We conclude that:
 \begin{itemize}
-	\item Generating an informed initial solution gives best networks that taking a random one
-	\item To generate the informed initial solution takes more CPU time that the one in the first approach
-	\item A higher number of attributes implies more CPU time for the second approach with a significant difference compared to the first approach
-	\item With an informed solution, Local Search algorithm needs less CPU time for finding a better network
-	% TODO: Add future works
+	\item Using the random initial solution take more iterations to find a converged solution than the new methods and also more CPU time
+	\item The unweighted approach gives best networks than the other ones
+	\item Initial solutions using the unweighted approach are the most time consuming to be generated and the random ones the least.
+	\item A higher number of attributes implies more CPU time for the new methods with a significant difference compared to the random approach
+	\item The new methods explained in this article could be used in other types of Greedy Search doing some modifications
+	\item The scoring function could be changed to another one in order to compare robustness between them and BIC score
+	\item Experiments could be done with bigger datasets (more than 20 fields) in order to compare the efficiency of the methods
 \end{itemize}

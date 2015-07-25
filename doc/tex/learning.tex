@@ -1,8 +1,7 @@
 \section{Learning bayesian networks}
 \label{sec:learning}
 
-% TODO: Abstract for the section
-% i.e. In this section, ...
+In this section, we define mathematically the learning Bayesian network problem and then reduce it to one formula in order to be used as a heuristic score. Finally we explain some popular methods to solve them.
 
 \subsection{Definition of the problem}
 \label{subsec:definition}
@@ -23,46 +22,46 @@ where ${Pa}( X_i )$ is the set of parents of attribute $X_i$ in $G$.
 In other words, to get a better network, we need to pick a configuration that has the maximum sum of scores among their attributes. But the main problem with searching ${Pa}( X_i)$ is that we have $2^{n-1}$ possible set of parents for each attribute. It means, an exponential number of possible sets based on the number of attributes in the data set.\\
 In order to avoid this problem is added a new constraint $d$, where $d$ is the maximum number of parents for each attribute, so we have only $2^d$ possible sets. This means $|{Pa}( X_i )| \leq d$ for all attributes.
 
-% START COMMENT BLOCK
-\begin{comment}
-Having in consideration all these formulas, we can decompose the score function in order to calculate for one attribute.
-	\[ {BIC}( X_i , {Pa}( X_i ) ) = {DLL}( X_i , {Pa}( X_i ) ) + \frac{\log N}{2} {size}( X_i , {Pa}( X_i ) ) \]
-
-Using all the formulas, we can reduce the problem to the following formula:
-	\[ G = \max_G \sum_{i=1}^{n} {BIC}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_P {BIC}( X_i , P ) \]
-
-In other words, to get a better network, we need to pick the best set of parents $P$ for each attribute. 
-	\[ G = \max_G \sum_{i=1}^{n} {BIC}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{|P|\leq d} {BIC}( X_i , P ) \]
-\end{comment}
-% END COMMENT BLOCK
-
 \subsection{Greedy Search Algorithm}
 \label{subsec:greedysearch}
 
-% Explain other types of greedy search
+The Greedy Search algorithm is a popular heuristic method used to find an approximation for a solution of  learning Bayesian network problem using the concept of neighborhood between solutions. Depending on the focus of the algorithm this could be classified as Equivalence-based, Structure-based, Order-based, etc. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this algorithm.
+
+\begin{lstlisting}[ caption = Greedy Search , label = code:greedysearch ]
+	|$L = Initial\_Solution( X_1 , \ldots , X_n , conf )$ \label{line:init}|
+	|$best\_score = score( L )$ \label{line:score}|
+	For a number of iterations |$K$| or until |$L$| converges do
+		|$best\_neighbor = find\_best\_neighbor( L )$ \label{line:neighbor}|
+		if |$score( best\_neighbor ) > score( L )$| then
+			|$L = best\_neighbor$|
+	Return |$L$|
+\end{lstlisting}
+The main idea of this algorithm is to generate an initial solution based on the ${conf}$ parameter (for instance, ${conf}$ can say that the solution has to be random generated). After that, for a number of iterations $K$ or until the solution converges (the best solution's score does not improve) explore the search space and selects the best neighbor of the best solution until that moment. Then calculate its score in order to know if it is a better solution. Finally, return the best solution when the stop condition holds.\\
+As mentioned before, there are lot of different approaches using this algorithm, but all of them only change lines~\ref{line:init}, ~\ref{line:neighbor} and~\ref{line:score} depending on its own way to generate an initial solution, its search space and the scoring function used, respectively.\\
+% Structure-based (using deletion, inversion, suppression)
+% 	http://ofrancois.tuxfamily.org/carb/node9_ct.html
+For example, in the structure-based version the initial solution is a network, possibly random generated, and its neighbors are other networks that only differs by one arc. This means that an arc can be inserted, deleted or inverted its direction to obtain a new neighbor.\\
 % Equivalence-based
 % 	http://research.microsoft.com/en-us/um/people/dmax/publications/inclusion.pdf
 %	http://www.jmlr.org/papers/volume3/chickering02b/chickering02b.pdf
-% Structure-based (using deletion, inversion, suppression)
-% 	http://ofrancois.tuxfamily.org/carb/node9_ct.html
+In the same way, the equivalence-based version~\cite{Maxwell04} uses the equivalence relation between networks to obtain new neighbors. This relation two networks $L_1$ and $L_2$ are equivalent if they have the same probability distribution.
 
-Finally, a Order-based Greedy Search is a popular and effective solution to the problem of learning the structure of a Bayesian network. Algorithm~\ref{code:greedysearch} shows its pseudocode, where the function ${swap}$ (in line~\ref{line:swap}) swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$.
+Finally, a Order-based Greedy Search is a popular and effective solution to the problem of learning the structure of a Bayesian network. Algorithm~\ref{code:orderbased} shows its pseudocode, where the function ${swap}$ (in line~\ref{line:swap}) swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$.
 
-\begin{lstlisting}[ caption = Order-based Greedy Search , label = code:greedysearch ]
-	L = GetOrder( |$X_1$| , |$\ldots$| , |$X_n$| , conf )
-	best_score = score( L )
-	For a number of iterations |$K$| or until it converges do
-		current_sol = L
-		For each |$i$| = 1 to n-1 do
-			|$L_i$| = swap( L , |$i$| , |$i+1$| ) |\label{line:swap}|
-			if score( |$L_i$| ) > score( current_sol )
-				current_sol = |$L_i$|
-		if score( current_sol ) > score( L ) :
-			L = current_sol
-	Return L
+\begin{lstlisting}[ caption = Order-based Greedy Search , label = code:orderbased ]
+	|$L = Get\_Order( X_1 , \ldots , X_n , conf )$|
+	|$best\_score = score( L )$|
+	For a number of iterations |$K$| or until |$L$| converges do
+		|$current\_sol = L$|
+		For each |$i$| = 1 to |$n-1$| do
+			|$L_i = swap( L , i , i+1 )$ \label{line:swap}|
+			if |$score( L_i ) > score( current\_sol )$|
+				|$current\_sol = L_i$|
+		if |$score( current\_sol ) > score( L )$| then
+			|$L = current\_sol$|
+	Return |$L$|
 \end{lstlisting}
-The main idea of this algorithm is to generate an initial order of the attributes based on the ${conf}$ parameter (for instance, ${conf}$ can say that the order has to be random generated). After that, for a number of iterations $K$ or until the solution converges (the best solution's score does not improve) perform swaps between adjacent attributes and calculate their score in order to find a better solution. Finally, return the best solution when the stop condition holds.\\
-So we need to calculate the score for an order of the attributes and we know from subsection~\ref{subsec:definition} that, in general, to obtain the score for a network is an NP-hard problem because of the exponential number of possible sets of parents. But given an order the problem can be reduced as follows:
+So we need to calculate the score for an order of the attributes and we know from subsection~\ref{subsec:definition} that, in general, to obtain the score for a network is an NP-hard problem because of the exponential number of possible sets of parents (even in the bounded case). But if we know an order of the attributes, the problem can be reduced as follows:
 	\[ G = \max_G \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}:|P|\leq d} {sc}( X_i , P ) ,\]
-where $X_j < X_i$ means that $X_j$ appears before $X_i$ in the order of the attributes. This means that we have to maximize the score for every attribute independently the other ones.\\
-In section~\ref{sec:experiments}, the order-based version of the algorithm will be used for learning structure of Bayesian networks using multiple data sets.
+where $X_j < X_i$ means that $X_j$ appears before $X_i$ in the order of the attributes. This means that we can maximize the score for every attribute independently the other ones.\\
+In section~\ref{sec:experiments}, the Order-based Greedy Search algorithm will be used for learning structure of Bayesian networks using multiple data sets.

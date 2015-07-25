@@ -1,62 +1,90 @@
 \section{Experiments and Results}
 \label{sec:experiments}
 
-% TODO: An introduction to the section
+After implementing all the approaches in section~\ref{subsec:solutions}, some experiments were done in order to compare them. First, we show the setup for all experiments and then show the final results.
 
-\subsection{Configuration}
+\subsection{Experiments Setup}
 \label{subsec:configuration}
 	Table~\ref{tab:datasets} shows the characteristics of each data set used in the experiments.
-	% Add in table AVG #VALS/VAR
 	\begin{table}[ h ]
 		\centering
-		\begin{tabular}{ | l | c | c | }
+		\begin{tabular}{ | l | c | c | c | }
 			\hline
-			Name & n (\#attributes) & N (\#instances) \\ \hline
-			Census & 13 & 45000 \\ \hline
-			Dataset 2 & $n_2$ & $N_2$ \\ \hline
-			Dataset 3 & $n_3$ & $N_3$ \\ \hline
-			Dataset 4 & $n_4$ & $N_4$ \\ \hline
+			Dataset & n (\#attributes) & N (\#instances) & Avg. \#vals/var\\ \hline
+			Census & 13 & 45000 & 7.5\\ \hline
+			Dataset 2 & $n_2$ & $N_2$ & $m_2$ \\ \hline
+			Dataset 3 & $n_3$ & $N_3$ & $m_3$\\ \hline
+			Dataset 4 & $n_4$ & $N_4$ & $m_4$\\ \hline
 		\end{tabular}
-		\caption{Data sets}
+		\caption{Data sets characteristics}
 		\label{tab:datasets}
 	\end{table}
-	
 	Also, the values for each general parameter are given below.
 	\begin{itemize}
-		\item Training/test percentage instances: 65\% / 35\%
 		\item Maximum number of parents ($d$): 4
-		\item Number of iterations in Local Search ($K$): 100
+		\item Number of iterations in Greedy Search ($K$): 100
+		\item Scoring function used: Bayesian Criterion Information (BIC)
 	\end{itemize}
+	Finally, as in subsections~\ref{subsub:fasunweighted} and~\ref{subsub:fasweighted} we have to choose a field as a root for performing the DFS, we have $n$ possible different DAGs and then $n$ possible different orders and use each one as an initial solution for Greedy Search. Also, for the random version, we generate $n$ different random orders.
 
 \subsection{Results}
 \label{subsec:results}
-	% TODO: Add the converge curve for every set (with random,dfs, mst approaches)
-	After running both algorithms for each data sets, we compare the cost (Data Log-Likelihood) and the CPU Time. Tables~\ref{tab:costs} and~\ref{tab:times} show them respectively.
+	After running the three versions explained in~\ref{subsec:solutions} for each data set, we compare the score for the best network found, the CPU Time to generate the initial solution and the CPU Time for getting the final network. Tables~\ref{tab:costs} and~\ref{tab:times} show them respectively.
 	\begin{table}[ h ]
 		\centering
-		\begin{tabular}{ | l | c | c | }
+		\begin{tabular}{ | l | c | c | c | }
 			\hline
-			Name & Random Sol. & Informed Sol. \\ \hline
-			Census & -165350 & -14683 \\ \hline
-			Dataset 2 & $n_2$ & $N_2$ \\ \hline
-			Dataset 3 & $n_3$ & $N_3$ \\ \hline
-			Dataset 4 & $n_4$ & $N_4$ \\ \hline
+			Dataset & Random Sol. & Unweighted Sol. & Weighted Sol.\\ \hline
+			Census & -165350 & -14683 & $m_1$ \\ \hline
+			Dataset 2 & $n_2$ & $N_2$ & $m_2$ \\ \hline
+			Dataset 3 & $n_3$ & $N_3$ & $m_3$ \\ \hline
+			Dataset 4 & $n_4$ & $N_4$ & $m_4$ \\ \hline
 		\end{tabular}
-		\caption{Data Log-Likelihood using each approach}
+		\caption{Maximum cost using each approach}
 		\label{tab:costs}
 	\end{table}
 	
 	% CPU Time for initialization and time to converge (or total)
 	\begin{table}[ h ]
 		\centering
-		\begin{tabular}{ | l | c | c | }
+		\begin{tabular}{ | l | c | c | c | }
 			\hline
-			Name & Random Sol. & Informed Sol. \\ \hline
-			Census & 10.2 / 72.14 & 93.51 / 48.89 \\ \hline
-			Dataset 2 & $n_2$ & $N_2$ \\ \hline
-			Dataset 3 & $n_3$ & $N_3$ \\ \hline
-			Dataset 4 & $n_4$ & $N_4$ \\ \hline
+			Dataset & Random Sol. & Unweighted Sol. & Weighted Sol.\\ \hline
+			Census & 10.2 / 72.14 & 93.51 / 48.89 & $m_1$ \\ \hline
+			Dataset 2 & $n_2$ & $N_2$ & $m_2$ \\ \hline
+			Dataset 3 & $n_3$ & $N_3$ & $m_3$ \\ \hline
+			Dataset 4 & $n_4$ & $N_4$ & $m_4$ \\ \hline
 		\end{tabular}
-		\caption{CPU Time (in seconds) for initializing/searching using each approach}
+		\caption{CPU Time (in seconds) for initializing and total using each approach}
 		\label{tab:times}
 	\end{table}
+	Finally, Figure~\ref{fig:converge} shows the converge curve for each data set using each approach.
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.4\textwidth}
+			\centering
+			\includegraphics[height=5cm]{images/census}
+			\caption{Census}
+			\label{fig:census}
+		\end{subfigure}
+		\begin{subfigure}{.4\textwidth}
+			\centering
+			\includegraphics[height=5cm]{images/dataset2}
+			\caption{Dataset \#2}
+			\label{fig:dataset2}
+		\end{subfigure}
+		\begin{subfigure}{.4\textwidth}
+			\centering
+			\includegraphics[height=5cm]{images/dataset3}
+			\caption{Dataset \#3}
+			\label{fig:dataset3}
+		\end{subfigure}
+		\begin{subfigure}{.4\textwidth}
+			\centering
+			\includegraphics[height=5cm]{images/dataset4}
+			\caption{Dataset \#4}
+			\label{fig:dataset4}
+		\end{subfigure}
+		\caption{Converge curve for datasets}
+		\label{fig:converge}
+	\end{figure}
