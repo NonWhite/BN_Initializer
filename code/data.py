@@ -144,6 +144,7 @@ class Data :
 
 	def printstats( self ) :
 		print "TOTAL ENTITIES = %s" % len( self.rows )
+		avg_vals_per_var = 0.0
 		for field in self.stats :
 			print " ======== FIELD: %s ======== " % field
 			diffvalues = len( self.stats[ field ].keys() )
@@ -160,6 +161,8 @@ class Data :
 				print "Max = %s" % self.stats[ field ][ 'max' ]
 				print "Mean = %s" % self.stats[ field ][ 'mean' ]
 				print "Median = %s" % self.stats[ field ][ 'median' ]
+			avg_vals_per_var += diffvalues
+		print "AVG #VALS/VAR = %s" % ( avg_vals_per_var / len( self.fields ) )
 
 	def evaluate( self , setfields , pos = 0 ) :
 		if pos == len( setfields ) : return []
@@ -182,5 +185,5 @@ class Data :
 		return resp
 
 if __name__ == '__main__' :
-	data = Data( '../data/census_training.csv' )
+	data = Data( '../data/census.csv' )
 	data.printstats()
