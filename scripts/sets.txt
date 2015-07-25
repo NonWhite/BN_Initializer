@@ -1,5 +1,4 @@
-../data/census_training.csv
-../data/census_test.csv
+../data/census.csv
 fnlgwt
 ../results/census_%s.txt
 
