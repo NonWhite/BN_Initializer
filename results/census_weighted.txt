@@ -1,1 +1,1022 @@
-TIME(initialization) = 0.000264999922365
+TIME(initialization) = -549731.566858
+ ====== INITIAL SOLUTION #1 ======SCORE = -543674.052532
+age: workclass,occupation,race,education_num,education
+workclass: 
+education: 
+education_num: relationship,sex,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -544982.108928
+age: race,occupation,workclass
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: relationship,marital_status,education_num,education,native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553451.319663
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,age,capital_gain
+sex: 
+capital_gain: 
+capital_loss: occupation,education_num,workclass,native_country,relationship,hours_per_week,marital_status,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553517.399293
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,age,capital_loss,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: education,marital_status,sex,relationship,native_country,occupation,workclass,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -564726.400061
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,annual_income,age
+sex: education_num
+capital_gain: race
+capital_loss: workclass,hours_per_week,marital_status,relationship,native_country,sex,education,occupation
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -549567.694681
+NUM ITERATIONS = 6
+ ====== INITIAL SOLUTION #2 ======SCORE = -543674.052532
+age: workclass,race,occupation,education_num,education
+workclass: 
+education: 
+education_num: marital_status,sex,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,capital_loss
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545937.94965
+age: race
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: workclass,capital_loss,capital_gain,annual_income
+sex: 
+capital_gain: 
+capital_loss: occupation,hours_per_week,education_num,education,native_country,marital_status,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553043.421813
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,workclass,age,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: marital_status,hours_per_week,education_num,relationship,occupation,native_country,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553109.501443
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,capital_loss,workclass,age,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: marital_status,hours_per_week,relationship,native_country,sex,occupation,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -564726.400061
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,age
+sex: education_num
+capital_gain: race
+capital_loss: workclass,marital_status,sex,occupation,relationship,hours_per_week,education,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -549403.317545
+NUM ITERATIONS = 6
+ ====== INITIAL SOLUTION #3 ======SCORE = -543674.052532
+age: workclass,occupation,race,education,education_num
+workclass: 
+education: 
+education_num: sex,marital_status,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,capital_gain,annual_income
+sex: 
+capital_gain: 
+capital_loss: hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545048.188558
+age: occupation,race,workclass
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,capital_loss
+sex: education_num
+capital_gain: 
+capital_loss: relationship,marital_status,sex,hours_per_week,native_country,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545911.837687
+age: occupation,race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,capital_gain,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: hours_per_week,native_country,workclass,marital_status,education,sex,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = 462.564328
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #4 ======SCORE = -543674.052532
+age: occupation,workclass,education,race,education_num
+workclass: 
+education: 
+education_num: relationship,sex,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -544466.374397
+age: workclass,race,occupation
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,education,annual_income,capital_loss
+sex: 
+capital_gain: 
+capital_loss: education_num,marital_status,relationship,hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545717.63568
+age: race
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,workclass,capital_loss
+sex: 
+capital_gain: education
+capital_loss: occupation,hours_per_week,marital_status,native_country,education_num,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553166.659055
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,age,annual_income,capital_loss
+sex: 
+capital_gain: education,workclass
+capital_loss: relationship,education_num,native_country,marital_status,hours_per_week,occupation
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -564375.659823
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,age
+sex: 
+capital_gain: race,education,workclass
+capital_loss: education_num,hours_per_week,marital_status,relationship,occupation,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -564726.400061
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,age
+sex: education_num
+capital_gain: race
+capital_loss: relationship,workclass,sex,native_country,hours_per_week,education,marital_status,occupation
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -549099.801365
+NUM ITERATIONS = 7
+ ====== INITIAL SOLUTION #5 ======SCORE = -543674.052532
+age: education,workclass,occupation,education_num,race
+workclass: 
+education: 
+education_num: relationship,marital_status,sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_gain,capital_loss
+sex: 
+capital_gain: 
+capital_loss: hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -549045.943352
+NUM ITERATIONS = 2
+ ====== INITIAL SOLUTION #6 ======SCORE = -543674.052532
+age: occupation,education_num,race,education,workclass
+workclass: 
+education: 
+education_num: sex,relationship,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545179.41351
+age: sex,occupation,race
+workclass: 
+education: 
+education_num: relationship,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: education_num
+capital_gain: 
+capital_loss: native_country,education,workclass,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -548002.632426
+age: race,occupation
+workclass: 
+education: 
+education_num: marital_status,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: age,education_num
+capital_gain: 
+capital_loss: workclass,native_country,education,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -549174.611009
+age: race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: education_num,age
+capital_gain: 
+capital_loss: relationship,hours_per_week,workclass,marital_status,native_country,occupation,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -548908.956369
+NUM ITERATIONS = 5
+ ====== INITIAL SOLUTION #7 ======SCORE = -543674.052532
+age: workclass,occupation,education,education_num,race
+workclass: 
+education: 
+education_num: sex,marital_status,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -543713.912242
+age: sex,education,workclass,occupation,race
+workclass: 
+education: 
+education_num: relationship,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,capital_loss,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -547488.17827
+age: occupation,race
+workclass: 
+education: 
+education_num: relationship,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,capital_loss
+sex: education_num,education,age,workclass
+capital_gain: 
+capital_loss: hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -547981.079055
+age: race,occupation
+workclass: 
+education: 
+education_num: marital_status,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,capital_loss
+sex: age,education,education_num
+capital_gain: 
+capital_loss: workclass,hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -549174.611009
+age: race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_gain,capital_loss
+sex: age,education_num
+capital_gain: 
+capital_loss: relationship,education,native_country,occupation,marital_status,hours_per_week,workclass
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -548740.876063
+NUM ITERATIONS = 6
+ ====== INITIAL SOLUTION #8 ======SCORE = -543674.052532
+age: occupation,education,race,education_num,workclass
+workclass: 
+education: 
+education_num: marital_status,relationship,sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545330.023526
+age: occupation,race
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,capital_loss,annual_income,education
+sex: 
+capital_gain: 
+capital_loss: marital_status,hours_per_week,native_country,workclass,education_num,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545911.837687
+age: occupation,race
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_gain,capital_loss
+sex: education_num
+capital_gain: 
+capital_loss: sex,workclass,hours_per_week,education,marital_status,relationship,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -548629.73553
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #9 ======SCORE = -543674.052532
+age: workclass,occupation,education,race,education_num
+workclass: 
+education: 
+education_num: marital_status,sex,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,capital_loss,annual_income
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -544466.374397
+age: workclass,occupation,race
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,annual_income,capital_gain,education
+sex: 
+capital_gain: 
+capital_loss: marital_status,native_country,relationship,education_num,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545048.188558
+age: race,occupation,workclass
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: education_num
+capital_gain: 
+capital_loss: relationship,sex,hours_per_week,education,native_country,marital_status
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553517.399293
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,age,annual_income,capital_loss
+sex: education_num
+capital_gain: 
+capital_loss: sex,marital_status,occupation,hours_per_week,education,workclass,relationship,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -564726.400061
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: age,annual_income,capital_loss
+sex: education_num
+capital_gain: race
+capital_loss: workclass,education,hours_per_week,relationship,native_country,marital_status,occupation,sex
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -548465.669264
+NUM ITERATIONS = 6
+ ====== INITIAL SOLUTION #10 ======SCORE = -543674.052532
+age: workclass,race,occupation,education_num,education
+workclass: 
+education: 
+education_num: sex,marital_status,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,capital_loss
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545937.94965
+age: race
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: workclass,capital_gain,capital_loss,annual_income
+sex: 
+capital_gain: 
+capital_loss: marital_status,hours_per_week,native_country,education,relationship,occupation,education_num
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553043.421813
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,workclass,annual_income,capital_loss,age
+sex: 
+capital_gain: 
+capital_loss: occupation,hours_per_week,education_num,relationship,native_country,marital_status,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -564595.973793
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: age,annual_income,capital_loss
+sex: 
+capital_gain: race,workclass
+capital_loss: native_country,hours_per_week,occupation,education,education_num,marital_status,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -564726.400061
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,age
+sex: education_num
+capital_gain: race
+capital_loss: marital_status,native_country,hours_per_week,sex,occupation,workclass,education,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -548301.992527
+NUM ITERATIONS = 6
+ ====== INITIAL SOLUTION #11 ======SCORE = -543674.052532
+age: occupation,education_num,race,education,workclass
+workclass: 
+education: 
+education_num: relationship,sex,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,capital_gain,annual_income
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545146.128885
+age: education_num,occupation
+workclass: 
+education: 
+education_num: sex,relationship,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_gain
+sex: capital_loss
+capital_gain: 
+capital_loss: workclass,education,race,hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -549008.509225
+age: 
+workclass: 
+education: 
+education_num: age,sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income
+sex: capital_loss
+capital_gain: 
+capital_loss: relationship,occupation,workclass,marital_status,hours_per_week,native_country,race,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -549048.368935
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_gain
+sex: capital_loss,age
+capital_gain: 
+capital_loss: occupation,workclass,hours_per_week,marital_status,relationship,race,education,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -549235.146046
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,age,annual_income
+sex: capital_loss,education_num
+capital_gain: 
+capital_loss: race,occupation,native_country,education,marital_status,hours_per_week,workclass,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -569131.706796
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: age,capital_gain,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: workclass,relationship,education,race,occupation,hours_per_week,native_country,sex,marital_status
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -548115.809471
+NUM ITERATIONS = 7
+ ====== INITIAL SOLUTION #12 ======SCORE = -543674.052532
+age: workclass,race,occupation,education,education_num
+workclass: 
+education: 
+education_num: marital_status,sex,relationship
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,capital_loss
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -545937.94965
+age: race
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,workclass,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: marital_status,education_num,occupation,hours_per_week,native_country,education,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553043.421813
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,workclass,age,capital_gain,annual_income
+sex: 
+capital_gain: 
+capital_loss: occupation,education,native_country,hours_per_week,relationship,marital_status,education_num
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -569065.627167
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,age
+sex: 
+capital_gain: 
+capital_loss: relationship,workclass,race,occupation,education,native_country,marital_status,education_num,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -569131.706796
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,age,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: native_country,hours_per_week,marital_status,relationship,workclass,sex,race,occupation,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = -547953.324258
+NUM ITERATIONS = 6
+ ====== INITIAL SOLUTION #13 ======SCORE = -543674.052532
+age: race,education_num,education,workclass,occupation
+workclass: 
+education: 
+education_num: relationship,sex,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,annual_income,capital_gain
+sex: 
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553451.319663
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,annual_income,capital_gain,age
+sex: 
+capital_gain: 
+capital_loss: marital_status,hours_per_week,workclass,education_num,native_country,education,occupation,relationship
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -569065.627167
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,age,annual_income
+sex: 
+capital_gain: 
+capital_loss: education,occupation,hours_per_week,relationship,marital_status,workclass,race,education_num,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -569131.706796
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: capital_gain,annual_income,age
+sex: education_num
+capital_gain: 
+capital_loss: race,occupation,sex,marital_status,education,workclass,hours_per_week,relationship,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = 1937.92301
+NUM ITERATIONS = 5
+ ====== INITIAL SOLUTION #14 ======SCORE = -543674.052532
+age: occupation,workclass,education_num,education,race
+workclass: 
+education: 
+education_num: relationship,sex,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: annual_income,capital_loss,capital_gain
+sex: 
+capital_gain: 
+capital_loss: hours_per_week,native_country
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -544597.44822
+age: race,education_num,occupation
+workclass: 
+education: 
+education_num: sex,workclass,relationship,marital_status
+marital_status: 
+occupation: 
+relationship: 
+race: capital_loss,capital_gain,annual_income
+sex: education
+capital_gain: 
+capital_loss: native_country,hours_per_week
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553451.319663
+age: 
+workclass: 
+education: 
+education_num: sex
+marital_status: 
+occupation: 
+relationship: 
+race: age,capital_gain,capital_loss,annual_income
+sex: 
+capital_gain: 
+capital_loss: education_num,relationship,education,hours_per_week,marital_status,occupation,native_country,workclass
+hours_per_week: 
+native_country: 
+annual_income: 
+
+SCORE = -553517.399293
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: age,capital_gain,capital_loss,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: native_country,occupation,workclass,hours_per_week,relationship,marital_status,sex,education
+hours_per_week: 
+native_country: 
+annual_income: 
+
+TIME(total) = 2075.261427
+NUM ITERATIONS = 5
+BEST NETWORK:
+SCORE = -569131.706796
+age: 
+workclass: 
+education: 
+education_num: 
+marital_status: 
+occupation: 
+relationship: 
+race: age,capital_gain,annual_income
+sex: education_num
+capital_gain: 
+capital_loss: workclass,relationship,education,race,occupation,hours_per_week,native_country,sex,marital_status
+hours_per_week: 
+native_country: 
+annual_income: 
+
