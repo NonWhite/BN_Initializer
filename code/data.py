@@ -96,7 +96,7 @@ class Data :
 				row[ field ] = ( 1 if float( row[ field ] ) > self.stats[ field ][ 'median' ] else 0 )
 
 	def calculatecounters( self ) :
-		counter_file = "%s/%s%s" % ( os.path.dirname( self.source ) , os.path.basename( self.source ).split( '_' )[ 0 ] , '_counters.txt' )
+		counter_file = "%s/%s%s" % ( os.path.dirname( self.source ) , os.path.splitext( os.path.basename( self.source ) )[ 0 ] , '_counters.txt' )
 		self.counters = {}
 		if os.path.isfile( counter_file ) :
 			print "Reading from %s all counters" % counter_file
