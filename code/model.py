@@ -8,6 +8,11 @@ class Model :
 		if dataobj : self.data = dataobj
 		if modelfile : self.loadmodel( modelfile )
 	
+	def initdict( self ) :
+		self.entropyvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+		self.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+		self.bicvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+	
 	def loaddata( self , data ) :
 		self.data = copy( data )
 	
