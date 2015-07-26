@@ -60,6 +60,7 @@ def topological( graph , nodes ) :
 def dfs( graph , node , visited , indegree , topo_order ) :
 	visited[ node ] = True
 	if node not in topo_order : topo_order.append( node )
+	graph[ node ][ 'childs' ] = shuffle( graph[ node ][ 'childs' ] )
 	for child in graph[ node ][ 'childs' ] :
 		indegree[ child ] -= 1
 		if indegree[ child ] == 0 :
