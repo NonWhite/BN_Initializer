@@ -1,5 +1,6 @@
 from utils import *
 from copy import deepcopy as copy
+from unionfind import UnionFind
 from data import Data
 from model import Model
 import os.path
@@ -178,7 +179,7 @@ class BNBuilder :
 			solutions.append( model )
 		return solutions
 
-	# TODO: Test this
+	''' TODO: Add change directions for other edges '''
 	def unweighted_solutions( self ) :
 		print "Building graph with best parents for each field"
 		greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
@@ -199,6 +200,43 @@ class BNBuilder :
 			model.setnetwork( network )
 			solutions.append( model )
 		return solutions
+	
+	''' TODO: Add weight calculation '''
+	def add_weights( self , graph ) :
+		G = self.clean_graph()
+		for field in self.data.fields :
+			for child in graph[ field ][ 'childs' ] :
+				weight = 0.0
+				G[ field ][ 'childs' ].append( ( child , weight ) )
+				G[ child ][ 'parents' ].append( ( field , weight ) )
+				G[ field ][ 'parents' ].append( ( child , weight ) )
+				G[ child ][ 'childs' ].append( ( field , weight ) )
+		return G
+	
+	''' TODO: Test this '''
+	def kruskal( self , graph ) :
+		p = UnionFind( len( self.data.fields ) )
+		edges = []
+		for field in self.data.fields :
+			id1 = self.data.fields.index( field )
+			for ( child , weight ) in graph[ field ][ 'childs' ] :
+				id2 = self.data.fields.index( child )
+				edges.append( ( weight , id1 , id2 , field , child ) )
+		sorted( edges , key = lambda edg : edg[ 0 ] )
+		M = self.clean_graph()
+		for edg in edges :
+			x , y , node1 , node2 = edg[ 1: ]
+			if p.sameSet( x , y ) : continue
+			p.unionSet( x , y )
+			M[ node1 ][ 'childs' ].append( node2 )
+			M[ node2 ][ 'parents' ].append( node1 )
+			M[ node2 ][ 'childs' ].append( node1 )
+			M[ node1 ][ 'parents' ].append( node2 )
+		return M
+
+	# TODO: Implement this
+	def dfs_weighted( self , graph , node , visited , network ) :
+		return 'gg'
 
 	# TODO: Implement this
 	def weighted_solutions( self ) :
@@ -206,9 +244,18 @@ class BNBuilder :
 		greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
 		print "GREEDY GRAPH"
 		for f in self.data.fields : print "%s: %s" % ( f , greedy_graph[ f ][ 'parents' ] )
+		kruskal_graph = self.add_weights( greedy_graph )
+		mst = self.kruskal( kruskal_graph )
 		solutions = []
 		for field in self.data.fields :
-			continue
+			print " === Building network with root %s === " % field.upper()
+			network = self.clean_graph()
+			visited = {}
+			graph = copy( mst )
+			self.dfs_weighted( graph , field , visited , network )
+			model = copy( self.model )
+			model.setnetwork( network )
+			solutions.append( model )
 		return solutions
 	
 if __name__ == "__main__" :
@@ -217,6 +264,7 @@ if __name__ == "__main__" :
 		ommit_fields = [ f.strip() for f in ommit_fields.split( ',' ) ]
 		builder = BNBuilder( dataset_file , savefilter = True , ommit = ommit_fields )
 
+		'''
 		print "========== RUNNING WITH RANDOM PERMUTATION =========="
 		builder.setInitialSolutionType( 'random' )
 		builder.buildNetwork( outfilepath = out_file % 'random' )
@@ -224,6 +272,7 @@ if __name__ == "__main__" :
 		print "========== RUNNING WITH DFS =========="
 		builder.setInitialSolutionType( 'unweighted' )
 		builder.buildNetwork( outfilepath = out_file % 'unweighted' )
+		'''
 		
 		print "========== RUNNING WITH MST + DFS =========="
 		builder.setInitialSolutionType( 'weighted' )
