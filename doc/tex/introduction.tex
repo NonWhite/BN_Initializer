@@ -1,19 +1,64 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Bayesian Networks are models that represent efficiently probability distributions over the atributes of a data set. They are defined by two components:
-\begin{itemize}
-	\item A directed acyclic graph (DAG), where the nodes are the atributes of the data set and the edges encode the (in)dependence relationships among the atributes.
-	\item The conditional probability distributions of the atributes given their parents. The latter are defined by the network's structure.
-\end{itemize}
-Formally, a Bayesian network is defined by:
-\[ G = ( V , E ), \]
-where $V = \{ X_1 , X_2 , \ldots , X_n \}$  is the set of attributes and
-\[ P( X_1 , X_2 , \ldots , X_n ) = \prod_{i=1}^{n} P( X_i \mid {Pa}_G( X_i ) ),  \]
-where ${Pa}_G( X_i )$ is the set of atributes that are parents of $X_i$ in $G$. This definition shows that having less parents for an atribute decrease the number of parameters required in the specification, but learning Bayesian networks from data is a NP-hard problem~\cite{MSResearch04} even when the in-degree (maximum number of parents) is bounded, for this reason, the common approach to solve this problem is to use local search methods, commonly using a scoring function, like the bayesian information criterion (BIC)~\cite{BIC91} or the minimum description length (MDL)~\cite{MDL94} or Bayesian Dirichlet score (BD)~\cite{BD95}.
+Bayesian Networks are space-efficient representations of multivariate
+probability distributions over the atributtes of a data set. They are
+defined by two components: (i) a directed acyclic graph (DAG), where the
+nodes are the atributes of the data set and the edges encode the
+(in)dependence relationships among the atributes; and (ii) a collection
+of local conditional probability distributions of each atribute given
+its parents. More formally, a Bayesian network specification contains a
+DAG \( G = ( V , E ), \) where $V = \{ X_1 , X_2 , \ldots , X_n \}$ is
+the set of attributes, and a collection of conditional probability
+distributions \( P( X_i \mid {Pa}_G( X_i ) ) \), $i=1,\ldots,n$, where
+${Pa}_G( X_i )$ is the set of atributes that are parents of $X_i$ in
+$G$. This definition shows that the number of numerical parameters
+(i.e., local conditional probability values) grows exponentially with
+the number of parents (in-degree) of a node. A Bayesian network induces
+a joint probability distribution such that
+\[ P( X_1 , X_2 , \ldots , X_n ) = \prod_{i=1}^{n} P( X_i \mid {Pa}_G( X_i ) ).  \]
+Hence, Bayesian networks with sparse DAGs are succinctly represent joint
+probability distributions.
 
-% TODO: Describe other type of solutions for learning
+A common aproach to learning Bayesian networks from a given data set is
+the search-and-score approach, which associates every graph structure
+with a polynomial-time computable \alert{score} value; we then search
+for structures with high score values. The score of a structure is
+usually a balance between the probability of observing the data set and
+the complexity of the model (i.e., the number of parameters). Some
+examples are the Bayesian Information Criterion (BIC)~\cite{BIC91}, the
+Minimum Description Length (MDL)~\cite{MDL94} and the Bayesian Dirichlet
+score (BD)~\cite{BD95}.
 
-In this article we propose new heuristics for generating good initial solutions to be fed into local search methods. We focus on order-based methods, but our technique can be exploited by any Bayesian net search procedure. We propose a new methods for generating informed initial solutions motivated by solutions of the Feedback Arc Set Problem (FASP). Our experiments show that using these new methods it is possible to learn better networks from data sets.
 
-The article is structured as follows: We begin in Section~\ref{sec:learning} explaining the Greedy Search algorithm. In Section~\ref{sec:improve}, we describe the new algorithm for gener3ating initial solutions. Section~\ref{sec:experiments} shows the experiments using both approaches and comparing them (in time and scoring) with multiple data sets. Finally, in Section~\ref{sec:conclusions} we give some conclusions about the new methods.
+Score-based Bayesian network structure learning from data is a NP-hard
+problem~\cite{MSResearch04}, even when the in-degree (i.e., maximum
+number of parents) of the graph is bounded. For this reason, the
+commonest approach to solve the problem is to use local search methods
+such as searching over the space of structures, searching over Markov
+equivalence classes, and searching over the space of topological
+orders. Local search methods are well-known to be vulnerable to poor
+local maxima unless a strategy for avoinding low score regions is
+used. One such strategy is the use of non-greedy heuristics that allow
+moving for lower value solutions during search in order to escape local
+maxima. Another stragegy is to use \emph{good initialization heuristics}
+that attempt to start the search in regions of high local maxima. Most
+often, a simple uniformed random generation of initial solutions is
+adopted.
+
+In this article we propose new heuristics for generating good initial
+solutions to be fed into local search methods for Bayesian network
+structure learning. We focus on order-based methods, but our technique
+can be exploited by any local search procedure for learning Bayesian
+network structures. Our heuristics are motivated by solutions of the
+Feedback Arc Set Problem (FASP), which is the problem of transforming a
+cyclic direct graph into a DAG. Our experiments show that using these
+new methods improves the quality of order-based local search.
+
+The article is structured as follows: We begin in
+Section~\ref{sec:learning} explaining the Greedy Search algorithm. In
+Section~\ref{sec:improve}, we describe the new algorithm for gener3ating
+initial solutions. Section~\ref{sec:experiments} shows the experiments
+using both approaches and comparing them (in time and scoring) with
+multiple data sets. Finally, in Section~\ref{sec:conclusions} we give
+some conclusions about the new methods.

@@ -8,19 +8,18 @@ In this section, we define mathematically the learning Bayesian network problem 
 
 The problem of learning the structure of a Bayesian network is stated as: Given a training data set $D $, select the network (DAG) $G$ that maximizes the scoring function ${sc}( G , D )$.
 A general definition of a scoring function is as follows:
-	\[ {sc}( G , D ) = F( G ) + \varphi( N ) \times P( G ) ,\]
-where $N$ is the size of the data set $D$, $F( G )$ is a data fitness function, $\varphi( N )$ is a function of data size and $P( G )$ measures the model complexity of $G$.\\
-For instance, using the Bayesian information criterion (BIC) as scoring function we have:
-	\[ {sc}( G , D ) = {BIC}( G , D ) = {LL}( G ) + \frac{\log N}{2} {size}( G ) ,\]
+	\[ {sc}( G , D ) = F( G, D ) - \varphi( N ) \times P( G ) ,\]
+where $N$ is the size of the data set $D$, $F( G, D )$ is a data fitness function (i.e., how well the model represents the observed data), $\varphi( N )$ is a non-decreasing function of data size and $P( G )$ measures the model complexity of $G$. For instance,  the Bayesian information criterion (BIC) is defined as
+	\[ {BIC}( G , D ) = {LL}( G ) - \frac{\log N}{2} {size}( G ) ,\]
 where
-	\[ {LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} ,\]
-	\[ {size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| ,\]
-$N$ is the number of instances in the data set, $n$ the number of atributes, $N_{ijk}$ the number of instances where attributes has the values $i$, $j$ and $k$ (the same way for $N_{ij}$). Finally, $\Omega_i$ is the size of the set of possible values for the attribute $X_i$.
-Most scoring functions, BIC included, has the property to be decomposable, so we can reduce the problem to the following formula:
-	\[ G = \max_G \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) , \]
-where ${Pa}( X_i )$ is the set of parents of attribute $X_i$ in $G$.
-In other words, to get a better network, we need to pick a configuration that has the maximum sum of scores among their attributes. But the main problem with searching ${Pa}( X_i)$ is that we have $2^{n-1}$ possible set of parents for each attribute. It means, an exponential number of possible sets based on the number of attributes in the data set.\\
-In order to avoid this problem is added a new constraint $d$, where $d$ is the maximum number of parents for each attribute, so we have only $2^d$ possible sets. This means $|{Pa}( X_i )| \leq d$ for all attributes.
+	\[ {LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} ,\] is the data loglikelihood
+	\[ {size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| ,\] represents the ``size'' of a model with structure $G$, 
+$N$ is the number of instances in the data set, $n$ is the number of atributes, $N_{ijk}$ the number of instances where attribute $X_i$ takes values $k$, and its parents take the $j$th configuration (in some arbitrary ordering), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
+
+        Most scoring functions, BIC included, are \emph{decomposable}, meanining that they can be written as a sum of local scoring functions $sc(X_i, {Pa}(X_i))$. Under the assumption of \emph{score decomposability}, the Bayesian network structure learning problem is defined as finding
+	\[ G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) . \]
+In words, the structure learning problem is to select for each attribute the set parent attributes that maximize the local score while ensuring that the graph is acyclic. Exhaustibely searching for the optimal parent set ${Pa}( X_i)$ for each attribute takes $O(2^n)$ time. To avoid the exponential blow-up we constraing the maximum number of parents to a value $d$, hence reducing the search space to $2^d$; this means $|{Pa}( X_i )| \leq d$ for all attributes. Typical values for $d$ are 3, 4 and 5, depending on the cardinality of variables. Additional speed-up can be achieved by using pruning schemes that remove suboptimal subsets of parent sets without resorting to inspection.
+% CITE CASSIO's learning bayeisna nets with constraints paper
 
 \subsection{Greedy Search Algorithm}
 \label{subsec:greedysearch}
