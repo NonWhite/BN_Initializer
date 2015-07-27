@@ -1,6 +1,7 @@
 from utils import *
 from copy import deepcopy as copy
 import os.path
+import sys
 
 class Data :
 	def __init__( self , source , savefilter = False , ommit = [] , discretize = True , outfile = 'out.csv' ) :
@@ -144,6 +145,7 @@ class Data :
 
 	def printstats( self ) :
 		print "TOTAL ENTITIES = %s" % len( self.rows )
+		print "TOTAL FIELDS = %s" % len( self.fields )
 		avg_vals_per_var = 0.0
 		for field in self.stats :
 			print " ======== FIELD: %s ======== " % field
@@ -185,5 +187,7 @@ class Data :
 		return resp
 
 if __name__ == '__main__' :
-	data = Data( '../data/census.csv' )
-	data.printstats()
+	if len( sys.argv ) == 2 :
+		datasetfile = sys.argv[ 1 ]
+		data = Data( datasetfile )
+		data.printstats()
