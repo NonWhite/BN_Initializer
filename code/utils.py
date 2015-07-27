@@ -33,8 +33,7 @@ SIZE_TO_GET_RAND_VALUE = 100
 
 ''' ======== LEARNING PARAMETERS ======== '''
 MAX_NUM_PARENTS = 3
-NUM_ORDERING_SAMPLES = 100
-NUM_GREEDY_RESTARTS = 5
+NUM_RANDOM_RESTARTS = 3
 NUM_GREEDY_ITERATIONS = 100
 
 ''' ======== QUERY CSV COMMAND ======== '''
@@ -71,26 +70,6 @@ def compare( fa , fb ) :
 
 def getsubconj( data , keys ) :
 	resp = dict( [ ( k , data[ k ] ) for k in keys ] )
-	return resp
-
-def do_query_csv( csvfile , attributes ) :
-	modelname = os.path.splitext( os.path.basename( csvfile ) )[ 0 ]
-	attr_str = ','.join( attributes )
-	print "Querying %s for attr: %s" % ( csvfile , attr_str )
-	query = QUERY_CSV_COMMAND % ( csvfile , attr_str , modelname , attr_str )
-	output = sub.check_output( query , stderr = sub.STDOUT , shell = True )
-	return parse_query_response( output )
-
-def parse_query_response( output ) :
-	out = [ map( str.strip , line.split( '|' )  ) for line in output.split( '\n' ) ]
-	fields = out[ 0 ][ :-1 ]
-	num_fields = len( fields )
-	out = out[ 2:-1 ]
-	resp = []
-	for row in out :
-		data = dict( [ ( fields[ i ] , row[ i ] ) for i in xrange( num_fields ) ] )
-		new_row = [ data , int( row[ num_fields ] ) ]
-		resp.append( new_row )
 	return resp
 
 def cpu_time() :
