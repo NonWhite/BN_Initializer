@@ -1,4 +1,5 @@
 from utils import *
+from random import randint
 from copy import deepcopy as copy
 from unionfind import UnionFind
 from data import Data
@@ -37,59 +38,59 @@ class BNBuilder :
 				f.write( "%s:%s\n" % ( field , ', '.join( network[ field ][ 'childs' ] ) ) )
 		self.modelfile = best_file
 
-	# TODO: Test the CPU Time function
 	def greedySearch( self ) :
 		self.model.initdict()
-		print "Learning bayesian network"
+		print "Learning bayesian network from dataset %s" % self.data.source
 		start = cpu_time()
-		init_models = self.initialize()
-		best_model = None
+		init_orders = self.initialize()
+		best_order = None
 		self.out.write( "TIME(initialization) = %s\n" % ( cpu_time() - start ) )
-		for i in xrange( len( init_models ) ) :
+		for i in xrange( len( init_orders ) ) :
 			print " ====== INITIAL SOLUTION #%s ======" % (i+1)
 			self.out.write( " ====== INITIAL SOLUTION #%s ======" % (i+1) )
-			cur_model = copy( init_models[ i ] )
+			cur_order = copy( init_orders[ i ] )
 			num_iterations = NUM_GREEDY_ITERATIONS
 			for k in xrange( num_iterations ) :
 				print " === Iteration #%s === " % (k+1)
-				adj_model = self.find_order( cur_model )
-				if self.isbetter( adj_model.score() , cur_model.score() ) :
-					cur_model = copy( adj_model )
-					print "BEST SCORE = %s" % cur_model.score()
+				adj_order = self.find_order( cur_order )
+				restart_order = self.random_restart( adj_order )
+				if self.better_order( restart_order , adj_order ) :
+					adj_order = copy( restart_order )
+				if self.better_order( adj_order , cur_order ) :
+					cur_order = copy( adj_order )
+					self.model.setnetwork( self.find_greedy_network( cur_order ) , train = False )
+					score = self.model.score()
+					print "BEST SCORE = %s" % score
 				else :
-					print "SOLUTION CONVERGES to %s" % cur_model.score()
+					self.model.setnetwork( self.find_greedy_network( cur_order ) , train = False )
+					score = self.model.score()
+					print "SOLUTION CONVERGES to %s" % score
 					num_iterations = k + 1
 					break
-				self.printnetwork( cur_model.network )
+				self.printnetwork( self.model.network )
 			self.out.write( "TIME(total) = %s\n" % ( cpu_time() - start ) )
 			self.out.write( "NUM ITERATIONS = %s\n" % num_iterations )
-			if not best_model or self.isbetter( cur_model.score() , best_model.score() ) :
-				best_model = copy( cur_model )
-		return best_model.network
+			if not best_order or self.better_order( cur_order , best_order ) :
+				best_order = copy( cur_order )
+		best_network = self.find_greedy_network( best_order )
+		return best_network
 
-	def dfs_unweighted( self , graph , node , visited , network ) :
-		visited[ node ] = True
-		for child in graph[ node ][ 'childs' ] :
-			if child in visited :
-				network[ child ][ 'childs' ].append( node )
-				network[ node ][ 'parents' ].append( child )
-			else :
-				#graph[ node ][ 'childs' ].remove( child )
-				#graph[ child ][ 'parents' ].remove( node )
-				network[ node ][ 'childs' ].append( child )
-				network[ child ][ 'parents' ].append( node )
-				self.dfs_unweighted( graph , child , visited , network )
+	def random_restart( self , order ) :
+		for i in xrange( NUM_RANDOM_RESTARTS ) :
+			p1 = randint( 0 , len( order ) - 1 )
+			p2 = randint( 0 , len( order ) - 1 )
+			order = self.swap_fields( order , p1 , p2 )
+		return order
 
-	# TODO: Delete this
-	def changedirections( self , graph , network ) :
-		for field in self.data.fields :
-			if field not in graph : continue
-			for par in graph[ field ][ 'parents' ] :
-				if field not in network[ par ][ 'parents' ] : network[ par ][ 'parents' ].append( field )
-				if par not in network[ field ][ 'childs' ] : network[ field ][ 'childs' ].append( par )
-			for ch in graph[ field ][ 'childs' ] :
-				if field not in network[ ch ][ 'childs' ] : network[ ch ][ 'childs' ].append( field )
-				if ch not in network[ field ][ 'parents' ] : network[ field ][ 'parents' ].append( ch )
+	def better_order( self , order1 , order2 ) :
+		model = copy( self.model )
+		net_1 = self.find_greedy_network( order1 )
+		model.setnetwork( net_1 , train = True )
+		score1 = model.score()
+		net_2 = self.find_greedy_network( order2 )
+		model.setnetwork( net_2 , train = True )
+		score2 = model.score()
+		return self.isbetter( score1 , score2 )
 
 	def clean_graph( self ) :
 		node = { 'parents': [] , 'childs' : [] }
@@ -111,21 +112,20 @@ class BNBuilder :
 			self.addRelation( network , field, parents , score )
 		return network
 
-	def find_order( self , model ) :
-		best_model = copy( model )
-		order = best_model.topological
+	def find_order( self , order ) :
+		best_order = copy( order )
 		best_score = self.worst_score_value()
 		for i in xrange( len( order ) - 1 ) :
 			new_order = self.swap_fields( order , i , i + 1 )
 			network = self.find_greedy_network( new_order )
 			cur_model = copy( self.model )
-			cur_model.setnetwork( network )
+			cur_model.setnetwork( network , train = True )
 			cur_score = cur_model.score()
 			if self.isbetter( cur_score , best_score ) :
-				best_score = cur_score
+				best_score = copy( cur_score )
 				best_model = copy( cur_model )
-		return best_model
-	
+		return best_model.topological
+
 	def swap_fields( self , order , idx1 , idx2 ) :
 		new_order = copy( order )
 		new_order[ idx1 ] , new_order[ idx2 ] = new_order[ idx2 ] , new_order[ idx1 ]
@@ -158,10 +158,10 @@ class BNBuilder :
 
 	def isbetter( self , score1 , score2 ) :
 		resp = compare( score1 , score2 )
-		return resp < 0
+		return resp > 0
 
 	def worst_score_value( self ) :
-		return INT_MAX
+		return -INT_MAX
 
 	def setInitialSolutionType( self , desc ) :
 		if desc == 'random' : self.initialize = self.random_solutions
@@ -175,45 +175,69 @@ class BNBuilder :
 		for k in range( num_fields ) :
 			order = shuffle( self.data.fields )
 			network = self.find_greedy_network( order )
-			model.setnetwork( network , topo_order = order )
-			solutions.append( model )
+			model.setnetwork( network , topo_order = order , train = False )
+			solutions.append( model.topological )
 		return solutions
 
-	''' TODO: Add change directions for other edges '''
+	def dfs( self , graph , node , visited , network ) :
+		visited[ node ] = True
+		for child in graph[ node ][ 'childs' ] :
+			if child in visited : continue
+			''' Deleting in graph '''
+			graph[ node ][ 'childs' ].remove( child )
+			graph[ child ][ 'parents' ].remove( node )
+			''' Adding to network '''
+			network[ node ][ 'childs' ].append( child )
+			network[ child ][ 'parents' ].append( node )
+			self.dfs( graph , child , visited , network )
+	
+	def change_directions( self , graph , network ) :
+		for field in self.data.fields :
+			if field not in graph : continue
+			for par in graph[ field ][ 'parents' ] :
+				self.add_edge( network , field , par )
+			for ch in graph[ field ][ 'childs' ] :
+				self.add_edge( network , ch , field )
+	
+	def add_edge( self , graph , from_node , to_node ) :
+		if from_node in graph[ to_node ][ 'childs' ] : return
+		if to_node in graph[ from_node ][ 'parents' ] : return
+		if to_node not in graph[ from_node ][ 'childs' ] :
+			graph[ from_node ][ 'childs' ].append( to_node )
+		if from_node not in graph[ to_node ][ 'parents' ] :
+			graph[ to_node ][ 'parents' ].append( from_node )
+
 	def unweighted_solutions( self ) :
 		print "Building graph with best parents for each field"
 		greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
 		print "GREEDY GRAPH"
-		for f in self.data.fields : print "%s: %s" % ( f , greedy_graph[ f ][ 'parents' ] )
+		for f in self.data.fields : print "%s:%s" % ( f , greedy_graph[ f ][ 'parents' ] )
 		solutions = []
 		for field in self.data.fields :
 			print " === Building network with root %s === " % field.upper()
 			network = self.clean_graph()
 			visited = {}
 			graph = copy( greedy_graph )
-			self.dfs_unweighted( graph , field , visited , network )
-			#print "Changing edge's directions that made cycles"
-			#self.changedirections( graph , network )
-			#print "NETWORK"
-			#for f in self.data.fields : print "%s: %s" % ( f , network[ f ][ 'childs' ] )
+			self.dfs( graph , field , visited , network )
+			self.change_directions( graph , network )
 			model = copy( self.model )
-			model.setnetwork( network )
-			solutions.append( model )
+			model.setnetwork( network , train = False )
+			print ', '.join( model.topological )
+			solutions.append( model.topological )
 		return solutions
-	
-	''' TODO: Add weight calculation '''
+
 	def add_weights( self , graph ) :
 		G = self.clean_graph()
 		for field in self.data.fields :
 			for child in graph[ field ][ 'childs' ] :
-				weight = 0.0
+				weight = self.model.bic_score( field , graph[ field ][ 'parents' ] ) - \
+							self.model.bic_score( field , [ child ] )
 				G[ field ][ 'childs' ].append( ( child , weight ) )
 				G[ child ][ 'parents' ].append( ( field , weight ) )
 				G[ field ][ 'parents' ].append( ( child , weight ) )
 				G[ child ][ 'childs' ].append( ( field , weight ) )
 		return G
-	
-	''' TODO: Test this '''
+
 	def kruskal( self , graph ) :
 		p = UnionFind( len( self.data.fields ) )
 		edges = []
@@ -222,6 +246,7 @@ class BNBuilder :
 			for ( child , weight ) in graph[ field ][ 'childs' ] :
 				id2 = self.data.fields.index( child )
 				edges.append( ( weight , id1 , id2 , field , child ) )
+				edges.append( ( weight , id2 , id2 , child , field ) )
 		sorted( edges , key = lambda edg : edg[ 0 ] )
 		M = self.clean_graph()
 		for edg in edges :
@@ -234,16 +259,11 @@ class BNBuilder :
 			M[ node1 ][ 'parents' ].append( node2 )
 		return M
 
-	# TODO: Implement this
-	def dfs_weighted( self , graph , node , visited , network ) :
-		return 'gg'
-
-	# TODO: Implement this
 	def weighted_solutions( self ) :
 		print "Building graph with best parents for each field"
 		greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
 		print "GREEDY GRAPH"
-		for f in self.data.fields : print "%s: %s" % ( f , greedy_graph[ f ][ 'parents' ] )
+		for f in self.data.fields : print "%s:%s" ( f , greedy_graph[ f ][ 'parents' ] )
 		kruskal_graph = self.add_weights( greedy_graph )
 		mst = self.kruskal( kruskal_graph )
 		solutions = []
@@ -252,10 +272,12 @@ class BNBuilder :
 			network = self.clean_graph()
 			visited = {}
 			graph = copy( mst )
-			self.dfs_weighted( graph , field , visited , network )
+			self.dfs( graph , field , visited , network )
+			self.change_directions( graph , network )
 			model = copy( self.model )
-			model.setnetwork( network )
-			solutions.append( model )
+			model.setnetwork( network , train = False )
+			print ', '.join( model.topological )
+			solutions.append( model.topological )
 		return solutions
 	
 if __name__ == "__main__" :
@@ -264,7 +286,6 @@ if __name__ == "__main__" :
 		ommit_fields = [ f.strip() for f in ommit_fields.split( ',' ) ]
 		builder = BNBuilder( dataset_file , savefilter = True , ommit = ommit_fields )
 
-		'''
 		print "========== RUNNING WITH RANDOM PERMUTATION =========="
 		builder.setInitialSolutionType( 'random' )
 		builder.buildNetwork( outfilepath = out_file % 'random' )
@@ -272,7 +293,6 @@ if __name__ == "__main__" :
 		print "========== RUNNING WITH DFS =========="
 		builder.setInitialSolutionType( 'unweighted' )
 		builder.buildNetwork( outfilepath = out_file % 'unweighted' )
-		'''
 		
 		print "========== RUNNING WITH MST + DFS =========="
 		builder.setInitialSolutionType( 'weighted' )
