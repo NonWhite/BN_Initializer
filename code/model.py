@@ -41,11 +41,11 @@ class Model :
 		self.topological = topological( self.network , fieldset )
 		print "Top. Order = %s" % self.topological
 	
-	def setnetwork( self , network , topo_order = None ) :
+	def setnetwork( self , network , topo_order = None , train = True ) :
 		self.network = copy( network )
 		if not topo_order : self.topological = topological( self.network , self.data.fields )
 		else : self.topological = topo_order
-		self.trainmodel()
+		if train : self.trainmodel()
 	
 	def trainmodel( self ) :
 		print "Training model..."
@@ -124,7 +124,7 @@ class Model :
 		H = self.entropy( xsetfield , ysetfield )
 		S = self.size( xsetfield , ysetfield )
 		resp = ( -N * H ) + ( log( N ) / 2.0 * S )
-		return resp
+		return -resp
 	
 	def entropy( self , xsetfield , ysetfield ) :
 		field = xsetfield
