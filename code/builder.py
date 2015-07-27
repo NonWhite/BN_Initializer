@@ -283,7 +283,8 @@ class BNBuilder :
 if __name__ == "__main__" :
 	if len( sys.argv ) == 4 :
 		dataset_file , ommit_fields , out_file = sys.argv[ 1: ]
-		ommit_fields = [ f.strip() for f in ommit_fields.split( ',' ) ]
+		if ommit_fields == 'None' : ommit_fields = []
+		else : ommit_fields = [ f.strip() for f in ommit_fields.split( ',' ) ]
 		builder = BNBuilder( dataset_file , savefilter = True , ommit = ommit_fields )
 
 		print "========== RUNNING WITH RANDOM PERMUTATION =========="
