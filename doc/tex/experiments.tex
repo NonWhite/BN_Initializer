@@ -13,12 +13,10 @@ After implementing all the approaches in section~\ref{subsec:solutions}, some ex
 			Dataset & n (\#attributes) & N (\#instances) \\ \hline
 			Alarm & 37 & 1000 \\ \hline
 			Census & 15 & 45222 \\ \hline
-			Epigenetics & 30 & 72228 \\ \hline
 			Image & 20 & 2310 \\ \hline
 			Letter & 17 & 20000 \\ \hline
 			Mushroom & 23 & 8124 \\ \hline
 			Sensors & 25 & 5456 \\ \hline
-			SteelPlates & 28 & 1941 \\ \hline
 		\end{tabular}
 		\caption{Data sets characteristics}
 		\label{tab:datasets}
@@ -33,43 +31,26 @@ After implementing all the approaches in section~\ref{subsec:solutions}, some ex
 
 \subsection{Results}
 \label{subsec:results}
-	After running the three versions explained in~\ref{subsec:solutions} for each data set, we compare the score for the best network found, the CPU Time to generate the initial solution and the CPU Time for getting the final network. Tables~\ref{tab:costs} and~\ref{tab:times} show them respectively.
+	After running the three versions explained in~\ref{subsec:solutions} for each data set, we compare the score for the best network found, the percentage of solutions that converge to the best score and the average number of iterations. The results are showed in Table~\ref{tab:comparison}.
+	
+	% Best Score, %Best solutions, Avg. Iterations,
 	\begin{table}[ h ]
 		\centering
-		\begin{tabular}{ | l | c | c | c | }
+		\begin{tabular}{ | l | c | c | c | c | c | c | c | c | c | }
 			\hline
-			Dataset & Random Sol. & Unweighted Sol. & Weighted Sol.\\ \hline
-			Alarm & 37 & 1000 & 0 \\ \hline
-			Census & 15 & 45222 & 0 \\ \hline
-			Epigenetics & 30 & 72228 & 0 \\ \hline
-			Image & 20 & 2310 & 0 \\ \hline
-			Letter & 17 & 20000 & 0 \\ \hline
-			Mushroom & 23 & 8124 & 0 \\ \hline
-			Sensors & 25 & 5456 & 0 \\ \hline
-			SteelPlates & 28 & 1941 & 0 \\ \hline
+			Dataset & \multicolumn{3}{|c|}{Random Sol.} & \multicolumn{3}{|c|}{Unweighted Sol.} & \multicolumn{3}{|c|}{Weighted Sol.} \\ \cline{2-10}
+			& B. Sc. & \%B. Sol. & Avg.It. & B. Sc. & \%B. Sol. & Avg.It. & B. Sc. & \%B. Sol. & Avg.It. \\ \hline
+			Alarm & 14692.87 & 2.7 & 7.0 & 14692.87 & 2.7 & 7.7 & 14692.86 & 2.7 & 7.6 \\ \hline
+			Census & 569131.71 & 50.0 & 3.9 & 569131.71 & 21.4 & 5.14 & 569132.40 & 26.7 & 4.6 \\ \hline
+			Image & 23386.37 & 50.0 & 4.25 & 23386.37 & 45.0 & 5.65 & 23386.37 & 35.0 & 4.7 \\ \hline
+			Letter & 161941.09 & 84.0 & 4.41 & 161941.09 & 82.3 & 4.0 & 161941.09 & 88.2 & 3.41 \\ \hline
+			Mushroom & 79895.41 & 73.9 & 3.95 & 79895.41 & 86.9 & 4.13 & 79895.41 & 34.7 & 2.73 \\ \hline
+			Sensors & 80198.92 & 4.0 & 6.48 & 80202.26 & 4.0 & 10.6 & 80199.88 & 4.0 & 8.96 \\ \hline
 		\end{tabular}
-		\caption{Maximum cost using each approach}
-		\label{tab:costs}
+		\caption{Best score obtained, Percentage of solutions that converge to best score and Average number of iterations using each approach}
+		\label{tab:comparison}
 	\end{table}
 	
-	% CPU Time for initialization and time to converge (or total)
-	\begin{table}[ h ]
-		\centering
-		\begin{tabular}{ | l | c | c | c | }
-			\hline
-			Dataset & Random Sol. & Unweighted Sol. & Weighted Sol.\\ \hline
-			Alarm & 37 & 1000 & 0 \\ \hline
-			Census & 15 & 45222 & 0 \\ \hline
-			Epigenetics & 30 & 72228 & 0 \\ \hline
-			Image & 20 & 2310 & 0 \\ \hline
-			Letter & 17 & 20000 & 0 \\ \hline
-			Mushroom & 23 & 8124 & 0 \\ \hline
-			Sensors & 25 & 5456 & 0 \\ \hline
-			SteelPlates & 28 & 1941 & 0 \\ \hline
-		\end{tabular}
-		\caption{CPU Time (in seconds) for initializing and total using each approach}
-		\label{tab:times}
-	\end{table}
 	Finally, Figure~\ref{fig:converge} shows the converge curve for each data set using each approach.
 	\begin{figure}[H]
 		\centering
@@ -84,12 +65,6 @@ After implementing all the approaches in section~\ref{subsec:solutions}, some ex
 			\includegraphics[height=3.5cm]{images/census}
 			\caption{Census}
 			\label{fig:census}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/epigenetics}
-			\caption{Epigenetics}
-			\label{fig:epigenetics}
 		\end{subfigure}
 		\begin{subfigure}{.3\textwidth}
 			\centering
@@ -114,12 +89,6 @@ After implementing all the approaches in section~\ref{subsec:solutions}, some ex
 			\includegraphics[height=3.5cm]{images/sensors}
 			\caption{Sensors}
 			\label{fig:sensors}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/steelPlates}
-			\caption{SteelPlates}
-			\label{fig:steelPlates}
 		\end{subfigure}
 		\caption{Converge curve for datasets}
 		\label{fig:converge}

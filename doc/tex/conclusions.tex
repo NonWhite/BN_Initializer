@@ -1,13 +1,13 @@
-\section{Conclusions and Future Work}
+\section{Conclusions and Future Works}
 \label{sec:conclusions}
 
 We conclude that:
 \begin{itemize}
-	\item Using the random initial solution take more iterations to find a converged solution than the new methods and also more CPU time
-	\item The unweighted approach gives best networks than the other ones
-	\item Initial solutions using the unweighted approach are the most time consuming to be generated and the random ones the least.
-	\item A higher number of attributes implies more CPU time for the new methods with a significant difference compared to the random approach
+	\item Using the random initial solution take, in average, the same number of iterations that new methods, but the last ones could converge to a better solution
+	\item The new methods obtain better score when learning bayesian networks from data
 	\item The new methods explained in this article could be used in other types of Greedy Search doing some modifications
+	\item Weighted approach has better results for the datasets that the unweighted one in terms of best score and average number of iterations needed
+	\item In some cases, weighted approach needs less iterations that the other ones and at the same time returns a better score
 	\item The scoring function could be changed to another one in order to compare robustness between them and BIC score
-	\item Experiments could be done with bigger datasets (more than 20 fields) in order to compare the efficiency of the methods
+	\item Experiments could be done with bigger datasets (more than 50 fields) in order to compare the efficiency of the methods
 \end{itemize}
