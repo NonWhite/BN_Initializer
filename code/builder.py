@@ -47,7 +47,7 @@ class BNBuilder :
 		self.out.write( "TIME(initialization) = %s\n" % ( cpu_time() - start ) )
 		for i in xrange( len( init_orders ) ) :
 			print " ====== INITIAL SOLUTION #%s ======" % (i+1)
-			self.out.write( " ====== INITIAL SOLUTION #%s ======" % (i+1) )
+			self.out.write( " ====== INITIAL SOLUTION #%s ======\n" % (i+1) )
 			cur_order = copy( init_orders[ i ] )
 			num_iterations = NUM_GREEDY_ITERATIONS
 			for k in xrange( num_iterations ) :
@@ -61,13 +61,14 @@ class BNBuilder :
 					self.model.setnetwork( self.find_greedy_network( cur_order ) , train = False )
 					score = self.model.score()
 					print "BEST SCORE = %s" % score
+					self.printnetwork( self.model.network )
 				else :
 					self.model.setnetwork( self.find_greedy_network( cur_order ) , train = False )
 					score = self.model.score()
 					print "SOLUTION CONVERGES to %s" % score
 					num_iterations = k + 1
+					self.printnetwork( self.model.network )
 					break
-				self.printnetwork( self.model.network )
 			self.out.write( "TIME(total) = %s\n" % ( cpu_time() - start ) )
 			self.out.write( "NUM ITERATIONS = %s\n" % num_iterations )
 			if not best_order or self.better_order( cur_order , best_order ) :
@@ -263,7 +264,7 @@ class BNBuilder :
 		print "Building graph with best parents for each field"
 		greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
 		print "GREEDY GRAPH"
-		for f in self.data.fields : print "%s:%s" ( f , greedy_graph[ f ][ 'parents' ] )
+		for f in self.data.fields : print "%s:%s" % ( f , greedy_graph[ f ][ 'parents' ] )
 		kruskal_graph = self.add_weights( greedy_graph )
 		mst = self.kruskal( kruskal_graph )
 		solutions = []
