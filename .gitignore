@@ -2,6 +2,7 @@
 *_new.*
 *_counters.*
 best_*.*
+results/*.csv
 
 ## Python binaries
 *.pyc
