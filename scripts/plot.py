@@ -6,7 +6,7 @@ from copy import deepcopy as copy
 
 color = [ 'b' , 'r' , 'g' ]
 types = [ 'random' , 'unweighted' , 'weighted' ]
-datasets = [ 'alarm' , 'census' , 'image' , 'letter' , 'mushroom' , 'sensors' ]
+datasets = [ 'alarm' , 'census' , 'epigenetics' , 'image' , 'letter' , 'mushroom' , 'sensors' , 'steelPlates' ]
 SOL_DELIMITER = ' =='
 IMAGES_DIR = '../doc/images/'
 
