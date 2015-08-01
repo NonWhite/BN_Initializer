@@ -1,9 +1,9 @@
-TIME(initialization) = 3.563967
- ====== INITIAL SOLUTION #1 =====
+TIME(initialization) = 3.105717
+ ====== INITIAL SOLUTION #1 ======
 SCORE = 148155.916083
 A: C
-B: D,P,F,G,J,O,H,I
-C: E,B,L
+B: 
+C: E,Q,L
 D: 
 E: 
 F: 
@@ -16,256 +16,13 @@ L:
 M: 
 N: 
 O: 
-P: K,M,Q
-Q: 
+P: M,K,B
+Q: H,F,D,J,I,P,G,O
 
-SCORE = 148155.928171
-A: B
-B: P,F,C,H,I,O,G,J,D
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: K,M,E,Q
-Q: 
-
-SCORE = 161941.091757
-A: 
-B: A,J,I,G,O,F,P,C,H,D
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: Q,K,M,E
-Q: 
-
-TIME(total) = -549734.203071
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #2 =====
-SCORE = 148090.118177
-A: 
-B: 
-C: L,E
-D: 
-E: P,G,I,A,H,D,J,F,O
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: Q,K,M,B
-Q: 
-
-SCORE = 148427.091214
-A: 
-B: 
-C: E
-D: 
-E: D,P,A,F,O,J,G,I,H
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: C
-M: 
-N: 
-O: 
-P: Q,M,K,B
-Q: 
-
-TIME(total) = 36.047239
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #3 =====
-SCORE = 148155.915922
-A: C
-B: 
-C: E,B,K,L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: D,H,J,P,G,O,F,I
-L: 
-M: 
-N: 
-O: 
-P: M,Q
-Q: 
-
-SCORE = 148155.927849
-A: K
-B: 
-C: E,L,B
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: J,P,I,F,O,G,D,C,H
-L: 
-M: 
-N: 
-O: 
-P: M,Q
-Q: 
-
-SCORE = 161941.091757
-A: 
-B: 
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: F,J,H,P,A,I,C,G,D,O
-L: 
-M: 
-N: 
-O: 
-P: Q,B,E,M
-Q: 
-
-TIME(total) = 53.309774
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #4 =====
-SCORE = 148155.915922
-A: C
-B: 
-C: E,B,L,Q
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: K,M
-Q: O,F,J,D,G,P,I,H
-
-TIME(total) = 62.02653
-NUM ITERATIONS = 2
- ====== INITIAL SOLUTION #5 =====
-SCORE = 148155.916244
-A: C
-B: 
-C: L,E
-D: 
-E: G,P,J,I,O,D,H,F
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: M,Q,K,B
-Q: 
-
-SCORE = 148155.928171
-A: E
-B: 
-C: L
-D: 
-E: O,C,G,H,J,P,F,D,I
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: B,K,M,Q
-Q: 
-
-SCORE = 161941.091757
-A: 
-B: 
-C: L
-D: 
-E: C,H,F,O,G,I,A,J,P,D
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: K,B,Q,M
-Q: 
-
-TIME(total) = 79.047397
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #6 =====
-SCORE = 148155.915761
-A: C
-B: 
-C: M,K,L,E,Q
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: B
-Q: J,D,P,I,H,G,F,O
-
-SCORE = 148155.928171
+SCORE = 148155.92801
 A: Q
 B: 
-C: L
+C: E,L
 D: 
 E: 
 F: 
@@ -278,8 +35,8 @@ L:
 M: 
 N: 
 O: 
-P: M,E,K,B
-Q: I,O,P,C,J,G,D,H,F
+P: M,K,B
+Q: F,O,J,D,H,P,C,I,G
 
 SCORE = 161941.091757
 A: 
@@ -298,108 +55,7 @@ M:
 N: 
 O: 
 P: B,K,E,M
-Q: A,I,O,J,C,H,P,G,D,F
-
-TIME(total) = 94.96745
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #7 =====
-SCORE = 148155.915922
-A: C
-B: 
-C: K,L,M,E
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: P,O,G,D,F,J,H,I
-L: 
-M: 
-N: 
-O: 
-P: Q,B
-Q: 
-
-SCORE = 148155.927849
-A: K
-B: 
-C: L,E,M
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: C,I,D,J,H,G,F,O,P
-L: 
-M: 
-N: 
-O: 
-P: B,Q
-Q: 
-
-SCORE = 161941.091757
-A: 
-B: 
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: D,C,I,A,O,F,G,P,H,J
-L: 
-M: 
-N: 
-O: 
-P: Q,B,M,E
-Q: 
-
-TIME(total) = 111.31773
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #8 =====
-SCORE = 148155.92636
-A: E,Q
-B: 
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: K,B,M
-Q: J,D,G,I,F,P,H,C,O
-
-SCORE = 161941.091596
-A: 
-B: 
-C: L,E
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: K,M,B
-Q: C,I,O,J,H,F,A,D,P,G
+Q: H,O,I,D,G,J,C,A,P,F
 
 SCORE = 161941.091757
 A: 
@@ -417,76 +73,16 @@ L:
 M: 
 N: 
 O: 
-P: K,B,M,E
-Q: F,A,P,D,J,G,O,I,H,C
+P: M,K,B,E
+Q: J,A,I,D,F,O,H,C,G,P
 
-TIME(total) = -549628.067408
+TIME(total) = 17.266881
 NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #9 =====
-SCORE = 148831.692691
+ ====== INITIAL SOLUTION #2 ======
+SCORE = 148090.117532
 A: 
 B: 
-C: L,M,Q,E,K
-D: 
-E: 
-F: 
-G: C
-H: 
-I: N
-J: 
-K: 
-L: 
-M: P,H,A,O,I,J,D,F
-N: 
-O: 
-P: B
-Q: 
-
-SCORE = 148857.220729
-A: 
-B: 
-C: L
-D: 
-E: 
-F: 
-G: M
-H: 
-I: N
-J: 
-K: 
-L: 
-M: I,C,J,D,H,P,O,F,A
-N: 
-O: 
-P: E,K,B,Q
-Q: 
-
-SCORE = 161941.091757
-A: 
-B: 
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: I,C,P,G,A,D,J,F,H,O
-N: 
-O: 
-P: B,K,E,Q
-Q: 
-
-TIME(total) = 144.696979
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #10 =====
-SCORE = 148155.9156
-A: C
-B: J,I,D,P,H,F,O,G
-C: M,B,L,Q,E,K
+C: K,E,M,L,Q,B
 D: 
 E: 
 F: 
@@ -500,70 +96,10 @@ M:
 N: 
 O: 
 P: 
-Q: 
-
-SCORE = 148155.928171
-A: B
-B: G,O,P,J,F,C,D,H,I
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: E,K,Q,M
-Q: 
+Q: O,P,I,G,F,H,J,D,A
 
 SCORE = 161941.091757
 A: 
-B: H,C,F,I,J,G,P,A,O,D
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: M,E,K,Q
-Q: 
-
-TIME(total) = 162.994444
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #11 =====
-SCORE = 148155.916083
-A: C
-B: 
-C: L,E,Q
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: B,K,M
-Q: F,H,P,D,O,G,I,J
-
-SCORE = 148155.928171
-A: Q
 B: 
 C: L
 D: 
@@ -578,8 +114,8 @@ L:
 M: 
 N: 
 O: 
-P: K,M,E,B
-Q: D,I,J,F,G,C,P,O,H
+P: B,M,E,K
+Q: G,J,F,C,O,I,P,D,A,H
 
 SCORE = 161941.091757
 A: 
@@ -598,74 +134,36 @@ M:
 N: 
 O: 
 P: K,M,B,E
-Q: G,I,P,H,C,D,J,F,O,A
+Q: A,G,J,O,H,P,F,C,D,I
 
-TIME(total) = -545281.013903
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #12 =====
-SCORE = 148348.399354
-A: E
+TIME(total) = 28.437312
+NUM ITERATIONS = 3
+ ====== INITIAL SOLUTION #3 ======
+SCORE = 148155.915761
+A: C
 B: 
-C: 
-D: A
-E: L,H,F,J,G,P,O,I
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: C
-M: 
-N: 
-O: 
-P: Q,K,M,B
-Q: 
-
-SCORE = 148460.804739
-A: 
-B: 
-C: 
-D: E
-E: J,O,H,I,P,A,G,L,F
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: C
-M: 
-N: 
-O: 
-P: Q,B,M,K
-Q: 
-
-SCORE = 161941.083233
-A: 
-B: 
-C: 
+C: Q,M,K,E,L
 D: 
-E: O,P,D,G,A,J,I,L,H,F
+E: 
 F: 
 G: 
 H: 
 I: N
 J: 
 K: 
-L: C
+L: 
 M: 
 N: 
 O: 
-P: Q,K,B,M
-Q: 
+P: B
+Q: O,I,J,G,H,P,F,D
 
-SCORE = 161941.091757
+SCORE = 161940.245175
 A: 
 B: 
 C: L
 D: 
-E: J,G,F,I,H,A,O,C,D,P
+E: H,A,I,J,G,O,F,C,D,P
 F: 
 G: 
 H: 
@@ -676,21 +174,18 @@ L:
 M: 
 N: 
 O: 
-P: K,B,Q,M
+P: M,K,B
 Q: 
 
-TIME(total) = -549554.828719
-NUM ITERATIONS = 5
- ====== INITIAL SOLUTION #13 =====
-SCORE = 148155.916244
-A: C
+SCORE = 161941.088328
+A: 
 B: 
-C: L,E
+C: L
 D: 
-E: O,D,F,J,H,G,I,P
+E: I,A,C,G,P,F,O,J,D,H
 F: 
 G: 
-H: 
+H: Q
 I: N
 J: 
 K: 
@@ -698,75 +193,56 @@ L:
 M: 
 N: 
 O: 
-P: B,M,K,Q
+P: M,B,K
 Q: 
 
-SCORE = 148305.706366
-A: G
-B: 
-C: E
-D: I
-E: H,J,P
-F: 
-G: 
-H: 
-I: N,A,L,F,O
-J: 
-K: 
-L: C
-M: 
-N: 
-O: 
-P: K,B,Q,M
-Q: 
-
-SCORE = 148359.008178
+SCORE = 161941.090073
 A: 
 B: 
-C: E
-D: I
-E: P,J,O,F,A,H,G
-F: 
-G: 
-H: 
-I: N,L
-J: 
-K: 
-L: C
-M: 
-N: 
-O: 
-P: Q,K,M,B
-Q: 
-
-SCORE = 148429.99817
-A: 
-B: 
-C: E
-D: L
-E: F,G,H,P,A,I,O,J
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: C
-M: 
-N: 
-O: 
-P: B,Q,K,M
-Q: 
-
-TIME(total) = -549533.385354
-NUM ITERATIONS = 5
- ====== INITIAL SOLUTION #14 =====
-SCORE = 148155.873853
-A: C
-B: 
-C: E,L
+C: L
 D: 
-E: J,G,D,P,H,N,F,O
+E: P,F,D,C,A,O,G,H,J,I
+F: 
+G: 
+H: 
+I: N,Q
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: B,K,M
+Q: 
+
+SCORE = 161941.090073
+A: 
+B: 
+C: L
+D: 
+E: D,C,O,G,H,J,P,A,F,I
+F: 
+G: 
+H: 
+I: N,Q
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: B,M,K
+Q: 
+
+TIME(total) = 48.403339
+NUM ITERATIONS = 5
+ ====== INITIAL SOLUTION #4 ======
+SCORE = 161941.049043
+A: 
+B: H,O,F,P,J,D,G,N,A,C
+C: E,L,K
+D: 
+E: 
 F: 
 G: 
 H: 
@@ -777,53 +253,15 @@ L:
 M: 
 N: I
 O: 
-P: M,K,Q,B
-Q: 
-
-SCORE = 148155.916244
-A: C
-B: 
-C: L,E
-D: 
-E: J,I,P,D,G,O,H,F
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: Q,M,K,B
-Q: 
-
-SCORE = 148155.928171
-A: E
-B: 
-C: L
-D: 
-E: O,I,H,F,C,D,J,P,G
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: M,K,Q,B
+P: M,Q
 Q: 
 
 SCORE = 161941.091757
 A: 
-B: 
+B: H,I,A,J,P,D,F,C,G,O
 C: L
 D: 
-E: D,A,F,P,H,I,J,G,O,C
+E: 
 F: 
 G: 
 H: 
@@ -834,173 +272,12 @@ L:
 M: 
 N: 
 O: 
-P: Q,K,M,B
-Q: 
-
-TIME(total) = 243.57291
-NUM ITERATIONS = 5
- ====== INITIAL SOLUTION #15 =====
-SCORE = 148155.917836
-A: M,Q
-B: 
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: C
-M: G,F,H,I,O,P,L,J,D
-N: 
-O: 
-P: B,E,K
-Q: 
-
-SCORE = 161941.083233
-A: 
-B: 
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: C
-M: O,J,G,F,A,D,H,P,I,L
-N: 
-O: 
-P: B,Q,K,E
+P: Q,M,K,E
 Q: 
 
 SCORE = 161941.091757
 A: 
-B: 
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: F,I,J,D,H,O,P,A,G,C
-N: 
-O: 
-P: B,Q,K,E
-Q: 
-
-TIME(total) = -549494.639245
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #16 =====
-SCORE = 148090.118016
-A: 
-B: 
-C: L,E,M
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: H,O,P,A,G,J,I,F,D
-N: 
-O: 
-P: Q,K,B
-Q: 
-
-SCORE = 161941.091757
-A: 
-B: 
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: F,H,G,I,D,C,O,J,A,P
-N: 
-O: 
-P: E,K,Q,B
-Q: 
-
-TIME(total) = -549482.89864
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #17 =====
-SCORE = 148155.916083
-A: C
-B: 
-C: L,Q,E
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: K,B,M
-Q: P,F,O,I,G,J,D,H
-
-SCORE = 161940.245175
-A: 
-B: H,F,I,O,J,G,C,A,P,D
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: E,K,M
-Q: 
-
-SCORE = 161941.090073
-A: 
-B: D,A,J,C,H,I,F,P,G,O
-C: L
-D: 
-E: 
-F: 
-G: 
-H: 
-I: Q,N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: M,E,K
-Q: 
-
-SCORE = 161941.091757
-A: 
-B: G,F,P,J,D,A,H,O,I,C
+B: P,A,J,C,G,D,I,H,O,F
 C: L
 D: 
 E: 
@@ -1017,12 +294,268 @@ O:
 P: E,Q,K,M
 Q: 
 
-TIME(total) = 293.11317
-NUM ITERATIONS = 5
-BEST NETWORK:
+TIME(total) = 60.725347
+NUM ITERATIONS = 3
+ ====== INITIAL SOLUTION #5 ======
+SCORE = 161941.048882
+A: 
+B: 
+C: E,K,B,L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: 
+J: 
+K: 
+L: 
+M: J,P,D,O,C,G,N,H,A,F
+N: I
+O: 
+P: Q
+Q: 
+
 SCORE = 161941.091757
 A: 
-B: F,D,C,P,G,J,H,A,O,I
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: A,F,I,P,H,C,J,G,D,O
+N: 
+O: 
+P: Q,B,K,E
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: C,O,F,J,G,D,P,A,H,I
+N: 
+O: 
+P: K,E,B,Q
+Q: 
+
+TIME(total) = 72.953514
+NUM ITERATIONS = 3
+ ====== INITIAL SOLUTION #6 ======
+SCORE = 148155.916083
+A: C
+B: 
+C: Q,E,L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,K,B
+Q: J,O,F,I,D,G,H,P
+
+SCORE = 148155.928171
+A: Q
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,E,M,B
+Q: G,P,C,D,O,J,F,I,H
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,E,M,B
+Q: D,F,C,J,I,O,H,P,G,A
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: E,B,M,K
+Q: P,A,G,D,F,C,O,J,I,H
+
+TIME(total) = 88.366481
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #7 ======
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: O,A,H,J,P,G,I,C,D,F
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,Q,K,B
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: J,D,F,C,H,I,P,O,A,G
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,B,Q,M
+Q: 
+
+TIME(total) = -549659.278145
+NUM ITERATIONS = 2
+ ====== INITIAL SOLUTION #8 ======
+SCORE = 161940.952689
+A: 
+B: P,F,A,L,J,H,D,O,G,N
+C: 
+D: 
+E: 
+F: 
+G: 
+H: 
+I: 
+J: 
+K: 
+L: C
+M: 
+N: I,M,Q
+O: 
+P: E,K
+Q: 
+
+SCORE = 161941.039157
+A: 
+B: A,P,G,F,H,D,N,J,O,L
+C: 
+D: 
+E: 
+F: 
+G: 
+H: 
+I: Q
+J: 
+K: 
+L: C
+M: 
+N: I
+O: 
+P: K,M,E
+Q: 
+
+SCORE = 161941.083072
+A: 
+B: A,J,P,L,H,I,F,O,D,G
+C: Q
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: C
+M: 
+N: 
+O: 
+P: E,M,K
+Q: 
+
+SCORE = 161941.091596
+A: 
+B: C,O,D,J,A,F,H,P,G,I
+C: L,Q
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,E,K
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: C,F,H,A,J,G,D,P,I,O
 C: L
 D: 
 E: 
@@ -1038,4 +571,775 @@ N:
 O: 
 P: Q,K,M,E
 Q: 
+
+SCORE = 161941.091757
+A: 
+B: J,I,F,G,D,P,H,C,O,A
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: Q,E,K,M
+Q: 
+
+TIME(total) = 119.652516
+NUM ITERATIONS = 6
+ ====== INITIAL SOLUTION #9 ======
+SCORE = 148155.916083
+A: C
+B: 
+C: E,L,M
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: O,D,F,G,I,H,J,P
+N: 
+O: 
+P: B,Q,K
+Q: 
+
+SCORE = 161940.245175
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: B,K,E
+Q: I,J,C,H,P,D,F,A,O,G
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,B,E,K
+Q: P,J,F,G,O,D,I,A,C,H
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: E,B,K,M
+Q: P,I,C,D,G,O,H,J,A,F
+
+TIME(total) = 134.954752
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #10 ======
+SCORE = 148155.9156
+A: C
+B: 
+C: L,Q,M,E,K,B
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: P,H,F,G,J,O,D,I
+N: 
+O: 
+P: 
+Q: 
+
+SCORE = 148155.928171
+A: M
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: J,F,D,H,P,C,O,I,G
+N: 
+O: 
+P: E,B,Q,K
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: C,J,I,O,A,D,G,H,P,F
+N: 
+O: 
+P: K,Q,E,B
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: D,H,J,C,G,F,P,I,A,O
+N: 
+O: 
+P: B,E,K,Q
+Q: 
+
+TIME(total) = 149.804948
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #11 ======
+SCORE = 148155.9156
+A: C
+B: H,I,F,O,J,P,D,G
+C: E,L,K,M,Q,B
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: 
+Q: 
+
+SCORE = 148155.917836
+A: B,Q
+B: 
+C: 
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: C
+M: 
+N: 
+O: 
+P: E,M,K
+Q: O,P,H,I,G,J,D,L,F
+
+SCORE = 161941.083233
+A: 
+B: 
+C: 
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: C
+M: 
+N: 
+O: 
+P: B,M,E,K
+Q: I,L,A,H,D,J,P,O,F,G
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: E,K,M,B
+Q: A,G,H,I,F,D,O,J,C,P
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,M,E,B
+Q: G,A,D,P,J,I,O,H,C,F
+
+TIME(total) = 168.696808
+NUM ITERATIONS = 5
+ ====== INITIAL SOLUTION #12 ======
+SCORE = 148348.394301
+A: E
+B: 
+C: 
+D: A
+E: L,G,O,P,J,H,F,I
+F: 
+G: 
+H: 
+I: N,M,K,Q
+J: 
+K: 
+L: C
+M: 
+N: 
+O: 
+P: B
+Q: 
+
+SCORE = 148460.813102
+A: 
+B: 
+C: L,Q
+D: E
+E: C,A,G,I,J,H,O,P,F
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: B,M,K
+Q: 
+
+SCORE = 161941.091596
+A: 
+B: 
+C: L,Q
+D: 
+E: P,A,H,I,F,O,D,C,G,J
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,M,B
+Q: 
+
+SCORE = 161941.091596
+A: 
+B: 
+C: Q,L
+D: 
+E: G,F,P,D,O,I,C,A,H,J
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,B,K
+Q: 
+
+TIME(total) = 183.418724
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #13 ======
+SCORE = 148155.916244
+A: C
+B: 
+C: E,L
+D: 
+E: P,G,J,F,H,I,O,D
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,B,Q,M
+Q: 
+
+SCORE = 148155.928171
+A: E
+B: 
+C: L
+D: 
+E: H,D,P,J,C,G,O,F,I
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: B,M,K,Q
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: H,F,C,A,P,D,I,J,G,O
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,Q,K,B
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: A,I,H,C,D,O,P,J,G,F
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,M,Q,B
+Q: 
+
+TIME(total) = 198.551518
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #14 ======
+SCORE = 148155.873853
+A: C
+B: 
+C: E,L
+D: 
+E: J,O,H,D,P,F,N,G
+F: 
+G: 
+H: 
+I: 
+J: 
+K: 
+L: 
+M: 
+N: I
+O: 
+P: B,Q,M,K
+Q: 
+
+SCORE = 148192.159848
+A: 
+B: 
+C: Q,E,L
+D: 
+E: H,D,P,A,F,G,I,O
+F: 
+G: 
+H: 
+I: N
+J: C
+K: 
+L: 
+M: 
+N: 
+O: 
+P: B,K,M
+Q: 
+
+SCORE = 148206.934251
+A: 
+B: 
+C: L,Q
+D: 
+E: H,F,P,D,G,C,O,I,A
+F: 
+G: 
+H: 
+I: N
+J: E
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,K,B
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: G,I,C,O,D,J,H,P,A,F
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,B,K,Q
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: A,H,I,C,F,O,D,G,J,P
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K,B,M,Q
+Q: 
+
+TIME(total) = -549538.223958
+NUM ITERATIONS = 5
+ ====== INITIAL SOLUTION #15 ======
+SCORE = 148155.916083
+A: C
+B: H,F,I,O,D,G,P,J
+C: E,B,L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: Q,M,K
+Q: 
+
+SCORE = 148155.928171
+A: B
+B: J,D,H,I,C,F,O,G,P
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: E,K,M,Q
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: G,D,I,F,C,A,J,P,H,O
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: E,M,Q,K
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: F,H,I,P,J,D,G,O,A,C
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,E,K,Q
+Q: 
+
+TIME(total) = 232.909902
+NUM ITERATIONS = 4
+ ====== INITIAL SOLUTION #16 ======
+SCORE = 148090.118016
+A: 
+B: 
+C: E,L,M
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: J,I,O,A,G,H,F,P,D
+N: 
+O: 
+P: K,B,Q
+Q: 
+
+SCORE = 148427.091214
+A: 
+B: 
+C: M
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: C
+M: O,P,I,D,J,F,G,A,H
+N: 
+O: 
+P: K,B,Q,E
+Q: 
+
+SCORE = 148427.091214
+A: 
+B: 
+C: M
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: C
+M: F,O,H,A,P,J,D,I,G
+N: 
+O: 
+P: K,E,Q,B
+Q: 
+
+TIME(total) = 244.217189
+NUM ITERATIONS = 3
+ ====== INITIAL SOLUTION #17 ======
+SCORE = 148155.915761
+A: C
+B: I,G,H,O,D,P,J,F
+C: Q,B,M,E,L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K
+Q: 
+
+SCORE = 148155.927688
+A: B
+B: F,D,H,I,J,P,O,C,G
+C: M,Q,L,E
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: K
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: I,F,A,H,D,C,J,P,G,O
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: Q,M,E,K
+Q: 
+
+SCORE = 161941.091757
+A: 
+B: C,I,A,H,D,F,O,G,J,P
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: Q,K,E,M
+Q: 
+
+TIME(total) = 259.620212
+NUM ITERATIONS = 4
+BEST NETWORK:
+SCORE = 161941.091757
+A: 
+B: 
+C: L
+D: 
+E: 
+F: 
+G: 
+H: 
+I: N
+J: 
+K: 
+L: 
+M: 
+N: 
+O: 
+P: M,K,B,E
+Q: D,G,P,H,A,F,O,I,C,J
 

@@ -74,7 +74,7 @@ class Model :
 		return self.testmodel()
 
 	def calculateprobabilities( self , xsetfield , ysetfield ) :
-		print "Calculating P( %s | %s )" % ( xsetfield , ysetfield )
+		#print "Calculating P( %s | %s )" % ( xsetfield , ysetfield )
 		implies = self.data.evaluate( xsetfield )
 		condition = self.data.evaluate( ysetfield )
 		for xdict in implies :
