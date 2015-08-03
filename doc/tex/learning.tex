@@ -1,7 +1,9 @@
 \section{Learning bayesian networks}
 \label{sec:learning}
 
-In this section, we define mathematically the learning Bayesian network problem and then reduce it to one formula in order to be used as a heuristic score. Finally we explain some popular methods to solve them.
+In this section, we define mathematically the search-and-score approach
+to the Bayesian network learning problem and we review some popular
+solutions.
 
 \subsection{Definition of the problem}
 \label{subsec:definition}
@@ -12,9 +14,9 @@ A general definition of a scoring function is as follows:
 where $N$ is the size of the data set $D$, $F( G, D )$ is a data fitness function (i.e., how well the model represents the observed data), $\varphi( N )$ is a non-decreasing function of data size and $P( G )$ measures the model complexity of $G$. For instance,  the Bayesian information criterion (BIC) is defined as
 	\[ {BIC}( G , D ) = {LL}( G ) - \frac{\log N}{2} {size}( G ) ,\]
 where
-	\[ {LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} ,\] is the data loglikelihood
+	\[ {LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} ,\] is the data loglikelihood, 
 	\[ {size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| ,\] represents the ``size'' of a model with structure $G$, 
-$N$ is the number of instances in the data set, $n$ is the number of atributes, $N_{ijk}$ the number of instances where attribute $X_i$ takes values $k$, and its parents take the $j$th configuration (in some arbitrary ordering), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
+$N$ is the number of instances in the data set, $n$ is the number of atributes, $N_{ijk}$ the number of instances where attribute $X_i$ takes its $k$th value, and its parents take the $j$th configuration (for some arbitrary fixed ordering of the configurations of the parents' values), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
 
         Most scoring functions, BIC included, are \emph{decomposable}, meanining that they can be written as a sum of local scoring functions $sc(X_i, {Pa}(X_i))$. Under the assumption of \emph{score decomposability}, the Bayesian network structure learning problem is defined as finding
 	\[ G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) . \]

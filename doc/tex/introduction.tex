@@ -8,27 +8,29 @@ nodes are the atributes of the data set and the edges encode the
 (in)dependence relationships among the atributes; and (ii) a collection
 of local conditional probability distributions of each atribute given
 its parents. More formally, a Bayesian network specification contains a
-DAG \( G = ( V , E ), \) where $V = \{ X_1 , X_2 , \ldots , X_n \}$ is
-the set of attributes, and a collection of conditional probability
-distributions \( P( X_i \mid {Pa}_G( X_i ) ) \), $i=1,\ldots,n$, where
-${Pa}_G( X_i )$ is the set of atributes that are parents of $X_i$ in
-$G$. This definition shows that the number of numerical parameters
-(i.e., local conditional probability values) grows exponentially with
-the number of parents (in-degree) of a node. A Bayesian network induces
-a joint probability distribution such that
+DAG \( G = ( V , E ), \)
+where $V = \{ X_1 , X_2 , \ldots , X_n \}$ is the set of (discrete)
+attributes, and a collection of conditional probability distributions
+\( P( X_i \mid {Pa}_G( X_i ) ) \),
+$i=1,\ldots,n$, where ${Pa}_G( X_i )$ is the set of atributes that are
+parents of $X_i$ in $G$. This definition shows that the number of
+numerical parameters (i.e., local conditional probability values) grows
+exponentially with the number of parents (in-degree) of a node (assuming
+the values are organized in tables). A Bayesian network induces a joint
+probability distribution over all the attributes through the equation
 \[ P( X_1 , X_2 , \ldots , X_n ) = \prod_{i=1}^{n} P( X_i \mid {Pa}_G( X_i ) ).  \]
 Hence, Bayesian networks with sparse DAGs succinctly represent joint
 probability distributions over many attributes.
 
 A common approach to learning Bayesian networks from a given data set is
-the search-and-score approach, which associates every graph structure
-with a polynomial-time computable score value; we then search
-for structures with high score values. The score of a structure is
-usually a balance between the probability of observing the data set and
-the complexity of the model (i.e., the number of parameters). Some
-examples are the Bayesian Information Criterion (BIC)~\cite{BIC91}, the
-Minimum Description Length (MDL)~\cite{MDL94} and the Bayesian Dirichlet
-score (BD)~\cite{BD95}.
+the search-and-score approach, which consists of associating every graph
+structure with a polynomial-time computable score value and searching
+for structures with high score values. The score value of a structure
+usually rewards structures that assign high probability of observing the
+data set (i.e., the data likelihood) and penalizes the complexity of the
+model (i.e., the number of parameters). Some examples are the Bayesian
+Information Criterion (BIC)~\cite{BIC91}, the Minimum Description Length
+(MDL)~\cite{MDL94} and the Bayesian Dirichlet score (BD)~\cite{BD95}.
 
 
 Score-based Bayesian network structure learning from data is a NP-hard
