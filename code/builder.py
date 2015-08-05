@@ -1,14 +1,13 @@
 from utils import *
 from random import randint
 from copy import deepcopy as copy
-from unionfind import UnionFind
 from data import Data
 from model import Model
 import os.path
 import sys
 
 class BNBuilder :
-	def __init__( self , source , savefilter = False , ommit = [] , discretize = True ) :
+	def __init__( self , source , savefilter = False , ommit = [] , discretize = False ) :
 		outfile = RESULTS_DIR + os.path.basename( source )
 		self.data = Data( source , savefilter , ommit , discretize , outfile )
 		self.data.calculatecounters()
@@ -27,8 +26,8 @@ class BNBuilder :
 		self.out = open( outfilepath , 'w' )
 		network = self.greedySearch()
 		self.out.write( "BEST NETWORK:\n" )
-		self.printnetwork( network )
-		self.saveBestNetwork( network )
+		self.printnetwork( network , printrelations = True )
+		#self.saveBestNetwork( network )
 
 	def saveBestNetwork( self , network ) :
 		dirname = os.path.dirname( self.data.source )
@@ -40,18 +39,19 @@ class BNBuilder :
 
 	def greedySearch( self ) :
 		self.model.initdict()
+		self.model.setnetwork( self.clean_graph() , train = False )
+		self.base_score = self.model.score()
 		print "Learning bayesian network from dataset %s" % self.data.source
-		start = cpu_time()
 		init_orders = self.initialize()
 		best_order = None
-		self.out.write( "TIME(initialization) = %s\n" % ( cpu_time() - start ) )
 		for i in xrange( len( init_orders ) ) :
-			print " ====== INITIAL SOLUTION #%s ======" % (i+1)
-			self.out.write( " ====== INITIAL SOLUTION #%s ======\n" % (i+1) )
+			print " ============ INITIAL SOLUTION #%s ============" % (i+1)
+			self.out.write( " ============ INITIAL SOLUTION #%s ============\n" % (i+1) )
 			cur_order = copy( init_orders[ i ] )
+			print cur_order
 			num_iterations = NUM_GREEDY_ITERATIONS
 			for k in xrange( num_iterations ) :
-				print " === Iteration #%s === " % (k+1)
+				print " ====== Iteration #%s ====== " % (k+1)
 				adj_order = self.find_order( cur_order )
 				restart_order = self.random_restart( adj_order )
 				if self.better_order( restart_order , adj_order ) :
@@ -69,7 +69,6 @@ class BNBuilder :
 					num_iterations = k + 1
 					self.printnetwork( self.model.network )
 					break
-			self.out.write( "TIME(total) = %s\n" % ( cpu_time() - start ) )
 			self.out.write( "NUM ITERATIONS = %s\n" % num_iterations )
 			if not best_order or self.better_order( cur_order , best_order ) :
 				best_order = copy( cur_order )
@@ -150,11 +149,11 @@ class BNBuilder :
 		for p in parents : network[ p ][ 'childs' ].append( field )
 		network[ 'score' ] += score
 
-	def printnetwork( self , network ) :
-		self.out.write( "SCORE = %s\n" % network[ 'score' ] )
-		for field in self.data.fields :
-			self.out.write( "%s: %s\n" % ( field , ','.join( network[ field ][ 'childs' ] ) ) )
-		self.out.write( '\n' )
+	def printnetwork( self , network , printrelations = False ) :
+		self.out.write( "SCORE = %s\n" % ( network[ 'score' ] - self.base_score ) )
+		if printrelations :
+			for field in self.data.fields :
+				self.out.write( "%s: %s\n" % ( field , ','.join( network[ field ][ 'childs' ] ) ) )
 		self.out.flush()
 
 	def isbetter( self , score1 , score2 ) :
@@ -169,44 +168,37 @@ class BNBuilder :
 		elif desc == 'unweighted' : self.initialize = self.unweighted_solutions
 		elif desc == 'weighted' : self.initialize = self.weighted_solutions
 
+	''' =========================== RANDOM SOLUTION APPROACH =========================== '''
 	def random_solutions( self ) :
 		solutions = []
 		num_fields = len( self.data.fields )
 		model = copy( self.model )
-		for k in range( num_fields ) :
+		for k in xrange( NUM_INITIAL_SOLUTIONS ) :
 			order = shuffle( self.data.fields )
 			network = self.find_greedy_network( order )
 			model.setnetwork( network , topo_order = order , train = False )
 			solutions.append( model.topological )
 		return solutions
-
-	def dfs( self , graph , node , visited , network ) :
-		visited[ node ] = True
+	
+	''' =========================== DFS APPROACH =========================== '''
+	def dfs( self , graph , node , unvisited , order ) :
+		unvisited.remove( node )
+		order.append( node )
+		graph[ node ][ 'childs' ] = shuffle( graph[ node ][ 'childs' ] )
 		for child in graph[ node ][ 'childs' ] :
-			if child in visited : continue
-			''' Deleting in graph '''
-			graph[ node ][ 'childs' ].remove( child )
-			graph[ child ][ 'parents' ].remove( node )
-			''' Adding to network '''
-			network[ node ][ 'childs' ].append( child )
-			network[ child ][ 'parents' ].append( node )
-			self.dfs( graph , child , visited , network )
+			if child not in unvisited : continue
+			self.dfs( graph , child , unvisited , order )
 	
-	def change_directions( self , graph , network ) :
-		for field in self.data.fields :
-			if field not in graph : continue
-			for par in graph[ field ][ 'parents' ] :
-				self.add_edge( network , field , par )
-			for ch in graph[ field ][ 'childs' ] :
-				self.add_edge( network , ch , field )
-	
-	def add_edge( self , graph , from_node , to_node ) :
-		if from_node in graph[ to_node ][ 'childs' ] : return
-		if to_node in graph[ from_node ][ 'parents' ] : return
-		if to_node not in graph[ from_node ][ 'childs' ] :
-			graph[ from_node ][ 'childs' ].append( to_node )
-		if from_node not in graph[ to_node ][ 'parents' ] :
-			graph[ to_node ][ 'parents' ].append( from_node )
+	def traverse_graph( self , graph ) :
+		unvisited = copy( self.data.fields )
+		G = copy( graph )
+		order = []
+		length = len( self.data.fields )
+		while unvisited :
+			pos = randint( 0 , len( unvisited ) - 1 )
+			root = unvisited[ pos ]
+			self.dfs( G , root , unvisited , order )
+		return order
 
 	def unweighted_solutions( self ) :
 		print "Building graph with best parents for each field"
@@ -214,73 +206,110 @@ class BNBuilder :
 		print "GREEDY GRAPH"
 		for f in self.data.fields : print "%s:%s" % ( f , greedy_graph[ f ][ 'parents' ] )
 		solutions = []
-		for field in self.data.fields :
-			print " === Building network with root %s === " % field.upper()
-			network = self.clean_graph()
-			visited = {}
-			graph = copy( greedy_graph )
-			self.dfs( graph , field , visited , network )
-			self.change_directions( graph , network )
-			model = copy( self.model )
-			model.setnetwork( network , train = False )
-			print ', '.join( model.topological )
-			solutions.append( model.topological )
+		for i in xrange( NUM_INITIAL_SOLUTIONS ) :
+			print " === Building network #%s === " % (i+1)
+			order = self.traverse_graph( greedy_graph )
+			solutions.append( copy( order ) )
 		return solutions
 
+	''' =========================== FAS APPROACH =========================== '''
 	def add_weights( self , graph ) :
 		G = self.clean_graph()
 		for field in self.data.fields :
-			for child in graph[ field ][ 'childs' ] :
-				weight = self.model.bic_score( field , graph[ field ][ 'parents' ] ) - \
-							self.model.bic_score( field , [ child ] )
-				G[ field ][ 'childs' ].append( ( child , weight ) )
-				G[ child ][ 'parents' ].append( ( field , weight ) )
-				G[ field ][ 'parents' ].append( ( child , weight ) )
-				G[ child ][ 'childs' ].append( ( field , weight ) )
+			for par in graph[ field ][ 'parents' ] :
+				best_parents = copy( graph[ field ][ 'parents' ] )
+				new_parents = copy( best_parents )
+				new_parents.remove( par )
+				weight = self.model.bic_score( field , best_parents ) - self.model.bic_score( field , new_parents )
+				G[ field ][ 'parents' ].append( ( par , weight ) )
+				G[ par ][ 'childs' ].append( ( field , weight ) )
 		return G
-
-	def kruskal( self , graph ) :
-		p = UnionFind( len( self.data.fields ) )
-		edges = []
+	
+	def delete_weights( self , graph ) :
+		G = self.clean_graph()
 		for field in self.data.fields :
-			id1 = self.data.fields.index( field )
 			for ( child , weight ) in graph[ field ][ 'childs' ] :
-				id2 = self.data.fields.index( child )
-				edges.append( ( weight , id1 , id2 , field , child ) )
-				edges.append( ( weight , id2 , id2 , child , field ) )
-		sorted( edges , key = lambda edg : edg[ 0 ] )
-		M = self.clean_graph()
-		for edg in edges :
-			x , y , node1 , node2 = edg[ 1: ]
-			if p.sameSet( x , y ) : continue
-			p.unionSet( x , y )
-			M[ node1 ][ 'childs' ].append( node2 )
-			M[ node2 ][ 'parents' ].append( node1 )
-			M[ node2 ][ 'childs' ].append( node1 )
-			M[ node1 ][ 'parents' ].append( node2 )
-		return M
+				G[ field ][ 'childs' ].append( child )
+				G[ child ][ 'parents' ].append( field )
+		return G
+	
+	def get_edges( self , graph , cycle ) :
+		cycle = list( reversed( cycle ) )
+		edges = []
+		length = len( cycle )
+		for i in xrange( length ) :
+			from_node = cycle[ i ]
+			to_node = cycle[ ( i + 1 ) % length ]
+			for ( child , weight ) in graph[ from_node ][ 'childs' ] :
+				if child == to_node :
+					edges.append( ( from_node , to_node , weight ) )
+		return edges
+
+	def has_cycles( self , graph ) :
+		length = len( self.data.fields )
+		row = [ INT_MAX ] * length
+		g = []
+		for i in xrange( length ) : g.append( copy( row ) )
+		for field in self.data.fields :
+			idx = self.data.fields.index( field )
+			for ( child , weight ) in graph[ field ][ 'childs' ] :
+				idy = self.data.fields.index( child )
+				g[ idx ][ idy ] = 1
+		p = copy( g )
+		for i in xrange( length ) :
+			for j in xrange( length ) :
+				p[ i ][ j ] = i
+		for k in xrange( length ) :
+			for i in xrange( length ) :
+				for j in xrange( length ) :
+					aux = g[ i ][ k ] + g[ k ][ j ]
+					if aux < g[ i ][ j ] :
+						g[ i ][ j ] = aux
+						p[ i ][ j ] = p[ k ][ j ]
+		cycle = []
+		for i in xrange( length ) :
+			if g[ i ][ i ] != INT_MAX :
+				cycle.append( self.data.fields[ p[ i ][ i ] ] )
+				s = i
+				t = p[ i ][ i ]
+				while s != t :
+					cycle.append( self.data.fields[ p[ s ][ t ] ] )
+					t = p[ s ][ t ]
+				return self.get_edges( graph , cycle )
+		return None
+
+	def fas_solver( self , graph ) :
+		fas_set = []
+		while True :
+			cycle = self.has_cycles( graph )
+			if not cycle : break
+			worst_weight = min( [ edg[ 2 ] for edg in cycle ] ) # Tuples ( From , To , Weight )
+			for edg in cycle :
+				for ( child , weight ) in graph[ edg[ 0 ] ][ 'childs' ] :
+					if child != edg[ 1 ] : continue
+					graph[ edg[ 0 ] ][ 'childs' ].remove( ( child , weight ) )
+					new_weight = weight - worst_weight
+					if new_weight == 0 :
+						fas_set.append( ( edg[ 0 ] , edg[ 1 ] ) )
+					else :
+						graph[ edg[ 0 ] ][ 'childs' ].append( ( child , weight - worst_weight ) )
+		return self.delete_weights( graph )
 
 	def weighted_solutions( self ) :
 		print "Building graph with best parents for each field"
 		greedy_graph = self.find_greedy_network( self.data.fields , all_options = True )
 		print "GREEDY GRAPH"
-		for f in self.data.fields : print "%s:%s" % ( f , greedy_graph[ f ][ 'parents' ] )
-		kruskal_graph = self.add_weights( greedy_graph )
-		mst = self.kruskal( kruskal_graph )
+		for f in self.data.fields : print "%s:%s" % ( f , greedy_graph[ f ][ 'childs' ] )
+		weighted_graph = self.add_weights( greedy_graph )
+		fas_graph = self.fas_solver( weighted_graph )
 		solutions = []
-		for field in self.data.fields :
-			print " === Building network with root %s === " % field.upper()
-			network = self.clean_graph()
-			visited = {}
-			graph = copy( mst )
-			self.dfs( graph , field , visited , network )
-			self.change_directions( graph , network )
-			model = copy( self.model )
-			model.setnetwork( network , train = False )
-			print ', '.join( model.topological )
-			solutions.append( model.topological )
+		for i in xrange( NUM_INITIAL_SOLUTIONS ) :
+			print " === Building order #%s === " % (i+1)
+			order = topological( fas_graph , self.data.fields )
+			if order in solutions : continue
+			solutions.append( copy( order ) )
 		return solutions
-	
+
 if __name__ == "__main__" :
 	if len( sys.argv ) == 4 :
 		dataset_file , ommit_fields , out_file = sys.argv[ 1: ]
@@ -291,11 +320,15 @@ if __name__ == "__main__" :
 		print "========== RUNNING WITH RANDOM PERMUTATION =========="
 		builder.setInitialSolutionType( 'random' )
 		builder.buildNetwork( outfilepath = out_file % 'random' )
-		
+	
 		print "========== RUNNING WITH DFS =========="
 		builder.setInitialSolutionType( 'unweighted' )
 		builder.buildNetwork( outfilepath = out_file % 'unweighted' )
 		
-		print "========== RUNNING WITH MST + DFS =========="
+		'''
+		print "========== RUNNING WITH FAS APPROXIMATION =========="
 		builder.setInitialSolutionType( 'weighted' )
 		builder.buildNetwork( outfilepath = out_file % 'weighted' )
+		'''
+	else :
+		print "Usage: pypy %s <csv_file> <ommit_fields> <results_file>" % sys.argv[ 0 ]
