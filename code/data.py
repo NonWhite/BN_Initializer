@@ -17,7 +17,6 @@ class Data :
 	def init( self ) :
 		self.preprocess()
 		self.calculatestats()
-		#self.printstats()
 		self.discretizefields()
 		self.export()
 
