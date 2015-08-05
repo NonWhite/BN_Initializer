@@ -1,1530 +1,421 @@
-TIME(initialization) = 549761.027388
- ====== INITIAL SOLUTION #1 ======
-SCORE = 79894.9779886
-A: D,V,H,B,O,P,J,C,G,F,U,M,N,T,L,W
-B: K,I,Q,E,R
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549767.164717
-NUM ITERATIONS = 1
- ====== INITIAL SOLUTION #2 ======
-SCORE = 78923.976738
-A: 
-B: K,E,R,I,Q,A
-C: 
-D: 
-E: 
-F: 
-G: B,S
-H: 
-I: 
-J: 
-K: H,P,F,C,U,O,M,L,V,D,T,W,J,N
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.976738
-A: 
-B: Q,I,K,E,A,R
-C: 
-D: 
-E: 
-F: 
-G: B,S
-H: 
-I: 
-J: 
-K: W,D,P,T,C,J,U,F,H,O,N,L,V,M
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549779.296446
+ ============ INITIAL SOLUTION #1 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #2 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #3 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #4 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
 NUM ITERATIONS = 2
- ====== INITIAL SOLUTION #3 ======
-SCORE = 78917.9092033
-A: J,W,L,U,B,V,T,P,M,N,D,F,H,O
-B: E,K,Q,R,I
-C: A
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: C
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: H,D,J,O,F,L,P,T,C,N,M,V,U,W,B
-B: Q,E,I,K,R
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: H,M,V,B,U,L,C,J,N,F,O,T,W,D,P
-B: I,R,E,K,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 4337.238919
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #4 ======
-SCORE = 78837.7703566
-A: O,C,B,L,U,T,J,V,W,N,F,M,H,P
-B: Q,I,E,K,R
-C: 
-D: A
-E: 
-F: 
-G: D,S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: D,V,P,M,T,O,N,U,F,W,L,J,B,C,H
-B: E,R,I,K,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: C,J,D,N,V,T,U,L,M,P,B,O,H,F,W
-B: E,I,R,Q,K
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549816.569043
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #5 ======
-SCORE = 79895.3800186
-A: 
-B: K,G,R,Q,I,A
-C: 
-D: 
-E: D,W,F,U,N,V,B,C,L,M,H,J,O,P,T
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: Q,R,I,A,K,S
-C: 
-D: 
-E: O,N,T,M,B,W,P,L,F,D,V,C,J,U,H
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: K,R,Q,S,I,A
-C: 
-D: 
-E: H,C,W,D,T,F,O,U,N,V,M,J,L,P,B
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549835.165834
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #6 ======
-SCORE = 78859.6474397
-A: O,U,P,J,M,H,D,C,N,L,W,T,V,B
-B: R,K,Q,I,E
-C: 
-D: 
-E: 
-F: A
-G: S,F
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: C,P,U,F,B,L,V,N,J,T,H,M,W,D,O
-B: Q,R,K,E,I
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: J,N,C,M,V,O,T,B,U,D,F,H,P,W,L
-B: K,Q,R,I,E
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549853.630601
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #7 ======
-SCORE = 79894.9779886
-A: D,B,H,T,W,O,P,G,M,C,L,J,V,F,N,U
-B: E,I,Q,R,K
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549859.955173
+ ============ INITIAL SOLUTION #5 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #6 ============
+SCORE = 80382.1022819
 NUM ITERATIONS = 1
- ====== INITIAL SOLUTION #8 ======
-SCORE = 78888.0552642
-A: U,L,F,T,B,N,D,O,W,P,M,C,V,J
-B: I,Q,R,K,E
-C: 
-D: 
-E: 
-F: 
-G: H,S
-H: A
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 110.495242
+ ============ INITIAL SOLUTION #7 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #8 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #9 ============
+SCORE = 80381.9869526
 NUM ITERATIONS = 1
- ====== INITIAL SOLUTION #9 ======
-SCORE = 79894.9779886
-A: 
-B: E,R,A,K,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: O,C,H,L,F,N,V,D,G,J,W,P,T,U,M,B
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.2408805
-A: 
-B: A,Q,K,R,E
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: V,W,C,L,J,S,H,F,T,N,D,B,O,U,P,M
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: E,S,R,A,Q,K
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: J,L,O,V,M,F,D,T,B,W,C,P,H,U,N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: K,R,S,A,Q,E
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: D,F,T,J,C,B,P,U,V,W,H,O,L,M,N
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549890.79672
+ ============ INITIAL SOLUTION #10 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #11 ============
+SCORE = 80381.9869526
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #12 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #13 ============
+SCORE = 80382.1022819
+SCORE = 80382.132708
+SCORE = 80382.1341338
+SCORE = 80382.1341338
 NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #10 ======
-SCORE = 78895.4730018
-A: M,N,W,O,L,H,U,V,B,F,D,C,T,P
-B: E,I,K,Q,R
-C: 
-D: 
-E: 
-F: 
-G: J,S
-H: 
-I: 
-J: A
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549897.118514
-NUM ITERATIONS = 1
- ====== INITIAL SOLUTION #11 ======
-SCORE = 79894.9779886
-A: 
-B: A,Q,I,E,R
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: F,M,L,D,P,C,O,V,J,U,N,B,H,W,G,T
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: A,S,Q,E,I,R
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: N,W,D,J,B,L,M,F,C,T,U,P,O,V,H
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: S,R,Q,I,A,E
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: V,P,O,W,N,H,B,T,J,M,C,L,U,F,D
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 159.532534
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #12 ======
-SCORE = 78760.7951331
-A: P,V,C,W,F,T,O,N,J,M,U,D,H,B
-B: E,I,R,Q,K
-C: 
-D: 
-E: 
-F: 
-G: L,S
-H: 
-I: 
-J: 
-K: 
-L: A
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549921.690906
-NUM ITERATIONS = 1
- ====== INITIAL SOLUTION #13 ======
-SCORE = 78919.6010482
-A: W,L,T,B,H,U,F,J,V,C,N,D,O,P
-B: R,E,I,Q,K
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: A
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: M
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: M,J,V,C,U,P,F,H,B,O,L,W,T,N,D
-B: E,Q,K,I,R
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: M,D,J,T,F,P,C,H,B,N,V,U,W,L,O
-B: K,E,I,Q,R
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 549940.587371
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #14 ======
-SCORE = 78913.6055082
-A: F,C,J,W,M,H,L,B,D,T,V,O,U,P
-B: K,I,Q,E,R
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: A
-O: 
-P: 
-Q: 
-R: 
-S: N
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: H,L,M,W,P,T,B,U,F,V,O,J,D,C,N
-B: E,K,R,I,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: V,J,W,N,C,H,U,D,L,P,B,M,O,T,F
-B: K,E,Q,R,I
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 203.704209
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #15 ======
-SCORE = 79894.5628689
-A: 
-B: S,Q,E,R
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: O,C,U,B,P,W,V,L,F,M,N,J,H,D,T
-J: 
-K: 
-L: 
-M: 
-N: 
-O: A
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: Q,R,E,S,A,K
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: B,J,L,M,W,F,U,O,T,N,H,C,V,D,P
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: R,A,K,E,Q,S
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: T,H,L,V,M,F,J,C,N,P,D,B,W,O,U
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 4517.046201
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #16 ======
-SCORE = 78847.8123298
-A: V,N,L,U,J,C,O,M,D,B,W,T,F,H
-B: E,K,Q,R,I
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: A
-Q: 
-R: 
-S: P
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: P,T,L,J,U,B,V,W,M,D,N,C,O,H,F
-B: R,K,I,E,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79894.7561235
-A: S,B,V,P,M,T,L,N,O,C,F,H,D,U,W,J,R
-B: Q,E,I,K
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79894.7561235
-A: U,N,O,F,J,D,R,M,B,L,S,V,C,H,P,W,T
-B: I,Q,E,K
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 247.133076
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #17 ======
-SCORE = 79895.4118847
-A: 
-B: R,A,S,E,K,I
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: F,H,J,B,C,O,U,V,M,L,T,D,N,W,P
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: I,K,E,R,A,S
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: F,D,B,H,J,W,C,V,M,U,T,O,N,L,P
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 550015.072492
+ ============ INITIAL SOLUTION #14 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
 NUM ITERATIONS = 2
- ====== INITIAL SOLUTION #18 ======
-SCORE = 78908.8900251
-A: 
-B: I,K,A,Q,E
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: P,H,O,D,N,V,T,C,U,L,W,M,J,F
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: B
-S: R
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78924.0086041
-A: C,N,V,W,F,J,L,T,M,O,P,D,U,H
-B: K,E,I,R,A,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: B
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78924.0086041
-A: U,T,H,D,M,P,C,J,W,V,L,F,O,N
-B: I,Q,E,R,K,A
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: B
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 278.099299
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #19 ======
-SCORE = 79895.4118847
-A: M,V,T,H,W,F,D,P,N,C,J,O,U,B,L
-B: E,Q,K,I,R,S
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: H,V,T,F,L,J,W,N,P,O,C,D,B,U,M
-B: Q,K,E,S,R,I
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 550046.288904
+ ============ INITIAL SOLUTION #15 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
 NUM ITERATIONS = 2
- ====== INITIAL SOLUTION #20 ======
-SCORE = 78917.9282345
-A: 
-B: R,K,Q,I,A,E
-C: 
-D: 
-E: 
-F: 
-G: T,S
-H: 
-I: F,P,J,O,N,D,V,H,C,L,M,W,U
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: B
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78924.0086041
-A: 
-B: A,K,R,E,I,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: C,P,F,N,W,O,D,V,J,M,U,L,T,H
-R: 
-S: B
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.2408805
-A: 
-B: Q,E,K,A,R
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: F,S,H,L,V,U,N,M,D,P,W,B,J,C,T,O
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: Q,S,R,A,E,K
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: N,V,J,P,U,H,L,F,O,T,B,W,M,C,D
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 79895.4118847
-A: 
-B: S,Q,R,E,K,A
-C: 
-D: 
-E: 
-F: 
-G: 
-H: 
-I: O,M,T,C,B,H,P,D,V,N,W,J,L,F,U
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: G
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 4616.5621
-NUM ITERATIONS = 5
- ====== INITIAL SOLUTION #21 ======
-SCORE = 78831.6029685
-A: J,N,C,L,V,O,B,D,T,M,P,F,H,W
-B: E,I,R,K,Q
-C: 
-D: 
-E: 
-F: 
-G: U,S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: 
-T: 
-U: A
-V: 
-W: 
-
-TIME(total) = 550083.732432
+ ============ INITIAL SOLUTION #16 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #17 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #18 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #19 ============
+SCORE = 80382.1022819
 NUM ITERATIONS = 1
- ====== INITIAL SOLUTION #22 ======
-SCORE = 78883.5370583
-A: W,L,F,D,H,P,T,N,M,B,O,J,C,U
-B: E,K,R,Q,I
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: V
-T: 
-U: 
-V: A
-W: 
-
-SCORE = 78923.8375998
-A: V,J,O,N,D,C,W,P,B,F,H,U,T,M,L
-B: Q,K,I,E,R
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: W,O,U,V,F,N,J,D,H,P,M,C,L,T,B
-B: E,R,I,Q,K
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 550102.628891
+ ============ INITIAL SOLUTION #20 ============
+SCORE = 80382.1022819
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #21 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #22 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #23 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
 NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #23 ======
-SCORE = 78908.1828523
-A: U,B,M,J,L,D,F,P,V,H,O,N,C,T
-B: K,E,I,R,Q
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: W
-T: 
-U: 
-V: 
-W: A
-
-SCORE = 78923.8375998
-A: P,J,B,H,M,N,L,U,T,C,V,F,W,O,D
-B: E,Q,K,R,I
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-SCORE = 78923.8375998
-A: N,V,J,D,B,H,O,L,M,T,U,F,C,W,P
-B: K,E,R,Q,I
-C: 
-D: 
-E: 
-F: 
-G: S
-H: 
-I: 
-J: 
-K: 
-L: 
-M: 
-N: 
-O: 
-P: 
-Q: 
-R: 
-S: A
-T: 
-U: 
-V: 
-W: 
-
-TIME(total) = 365.660804
+ ============ INITIAL SOLUTION #24 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #25 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #26 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #27 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
 NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #28 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #29 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #30 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #31 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #32 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #33 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #34 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #35 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #36 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #37 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #38 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #39 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #40 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #41 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #42 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #43 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #44 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #45 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #46 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #47 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #48 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #49 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #50 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #51 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #52 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #53 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #54 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #55 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #56 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #57 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #58 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #59 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #60 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #61 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #62 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #63 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #64 ============
+SCORE = 80382.1022819
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #65 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #66 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #67 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #68 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #69 ============
+SCORE = 80381.9869526
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #70 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #71 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #72 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #73 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #74 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #75 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #76 ============
+SCORE = 80382.1022819
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #77 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #78 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #79 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #80 ============
+SCORE = 80381.9869526
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #81 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #82 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #83 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #84 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #85 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #86 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #87 ============
+SCORE = 80382.1022819
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #88 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #89 ============
+SCORE = 80382.118473
+SCORE = 80382.118473
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #90 ============
+SCORE = 80381.9869526
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #91 ============
+SCORE = 80381.9869526
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #92 ============
+SCORE = 80382.1022819
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #93 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #94 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #95 ============
+SCORE = 80381.9869526
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #96 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #97 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #98 ============
+SCORE = 80382.118473
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #99 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #100 ============
+SCORE = 80382.1341338
+SCORE = 80382.1341338
+NUM ITERATIONS = 2
 BEST NETWORK:
-SCORE = 79895.4118847
-A: 
-B: A,Q,S,I,R,K
+SCORE = 80382.1341338
+A: F,B,D,J,L,N,V,T,C,M,O,P,U,W,H
+B: I,K,Q,R,S
 C: 
-D: 
-E: N,U,P,O,T,C,W,L,H,F,M,D,J,B,V
+D: I,K,Q
+E: A,F,B,D,J,L,N,V,T,C,M,O,P,U,R,W,H,S,G
 F: 
 G: 
 H: 
@@ -1543,4 +434,3 @@ T:
 U: 
 V: 
 W: 
-
