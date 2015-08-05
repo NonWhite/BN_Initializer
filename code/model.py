@@ -123,7 +123,9 @@ class Model :
 		N = len( self.data.rows )
 		H = self.entropy( xsetfield , ysetfield )
 		S = self.size( xsetfield , ysetfield )
-		resp = ( -N * H ) + ( log( N ) / 2.0 * S )
+		resp = ( -N * H ) - ( log( N ) / 2.0 * S )
+		#print "BIC( %s | %s ) = %s" % ( xsetfield , ysetfield , resp )
+		self.bicvalues[ field ][ cond ] = -resp
 		return -resp
 	
 	def entropy( self , xsetfield , ysetfield ) :
