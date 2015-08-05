@@ -1,1116 +1,703 @@
-TIME(initialization) = -549727.887297
- ====== INITIAL SOLUTION #1 ======
-SCORE = 545888.648559
-age: capital_gain,native_country
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: 
-capital_gain: hours_per_week,race,workclass
-capital_loss: relationship,education,marital_status,occupation,education_num
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 551525.686639
-age: capital_gain
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: 
-capital_gain: race,hours_per_week
-capital_loss: relationship,occupation,education_num,workclass,education,marital_status
-hours_per_week: 
-native_country: age
-annual_income: 
-
-SCORE = 551703.253894
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: 
-capital_gain: hours_per_week,race
-capital_loss: education_num,occupation,marital_status,relationship,education,workclass
-hours_per_week: age
-native_country: capital_gain
-annual_income: 
-
-SCORE = 564445.035384
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: 
-capital_gain: race,native_country,hours_per_week
-capital_loss: education_num,occupation,education,relationship,marital_status,workclass
-hours_per_week: age
-native_country: 
-annual_income: 
-
-SCORE = 564726.400061
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,age,annual_income
-sex: education_num
-capital_gain: race
-capital_loss: occupation,education,workclass,relationship,native_country,marital_status,hours_per_week,sex
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564726.400061
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,annual_income,capital_loss
-sex: education_num
-capital_gain: race
-capital_loss: hours_per_week,relationship,native_country,workclass,sex,occupation,marital_status,education
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 197.067993
-NUM ITERATIONS = 6
- ====== INITIAL SOLUTION #2 ======
-SCORE = 544939.543543
-age: workclass
-workclass: capital_gain
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss
-sex: 
-capital_gain: native_country,race,relationship
-capital_loss: marital_status,education,occupation,education_num,hours_per_week
-hours_per_week: 
-native_country: annual_income
-annual_income: 
-
-SCORE = 545624.551047
-age: capital_gain
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss
-sex: 
-capital_gain: native_country,race,workclass,relationship
-capital_loss: hours_per_week,education_num,occupation,education,marital_status
-hours_per_week: 
-native_country: annual_income
-annual_income: 
-
-SCORE = 564443.901864
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,age
-sex: 
-capital_gain: native_country,race
-capital_loss: relationship,hours_per_week,occupation,education,marital_status,education_num,workclass
-hours_per_week: 
-native_country: annual_income
-annual_income: 
-
-SCORE = 564660.320432
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss,age
-sex: 
-capital_gain: race
-capital_loss: workclass,occupation,marital_status,relationship,education,hours_per_week,education_num,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564726.400061
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,age,capital_loss
-sex: education_num
-capital_gain: race
-capital_loss: occupation,sex,native_country,workclass,education,hours_per_week,relationship,marital_status
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564726.400061
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income,age
-sex: education_num
-capital_gain: race
-capital_loss: workclass,education,native_country,marital_status,hours_per_week,occupation,relationship,sex
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 357.560365
-NUM ITERATIONS = 6
- ====== INITIAL SOLUTION #3 ======
-SCORE = 544926.624514
-age: education_num,occupation
-workclass: 
-education: 
-education_num: marital_status,sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss
-sex: capital_gain,workclass
-capital_gain: race,native_country
-capital_loss: education,hours_per_week,relationship
-hours_per_week: 
-native_country: annual_income
-annual_income: 
-
-SCORE = 548821.339552
-age: 
-workclass: 
-education: 
-education_num: sex,marital_status
-marital_status: 
-occupation: 
-relationship: 
-race: age
-sex: capital_loss,capital_gain
-capital_gain: 
-capital_loss: occupation,workclass,race,hours_per_week,relationship,education,annual_income,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 548978.87098
-age: 
-workclass: 
-education: 
-education_num: sex,marital_status
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_gain,age
-sex: capital_loss
-capital_gain: 
-capital_loss: workclass,hours_per_week,occupation,race,native_country,relationship,education
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 548978.87098
-age: 
-workclass: 
-education: 
-education_num: marital_status,sex
-marital_status: 
-occupation: 
-relationship: 
-race: age,annual_income,capital_gain
-sex: capital_loss
-capital_gain: 
-capital_loss: education,relationship,race,hours_per_week,occupation,workclass,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 461.704066
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #4 ======
-SCORE = 547768.641494
-age: 
-workclass: hours_per_week
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_gain,age,annual_income,capital_loss
-sex: education_num,education,workclass,race
-capital_gain: 
-capital_loss: occupation,relationship,marital_status,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 548475.236001
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_gain,annual_income,age,capital_loss
-sex: race,education_num,workclass
-capital_gain: 
-capital_loss: hours_per_week,marital_status,education,native_country,occupation,relationship
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549174.611009
-age: race
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_gain,annual_income,capital_loss
-sex: education_num,age
-capital_gain: 
-capital_loss: marital_status,education,workclass,occupation,relationship,native_country,hours_per_week
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549174.611009
-age: race
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_gain,capital_loss,annual_income
-sex: education_num,age
-capital_gain: 
-capital_loss: native_country,marital_status,occupation,education,workclass,relationship,hours_per_week
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 576.553702
-NUM ITERATIONS = 4
- ====== INITIAL SOLUTION #5 ======
-SCORE = 545121.48971
-age: education_num,occupation
-workclass: 
-education: 
-education_num: marital_status,sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income
-sex: workclass,education,capital_gain
-capital_gain: race
-capital_loss: relationship,native_country,hours_per_week
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 546259.491215
-age: education_num
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: capital_gain
-capital_gain: race
-capital_loss: hours_per_week,occupation,education,workclass,marital_status,native_country,relationship
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 548949.892972
-age: 
-workclass: 
-education: 
-education_num: age,sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: capital_gain
-capital_gain: race
-capital_loss: marital_status,occupation,hours_per_week,relationship,native_country,education,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549041.79385
-age: race
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income,capital_gain
-sex: age
-capital_gain: 
-capital_loss: relationship,workclass,native_country,education,hours_per_week,marital_status,occupation
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549174.611009
-age: race
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_gain,capital_loss
-sex: education_num,age
-capital_gain: 
-capital_loss: occupation,hours_per_week,workclass,native_country,relationship,education,marital_status
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549174.611009
-age: race
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_gain,capital_loss,annual_income
-sex: age,education_num
-capital_gain: 
-capital_loss: relationship,hours_per_week,native_country,occupation,marital_status,education,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 747.757219
-NUM ITERATIONS = 6
- ====== INITIAL SOLUTION #6 ======
-SCORE = 545784.896769
-age: sex
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: education,capital_gain,education_num,workclass
-capital_gain: race
-capital_loss: occupation,hours_per_week,marital_status,relationship,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 548683.629008
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,capital_loss,annual_income
-sex: workclass,education_num,capital_gain
-capital_gain: race
-capital_loss: native_country,education,marital_status,relationship,occupation,hours_per_week
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549176.529793
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,age,annual_income
-sex: capital_gain,education_num
-capital_gain: race
-capital_loss: native_country,education,hours_per_week,workclass,marital_status,occupation,relationship
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564667.783809
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,annual_income,capital_loss
-sex: education_num
-capital_gain: race,sex
-capital_loss: relationship,native_country,occupation,hours_per_week,marital_status,education,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564667.783809
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,capital_loss,annual_income
-sex: education_num
-capital_gain: sex,race
-capital_loss: relationship,occupation,workclass,education,native_country,hours_per_week,marital_status
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = -548868.972817
+ ============ INITIAL SOLUTION #1 ============
+SCORE = 217407.317033
+SCORE = 217408.025898
+SCORE = 217409.620406
+SCORE = 217414.770743
+SCORE = 217414.770743
 NUM ITERATIONS = 5
- ====== INITIAL SOLUTION #7 ======
-SCORE = 544774.406582
-age: education_num,occupation
-workclass: 
-education: 
-education_num: sex,marital_status
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: education,capital_gain,workclass
-capital_gain: relationship,race,hours_per_week
-capital_loss: native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 547945.329995
-age: occupation
-workclass: 
-education: 
-education_num: sex,race
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,age,annual_income,capital_gain,workclass
-sex: education
-capital_gain: 
-capital_loss: relationship,native_country,hours_per_week,marital_status
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 553043.421813
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_gain,capital_loss,workclass,age
-sex: 
-capital_gain: 
-capital_loss: education,education_num,marital_status,native_country,hours_per_week,occupation,relationship
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 553451.319663
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: age,capital_gain,annual_income,capital_loss
-sex: 
-capital_gain: 
-capital_loss: occupation,relationship,education,workclass,hours_per_week,marital_status,education_num,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 553517.399293
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,capital_gain,annual_income,capital_loss
-sex: education_num
-capital_gain: 
-capital_loss: workclass,hours_per_week,occupation,sex,relationship,marital_status,education,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 569131.706796
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,annual_income,capital_gain
-sex: education_num
-capital_gain: 
-capital_loss: occupation,relationship,education,sex,marital_status,race,workclass,hours_per_week,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 569131.706796
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_gain,age
-sex: education_num
-capital_gain: 
-capital_loss: occupation,workclass,relationship,education,native_country,hours_per_week,marital_status,race,sex
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 1090.531937
-NUM ITERATIONS = 7
- ====== INITIAL SOLUTION #8 ======
-SCORE = 548249.812576
-age: 
-workclass: 
-education: 
-education_num: sex,marital_status,hours_per_week
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,age,capital_loss
-sex: capital_gain
-capital_gain: race,native_country,occupation
-capital_loss: education,relationship,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549393.386519
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: age,capital_loss,annual_income
-sex: capital_gain
-capital_gain: race
-capital_loss: occupation,workclass,marital_status,native_country,education,relationship
-hours_per_week: education_num
-native_country: 
-annual_income: 
-
-SCORE = 549393.386519
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,age,annual_income
-sex: capital_gain
-capital_gain: race
-capital_loss: education,relationship,occupation,workclass,marital_status,native_country
-hours_per_week: education_num
-native_country: 
-annual_income: 
-
-TIME(total) = 1177.979092
-NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #9 ======
-SCORE = 543343.152345
-age: workclass,sex
-workclass: relationship,marital_status
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss
-sex: education_num,capital_gain
-capital_gain: hours_per_week,native_country,race
-capital_loss: occupation,education
-hours_per_week: 
-native_country: annual_income
-annual_income: 
-
-SCORE = 543343.152345
-age: workclass,sex
-workclass: relationship,marital_status
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss
-sex: education_num,capital_gain
-capital_gain: hours_per_week,native_country,race
-capital_loss: occupation,education
-hours_per_week: 
-native_country: annual_income
-annual_income: 
-
-TIME(total) = 1236.542522
+ ============ INITIAL SOLUTION #2 ============
+SCORE = 210462.581191
+SCORE = 211678.089488
+SCORE = 212418.887061
+SCORE = 212661.86381
+SCORE = 212709.467359
+SCORE = 212709.467359
+NUM ITERATIONS = 6
+ ============ INITIAL SOLUTION #3 ============
+SCORE = 221084.407434
+SCORE = 221084.407434
 NUM ITERATIONS = 2
- ====== INITIAL SOLUTION #10 ======
-SCORE = 549027.222891
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: workclass,capital_gain,annual_income,age,capital_loss
-sex: education_num
-capital_gain: occupation,sex,native_country
-capital_loss: relationship,education,marital_status
-hours_per_week: race
-native_country: 
-annual_income: 
-
-SCORE = 553517.399293
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income,age,capital_gain
-sex: education_num
-capital_gain: 
-capital_loss: relationship,hours_per_week,sex,education,workclass,occupation,marital_status,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 553517.399293
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss,age,capital_gain
-sex: education_num
-capital_gain: 
-capital_loss: sex,hours_per_week,occupation,marital_status,native_country,relationship,education,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 1320.789252
+ ============ INITIAL SOLUTION #4 ============
+SCORE = 211066.751744
+SCORE = 211085.044725
+SCORE = 211085.044725
 NUM ITERATIONS = 3
- ====== INITIAL SOLUTION #11 ======
-SCORE = 545555.122092
-age: capital_gain,education
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income
-sex: 
-capital_gain: race
-capital_loss: native_country,marital_status,occupation,education_num,workclass,relationship,hours_per_week
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 546220.431558
-age: capital_gain
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: education_num
-capital_gain: native_country,race
-capital_loss: hours_per_week,occupation,relationship,education,marital_status,workclass,sex
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564534.90449
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income
-sex: education_num
-capital_gain: age,race,native_country
-capital_loss: occupation,sex,hours_per_week,education,workclass,marital_status,relationship
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564726.400061
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,age,capital_loss
-sex: education_num
-capital_gain: race
-capital_loss: relationship,marital_status,education,native_country,occupation,sex,hours_per_week,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564726.400061
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss,age
-sex: education_num
-capital_gain: race
-capital_loss: sex,workclass,marital_status,education,native_country,relationship,occupation,hours_per_week
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 1463.412043
+ ============ INITIAL SOLUTION #5 ============
+SCORE = 214079.607785
+SCORE = 214083.069283
+SCORE = 214083.069283
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #6 ============
+SCORE = 208821.859145
+SCORE = 208825.320643
+SCORE = 208828.414767
+SCORE = 208828.414767
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #7 ============
+SCORE = 220695.562361
+SCORE = 223872.577097
+SCORE = 223880.030807
+SCORE = 223880.488221
+SCORE = 223880.5346
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 7
+ ============ INITIAL SOLUTION #8 ============
+SCORE = 217171.481006
+SCORE = 217334.241108
+SCORE = 217367.315007
+SCORE = 217401.472075
+SCORE = 217401.472075
 NUM ITERATIONS = 5
- ====== INITIAL SOLUTION #12 ======
-SCORE = 544210.253357
-age: occupation,workclass,education
-workclass: capital_gain
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: 
-capital_gain: hours_per_week,race
-capital_loss: relationship,native_country,marital_status,education_num
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 545622.56967
-age: capital_gain,occupation,education_num
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: 
-capital_gain: race
-capital_loss: native_country,workclass,marital_status,hours_per_week,education,relationship
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 546088.907806
-age: education_num
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: capital_gain
-capital_gain: occupation,race
-capital_loss: hours_per_week,relationship,education,marital_status,native_country,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 548873.129224
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,age,annual_income
-sex: capital_gain
-capital_gain: race,occupation
-capital_loss: education,relationship,marital_status,hours_per_week,workclass,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549005.946384
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,age,capital_loss
-sex: capital_gain,education_num
-capital_gain: occupation,race
-capital_loss: education,hours_per_week,marital_status,relationship,native_country,workclass
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549005.946384
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income,age
-sex: capital_gain,education_num
-capital_gain: race,occupation
-capital_loss: hours_per_week,marital_status,native_country,workclass,education,relationship
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 1631.326943
+ ============ INITIAL SOLUTION #9 ============
+SCORE = 220917.013761
+SCORE = 221063.916817
+SCORE = 221069.815814
+SCORE = 221082.226339
+SCORE = 221084.925693
+SCORE = 221084.925693
 NUM ITERATIONS = 6
- ====== INITIAL SOLUTION #13 ======
-SCORE = 544939.543543
-age: workclass
-workclass: capital_gain
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss
-sex: 
-capital_gain: native_country,relationship,race
-capital_loss: education,education_num,occupation,hours_per_week,marital_status
-hours_per_week: 
-native_country: annual_income
-annual_income: 
-
-SCORE = 545840.969614
-age: capital_gain
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income
-sex: 
-capital_gain: relationship,workclass,race
-capital_loss: hours_per_week,education,occupation,marital_status,native_country,education_num
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564344.315816
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss,age
-sex: 
-capital_gain: workclass,relationship,race
-capital_loss: education,marital_status,education_num,hours_per_week,native_country,occupation
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564474.742084
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,capital_loss,annual_income
-sex: education_num
-capital_gain: relationship,race
-capital_loss: education,workclass,hours_per_week,marital_status,native_country,sex,occupation
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 564474.742084
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,annual_income,capital_loss
-sex: education_num
-capital_gain: relationship,race
-capital_loss: hours_per_week,workclass,sex,education,marital_status,native_country,occupation
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 1772.858321
+ ============ INITIAL SOLUTION #10 ============
+SCORE = 210548.069716
+SCORE = 217643.735902
+SCORE = 217647.968394
+SCORE = 217647.968394
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #11 ============
+SCORE = 220991.731466
+SCORE = 221074.837409
+SCORE = 221080.601385
+SCORE = 221080.601385
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #12 ============
+SCORE = 217636.826125
+SCORE = 217642.28908
+SCORE = 217646.441006
+SCORE = 217647.906469
+SCORE = 217647.906469
 NUM ITERATIONS = 5
- ====== INITIAL SOLUTION #14 ======
-SCORE = 545621.579152
-age: education_num
-workclass: 
-education: 
-education_num: sex,marital_status
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss
-sex: education,workclass,capital_gain
-capital_gain: race
-capital_loss: hours_per_week,native_country,relationship,occupation
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549043.712634
-age: 
-workclass: 
-education: 
-education_num: sex
-marital_status: 
-occupation: 
-relationship: 
-race: capital_loss,annual_income,age
-sex: capital_gain
-capital_gain: race
-capital_loss: relationship,marital_status,occupation,workclass,education,hours_per_week,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549176.529793
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: age,capital_loss,annual_income
-sex: education_num,capital_gain
-capital_gain: race
-capital_loss: marital_status,workclass,hours_per_week,relationship,occupation,native_country,education
-hours_per_week: 
-native_country: 
-annual_income: 
-
-SCORE = 549176.529793
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,capital_loss,age
-sex: capital_gain,education_num
-capital_gain: race
-capital_loss: occupation,workclass,relationship,marital_status,hours_per_week,education,native_country
-hours_per_week: 
-native_country: 
-annual_income: 
-
-TIME(total) = 1883.330288
+ ============ INITIAL SOLUTION #13 ============
+SCORE = 213646.3575
+SCORE = 214033.59958
+SCORE = 223761.14923
+SCORE = 223778.312164
+SCORE = 223844.893097
+SCORE = 223875.464529
+SCORE = 223881.744573
+SCORE = 223887.550532
+SCORE = 223888.431912
+SCORE = 223891.398177
+SCORE = 223893.767373
+SCORE = 223893.767373
+NUM ITERATIONS = 12
+ ============ INITIAL SOLUTION #14 ============
+SCORE = 217640.853189
+SCORE = 217641.119298
+SCORE = 217647.421829
+SCORE = 217647.906469
+SCORE = 217647.906469
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #15 ============
+SCORE = 210540.778306
+SCORE = 210541.262946
+SCORE = 210541.262946
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #16 ============
+SCORE = 217630.300006
+SCORE = 217647.906469
+SCORE = 217647.906469
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #17 ============
+SCORE = 217402.038054
+SCORE = 217624.024028
+SCORE = 217634.791
+SCORE = 217639.362486
+SCORE = 217639.362486
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #18 ============
+SCORE = 211893.065376
+SCORE = 211902.010983
+SCORE = 211905.164777
+SCORE = 211916.967084
+SCORE = 212493.552417
+SCORE = 217641.805626
+SCORE = 217644.800917
+SCORE = 217647.906469
+SCORE = 217647.906469
+NUM ITERATIONS = 9
+ ============ INITIAL SOLUTION #19 ============
+SCORE = 210614.467403
+SCORE = 210626.2546
+SCORE = 210626.963465
+SCORE = 210626.963465
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #20 ============
+SCORE = 208829.824152
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #21 ============
+SCORE = 211027.263089
+SCORE = 221074.133799
+SCORE = 221074.133799
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #22 ============
+SCORE = 221056.799015
+SCORE = 221058.529457
+SCORE = 221059.605915
+SCORE = 221081.022731
+SCORE = 221081.831568
+SCORE = 221081.831568
+NUM ITERATIONS = 6
+ ============ INITIAL SOLUTION #23 ============
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #24 ============
+SCORE = 217636.826125
+SCORE = 217641.110792
+SCORE = 217641.110792
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #25 ============
+SCORE = 217388.164135
+SCORE = 217628.106632
+SCORE = 217630.033896
+SCORE = 217630.300006
+SCORE = 217633.660055
+SCORE = 217645.64913
+SCORE = 221007.146975
+SCORE = 221084.925693
+SCORE = 221084.925693
+NUM ITERATIONS = 9
+ ============ INITIAL SOLUTION #26 ============
+SCORE = 221087.158689
+SCORE = 221087.158689
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #27 ============
+SCORE = 210909.170925
+SCORE = 223719.747145
+SCORE = 223754.425792
+SCORE = 223868.296053
+SCORE = 223868.296053
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #28 ============
+SCORE = 209143.411384
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #29 ============
+SCORE = 220656.55317
+SCORE = 220981.568304
+SCORE = 221012.139736
+SCORE = 221033.989638
+SCORE = 221058.606595
+SCORE = 221071.129249
+SCORE = 221074.618214
+SCORE = 221075.121711
+SCORE = 221081.163191
+SCORE = 221086.313528
+SCORE = 221088.131619
+SCORE = 221088.616259
+SCORE = 223788.44693
+SCORE = 223795.732412
+SCORE = 223826.303844
+SCORE = 223832.829964
+SCORE = 223877.653868
+SCORE = 223890.589341
+SCORE = 223890.589341
+NUM ITERATIONS = 19
+ ============ INITIAL SOLUTION #30 ============
+SCORE = 210494.957652
+SCORE = 223880.978202
+SCORE = 223886.313662
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #31 ============
+SCORE = 217402.671342
+SCORE = 217411.309245
+SCORE = 217638.07989
+SCORE = 217641.541388
+SCORE = 217642.026028
+SCORE = 217642.292137
+SCORE = 217642.756132
+SCORE = 217642.756132
+NUM ITERATIONS = 8
+ ============ INITIAL SOLUTION #32 ============
+SCORE = 223883.651386
+SCORE = 223885.612368
+SCORE = 223885.612368
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #33 ============
+SCORE = 208826.855482
+SCORE = 208832.005819
+SCORE = 208835.159613
+SCORE = 208835.159613
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #34 ============
+SCORE = 210594.377636
+SCORE = 217612.505485
+SCORE = 217617.827446
+SCORE = 221056.799015
+SCORE = 221058.529457
+SCORE = 221059.605915
+SCORE = 221076.36326
+SCORE = 221083.204687
+SCORE = 221083.204687
+NUM ITERATIONS = 9
+ ============ INITIAL SOLUTION #35 ============
+SCORE = 217366.217845
+SCORE = 217373.939208
+SCORE = 217379.137346
+SCORE = 217379.137346
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #36 ============
+SCORE = 208826.730028
+SCORE = 208826.730028
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #37 ============
+SCORE = 210611.906048
+SCORE = 210622.058327
+SCORE = 217640.186175
+SCORE = 217644.470842
+SCORE = 217644.470842
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #38 ============
+SCORE = 220871.826374
+SCORE = 220916.448124
+SCORE = 221067.743884
+SCORE = 221072.651108
+SCORE = 221078.430651
+SCORE = 221081.919617
+SCORE = 221085.025014
+SCORE = 221086.393399
+SCORE = 221086.393399
+NUM ITERATIONS = 9
+ ============ INITIAL SOLUTION #39 ============
+SCORE = 220995.305203
+SCORE = 221079.573207
+SCORE = 221087.026918
+SCORE = 221088.845009
+SCORE = 221088.845009
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #40 ============
+SCORE = 221000.046878
+SCORE = 221074.180602
+SCORE = 221076.062608
+SCORE = 221076.062608
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #41 ============
+SCORE = 210489.322033
+SCORE = 210493.809478
+SCORE = 210496.775744
+SCORE = 210496.775744
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #42 ============
+SCORE = 221056.799015
+SCORE = 221058.529457
+SCORE = 221059.605915
+SCORE = 221076.36326
+SCORE = 221076.62937
+SCORE = 221082.77163
+SCORE = 221088.367003
+SCORE = 221091.315613
+SCORE = 221091.315613
+NUM ITERATIONS = 9
+ ============ INITIAL SOLUTION #43 ============
+SCORE = 210540.641387
+SCORE = 210611.286145
+SCORE = 210620.936794
+SCORE = 214059.877115
+SCORE = 214086.909875
+SCORE = 221071.233895
+SCORE = 221078.400639
+SCORE = 221078.400639
+NUM ITERATIONS = 8
+ ============ INITIAL SOLUTION #44 ============
+SCORE = 208826.730028
+SCORE = 208826.730028
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #45 ============
+SCORE = 210622.90214
+SCORE = 213979.20362
+SCORE = 214035.988843
+SCORE = 214075.342786
+SCORE = 214075.342786
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #46 ============
+SCORE = 217406.158908
+SCORE = 217409.620406
+SCORE = 217414.770743
+SCORE = 217414.770743
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #47 ============
+SCORE = 217641.603938
+SCORE = 217645.888605
+SCORE = 217645.888605
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #48 ============
+SCORE = 210488.49918
+SCORE = 210491.605785
+SCORE = 221034.953465
+SCORE = 221081.821618
+SCORE = 221081.821618
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #49 ============
+SCORE = 217398.679129
+SCORE = 217399.387994
+SCORE = 220881.824932
+SCORE = 220921.848675
+SCORE = 221076.908446
+SCORE = 221082.7696
+SCORE = 221083.478465
+SCORE = 221085.072973
+SCORE = 221085.072973
+NUM ITERATIONS = 9
+ ============ INITIAL SOLUTION #50 ============
+SCORE = 212701.801524
+SCORE = 212706.951862
+SCORE = 212715.611656
+SCORE = 212715.611656
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #51 ============
+SCORE = 217639.435425
+SCORE = 217639.920065
+SCORE = 217640.186175
+SCORE = 217644.470842
+SCORE = 217644.470842
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #52 ============
+SCORE = 223881.466767
+SCORE = 223883.427749
+SCORE = 223884.299949
+SCORE = 223887.584673
+SCORE = 223887.584673
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #53 ============
+SCORE = 223890.305875
+SCORE = 223890.305875
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #54 ============
+SCORE = 221049.746244
+SCORE = 221050.230884
+SCORE = 221050.496993
+SCORE = 221051.235433
+SCORE = 221069.858638
+SCORE = 223870.457585
+SCORE = 223876.195817
+SCORE = 223876.375144
+SCORE = 223880.441881
+SCORE = 223885.592218
+SCORE = 223885.592218
+NUM ITERATIONS = 11
+ ============ INITIAL SOLUTION #55 ============
+SCORE = 217634.268982
+SCORE = 217647.906469
+SCORE = 217649.64469
+SCORE = 217652.344044
+SCORE = 217652.344044
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #56 ============
+SCORE = 208821.799475
+SCORE = 208828.414767
+SCORE = 208828.414767
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #57 ============
+SCORE = 217634.632751
+SCORE = 217636.408639
+SCORE = 217642.026028
+SCORE = 217642.292137
+SCORE = 217642.756132
+SCORE = 217642.756132
+NUM ITERATIONS = 6
+ ============ INITIAL SOLUTION #58 ============
+SCORE = 217639.920065
+SCORE = 217640.186175
+SCORE = 217645.64913
+SCORE = 217647.906469
+SCORE = 217647.906469
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #59 ============
+SCORE = 209763.070094
+SCORE = 209837.074902
+SCORE = 211919.165789
+SCORE = 212659.749698
+SCORE = 212659.749698
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #60 ============
+SCORE = 221081.585407
+SCORE = 221087.129186
+SCORE = 221090.223311
+SCORE = 221090.223311
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #61 ============
+SCORE = 220997.693581
+SCORE = 221002.404789
+SCORE = 221008.835001
+SCORE = 221010.609484
+SCORE = 221012.727734
+SCORE = 221012.950404
+SCORE = 221084.925693
+SCORE = 221084.925693
+NUM ITERATIONS = 8
+ ============ INITIAL SOLUTION #62 ============
+SCORE = 210508.91432
+SCORE = 217374.80651
+SCORE = 217379.856963
+SCORE = 217385.0073
+SCORE = 217405.324003
+SCORE = 217406.590625
+SCORE = 217406.590625
+NUM ITERATIONS = 7
+ ============ INITIAL SOLUTION #63 ============
+SCORE = 223888.431912
+SCORE = 223891.398177
+SCORE = 223891.398177
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #64 ============
+SCORE = 208821.799475
+SCORE = 213453.139222
+SCORE = 214044.842479
+SCORE = 214075.615573
+SCORE = 214075.615573
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #65 ============
+SCORE = 217387.723281
+SCORE = 217387.901938
+SCORE = 217393.052275
+SCORE = 217393.052275
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #66 ============
+SCORE = 217406.369638
+SCORE = 223885.366268
+SCORE = 223885.366268
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #67 ============
+SCORE = 209138.261047
+SCORE = 210415.950378
+SCORE = 213413.609524
+SCORE = 214003.183358
+SCORE = 217567.808691
+SCORE = 217638.522837
+SCORE = 217649.377779
+SCORE = 217649.377779
+NUM ITERATIONS = 8
+ ============ INITIAL SOLUTION #68 ============
+SCORE = 210493.809478
+SCORE = 212697.624347
+SCORE = 212702.822485
+SCORE = 212708.157946
+SCORE = 212708.866811
+SCORE = 212710.276196
+SCORE = 212710.276196
+NUM ITERATIONS = 7
+ ============ INITIAL SOLUTION #69 ============
+SCORE = 217641.541388
+SCORE = 217641.807497
+SCORE = 217641.807497
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #70 ============
+SCORE = 211084.842196
+SCORE = 211085.326836
+SCORE = 211085.326836
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #71 ============
+SCORE = 210510.603159
+SCORE = 217402.671342
+SCORE = 217408.155451
+SCORE = 217411.309245
+SCORE = 217414.770743
+SCORE = 217414.770743
+NUM ITERATIONS = 6
+ ============ INITIAL SOLUTION #72 ============
+SCORE = 220903.196532
+SCORE = 221083.598597
+SCORE = 221084.407434
+SCORE = 221084.407434
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #73 ============
+SCORE = 217629.549256
+SCORE = 217632.613878
+SCORE = 217632.613878
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #74 ============
+SCORE = 210623.79622
+SCORE = 210629.131681
+SCORE = 223884.653332
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #75 ============
+SCORE = 217635.077819
+SCORE = 217647.906469
+SCORE = 217647.906469
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #76 ============
+SCORE = 213538.58162
+SCORE = 214045.213337
+SCORE = 214045.213337
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #77 ============
+SCORE = 217400.797379
+SCORE = 217406.13284
+SCORE = 217406.13284
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #78 ============
+SCORE = 221072.603375
+SCORE = 221083.15121
+SCORE = 221088.845009
+SCORE = 221091.315613
+SCORE = 221091.315613
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #79 ============
+SCORE = 217399.988542
+SCORE = 217405.324003
+SCORE = 217406.13284
+SCORE = 217406.13284
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #80 ============
+SCORE = 217620.354893
+SCORE = 217633.951788
+SCORE = 217641.182717
+SCORE = 217641.659123
+SCORE = 217641.659123
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #81 ============
+SCORE = 220969.938401
+SCORE = 220992.315501
+SCORE = 220995.804467
+SCORE = 220995.804467
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #82 ============
+SCORE = 223880.978202
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #83 ============
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #84 ============
+SCORE = 212708.804886
+SCORE = 212708.804886
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #85 ============
+SCORE = 211380.417565
+SCORE = 217633.626981
+SCORE = 223858.470265
+SCORE = 223872.577097
+SCORE = 223887.550532
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 7
+ ============ INITIAL SOLUTION #86 ============
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 2
+ ============ INITIAL SOLUTION #87 ============
+SCORE = 208832.065488
+SCORE = 211781.662569
+SCORE = 212419.655079
+SCORE = 223597.810796
+SCORE = 223640.324635
+SCORE = 223877.653868
+SCORE = 223886.313662
+SCORE = 223887.022527
+SCORE = 223887.808199
+SCORE = 223887.808199
+NUM ITERATIONS = 10
+ ============ INITIAL SOLUTION #88 ============
+SCORE = 213961.8155
+SCORE = 214003.789542
+SCORE = 217640.853189
+SCORE = 217640.853189
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #89 ============
+SCORE = 220986.262732
+SCORE = 221001.046871
+SCORE = 221071.691629
+SCORE = 221074.100731
+SCORE = 221075.982737
+SCORE = 221082.043812
+SCORE = 221082.752677
+SCORE = 221084.347185
+SCORE = 221084.347185
+NUM ITERATIONS = 9
+ ============ INITIAL SOLUTION #90 ============
+SCORE = 210483.919625
+SCORE = 210488.212807
+SCORE = 210488.212807
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #91 ============
+SCORE = 209143.411384
+NUM ITERATIONS = 1
+ ============ INITIAL SOLUTION #92 ============
+SCORE = 223888.431912
+SCORE = 223893.767373
+SCORE = 223893.767373
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #93 ============
+SCORE = 217630.300006
+SCORE = 217634.584673
+SCORE = 217634.584673
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #94 ============
+SCORE = 217641.290669
+SCORE = 217642.756132
+SCORE = 217642.756132
+NUM ITERATIONS = 3
+ ============ INITIAL SOLUTION #95 ============
+SCORE = 221073.424934
+SCORE = 221074.883146
+SCORE = 221086.313528
+SCORE = 221088.131619
+SCORE = 221088.131619
+NUM ITERATIONS = 5
+ ============ INITIAL SOLUTION #96 ============
+SCORE = 217389.811689
+SCORE = 217393.239779
+SCORE = 217394.608163
+SCORE = 217394.608163
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #97 ============
+SCORE = 223764.919155
+SCORE = 223816.000512
+SCORE = 223848.627046
+SCORE = 223865.045094
+SCORE = 223876.409906
+SCORE = 223885.008257
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 8
+ ============ INITIAL SOLUTION #98 ============
+SCORE = 223879.957241
+SCORE = 223881.953978
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #99 ============
+SCORE = 208827.705902
+SCORE = 223886.313662
+SCORE = 223888.431912
+SCORE = 223888.431912
+NUM ITERATIONS = 4
+ ============ INITIAL SOLUTION #100 ============
+SCORE = 217647.421829
+SCORE = 217650.525953
+SCORE = 217652.344044
+SCORE = 217652.344044
 NUM ITERATIONS = 4
 BEST NETWORK:
-SCORE = 569131.706796
-age: 
-workclass: 
-education: 
-education_num: 
-marital_status: 
-occupation: 
-relationship: 
-race: annual_income,age,capital_gain
-sex: education_num
-capital_gain: 
-capital_loss: marital_status,race,workclass,hours_per_week,native_country,sex,relationship,occupation,education
-hours_per_week: 
-native_country: 
-annual_income: 
-
+SCORE = 223893.767373
+A: I
+B: J
+C: N,H,M,G,F,B,J,E,K
+D: F,A,I,K
+E: 
+F: B
+G: D,A
+H: 
+I: 
+J: E
+K: 
+L: C,G,D
+M: 
+N: 
