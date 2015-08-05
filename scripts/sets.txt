@@ -1,5 +1,5 @@
 ../data/census.csv
-fnlgwt
+None
 ../results/census_%s.txt
 
 ../data/letter.csv
@@ -29,4 +29,12 @@ None
 ../data/alarm.csv
 None
 ../results/alarm_%s.txt
+
+../data/spectf.csv
+None
+../results/spectf_%s.txt
+
+../data/lungCancer.csv
+None
+../results/lungCancer_%s.txt
 
