@@ -325,10 +325,8 @@ if __name__ == "__main__" :
 		builder.setInitialSolutionType( 'unweighted' )
 		builder.buildNetwork( outfilepath = out_file % 'unweighted' )
 		
-		'''
 		print "========== RUNNING WITH FAS APPROXIMATION =========="
 		builder.setInitialSolutionType( 'weighted' )
 		builder.buildNetwork( outfilepath = out_file % 'weighted' )
-		'''
 	else :
 		print "Usage: pypy %s <csv_file> <ommit_fields> <results_file>" % sys.argv[ 0 ]
