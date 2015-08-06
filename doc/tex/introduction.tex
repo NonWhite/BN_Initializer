@@ -18,7 +18,10 @@ numerical parameters (i.e., local conditional probability values) grows
 exponentially with the number of parents (in-degree) of a node (assuming
 the values are organized in tables). A Bayesian network induces a joint
 probability distribution over all the attributes through the equation
-\[ P( X_1 , X_2 , \ldots , X_n ) = \prod_{i=1}^{n} P( X_i \mid {Pa}_G( X_i ) ).  \]
+\begin{equation}
+	\label{eq:jointdist}
+	P( X_1 , X_2 , \ldots , X_n ) = \prod_{i=1}^{n} P( X_i \mid {Pa}_G( X_i ) ).
+\end{equation}
 Hence, Bayesian networks with sparse DAGs succinctly represent joint
 probability distributions over many attributes.
 
@@ -31,7 +34,6 @@ data set (i.e., the data likelihood) and penalizes the complexity of the
 model (i.e., the number of parameters). Some examples are the Bayesian
 Information Criterion (BIC)~\cite{BIC91}, the Minimum Description Length
 (MDL)~\cite{MDL94} and the Bayesian Dirichlet score (BD)~\cite{BD95}.
-
 
 Score-based Bayesian network structure learning from data is a NP-hard
 problem~\cite{MSResearch04}, even when the in-degree (i.e., maximum
@@ -52,15 +54,15 @@ In this article we propose new heuristics for generating good initial
 solutions to be fed into local search methods for Bayesian network
 structure learning. We focus on order-based methods, but our technique
 can be exploited by any local search procedure for learning Bayesian
-network structures. Our heuristics are motivated by solutions of the
+network structures. Also, one of the heuristics is motivated by solutions of the
 Feedback Arc Set Problem (FASP), which is the problem of transforming a
 cyclic direct graph into a DAG. Our experiments show that using these
 new methods improves the quality of order-based local search.
 
 The article is structured as follows: We begin in
 Section~\ref{sec:learning} explaining the Greedy Search algorithm. In
-Section~\ref{sec:improve}, we describe the new algorithm for gener3ating
+Section~\ref{sec:improve}, we describe the new algorithms for generating
 initial solutions. Section~\ref{sec:experiments} shows the experiments
-using both approaches and comparing them (in time and scoring) with
+using both approaches and comparing them (in scoring and number of iterations needed) with
 multiple data sets. Finally, in Section~\ref{sec:conclusions} we give
 some conclusions about the new methods.

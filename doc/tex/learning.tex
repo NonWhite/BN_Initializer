@@ -10,18 +10,34 @@ solutions.
 
 The problem of learning the structure of a Bayesian network is stated as: Given a training data set $D $, select the network (DAG) $G$ that maximizes the scoring function ${sc}( G , D )$.
 A general definition of a scoring function is as follows:
-	\[ {sc}( G , D ) = F( G, D ) - \varphi( N ) \times P( G ) ,\]
+	\begin{equation}
+		\label{eq:scoringfunction}
+		{sc}( G , D ) = F( G, D ) - \varphi( N ) \times P( G ) ,
+	\end{equation}
 where $N$ is the size of the data set $D$, $F( G, D )$ is a data fitness function (i.e., how well the model represents the observed data), $\varphi( N )$ is a non-decreasing function of data size and $P( G )$ measures the model complexity of $G$. For instance,  the Bayesian information criterion (BIC) is defined as
-	\[ {BIC}( G , D ) = {LL}( G ) - \frac{\log N}{2} {size}( G ) ,\]
+	\begin{equation}
+		\label{eq:bicscore}
+		{BIC}( G , D ) = {LL}( G ) - \frac{\log N}{2} {size}( G ) ,
+	\end{equation}
 where
-	\[ {LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}} ,\] is the data loglikelihood, 
-	\[ {size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| ,\] represents the ``size'' of a model with structure $G$, 
+	\begin{equation}
+		\label{eq:dataloglikelihood}
+		{LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}}
+	\end{equation}
+is the data loglikelihood, 
+	\begin{equation}
+		\label{eq:size}
+		{size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| ,
+	\end{equation}
+represents the ``size'' of a model with structure $G$, 
 $N$ is the number of instances in the data set, $n$ is the number of atributes, $N_{ijk}$ the number of instances where attribute $X_i$ takes its $k$th value, and its parents take the $j$th configuration (for some arbitrary fixed ordering of the configurations of the parents' values), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
 
-        Most scoring functions, BIC included, are \emph{decomposable}, meanining that they can be written as a sum of local scoring functions $sc(X_i, {Pa}(X_i))$. Under the assumption of \emph{score decomposability}, the Bayesian network structure learning problem is defined as finding
-	\[ G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) . \]
-In words, the structure learning problem is to select for each attribute the set parent attributes that maximize the local score while ensuring that the graph is acyclic. Exhaustibely searching for the optimal parent set ${Pa}( X_i)$ for each attribute takes $O(2^n)$ time. To avoid the exponential blow-up we constraing the maximum number of parents to a value $d$, hence reducing the search space to $2^d$; this means $|{Pa}( X_i )| \leq d$ for all attributes. Typical values for $d$ are 3, 4 and 5, depending on the cardinality of variables. Additional speed-up can be achieved by using pruning schemes that remove suboptimal subsets of parent sets without resorting to inspection.
-% CITE CASSIO's learning bayeisna nets with constraints paper
+        Most scoring functions, BIC included, are \emph{decomposable}, meaning that they can be written as a sum of local scoring functions $sc(X_i, {Pa}(X_i))$. Under the assumption of \emph{score decomposability}, the Bayesian network structure learning problem is defined as finding
+        \begin{equation}
+        		\label{eq:decomposability}
+		G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) .
+	\end{equation}
+In words, the structure learning problem is to select for each attribute the set parent attributes that maximize the local score while ensuring that the graph is acyclic. Exhaustively searching for the optimal parent set ${Pa}( X_i)$ for each attribute takes $O(2^n)$ time. To avoid the exponential blow-up we constrain the maximum number of parents to a value $d$, hence reducing the search space to $2^d$; this means $|{Pa}( X_i )| \leq d$ for all attributes. Typical values for $d$ are 3, 4 and 5, depending on the cardinality of variables. Additional speed-up can be achieved by using pruning schemes that remove suboptimal subsets of parent sets without resorting to inspection \cite{Cassio11}.
 
 \subsection{Greedy Search Algorithm}
 \label{subsec:greedysearch}
@@ -29,30 +45,34 @@ In words, the structure learning problem is to select for each attribute the set
 The Greedy Search algorithm is a popular heuristic method used to find an approximation for a solution of  learning Bayesian network problem using the concept of neighborhood between solutions. Depending on the focus of the algorithm this could be classified as Equivalence-based, Structure-based, Order-based, etc. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this algorithm.
 
 \begin{lstlisting}[ caption = Greedy Search , label = code:greedysearch ]
-	|$L = Initial\_Solution( X_1 , \ldots , X_n , conf )$ \label{line:init}|
-	|$best\_score = score( L )$ \label{line:score}|
-	For a number of iterations |$K$| or until |$L$| converges do
-		|$best\_neighbor = find\_best\_neighbor( L )$ \label{line:neighbor}|
-		if |$score( best\_neighbor ) > score( L )$| then
-			|$L = best\_neighbor$|
-	Return |$L$|
+	|$G = Initial\_Solution( X_1 , \ldots , X_n , conf )$ \label{line:init}|
+	For a number of iterations |$K$|
+		|$best\_neighbor = find\_best\_neighbor( G )$ \label{line:neighbor}|
+		if |$score( best\_neighbor ) > score( G )$| then |\label{line:score}|
+			|$G = best\_neighbor$|
+	Return |$G$|
 \end{lstlisting}
-The main idea of this algorithm is to generate an initial solution based on the ${conf}$ parameter (for instance, ${conf}$ can say that the solution has to be random generated). After that, for a number of iterations $K$ or until the solution converges (the best solution's score does not improve) explore the search space and selects the best neighbor of the best solution until that moment. Then calculate its score in order to know if it is a better solution. Finally, return the best solution when the stop condition holds.\\
+The main idea of this algorithm is to generate an initial solution based on the ${conf}$ parameter (for instance, ${conf}$ can say that the solution has to be random generated). After that, for a number of iterations $K$ explore the search space and selects the best neighbor of the best solution until that moment. Then calculate its score in order to know if it is a better solution. Additionally to the stop condition could be added that the solution converges (i.e. its score does not improve). Finally, return the best solution when the stop condition holds.\\
 As mentioned before, there are lot of different approaches using this algorithm, but all of them only change lines~\ref{line:init}, ~\ref{line:neighbor} and~\ref{line:score} depending on its own way to generate an initial solution, its search space and the scoring function used, respectively.\\
 % Structure-based (using deletion, inversion, suppression)
 % 	http://ofrancois.tuxfamily.org/carb/node9_ct.html
-For example, in the structure-based version the initial solution is a network, possibly random generated, and its neighbors are other networks that only differs by one arc. This means that an arc can be inserted, deleted or inverted its direction to obtain a new neighbor.\\
+\subsubsection{Structure-based}
+\label{subsub:structurebased}
+In this version the initial solution $G$ is a network, possibly random generated, and its possible neighbors are other networks that only differs by one arc. This means that an arc can be inserted, deleted or inverted its direction to obtain a new neighbor.\\
 % Equivalence-based
 % 	http://research.microsoft.com/en-us/um/people/dmax/publications/inclusion.pdf
 %	http://www.jmlr.org/papers/volume3/chickering02b/chickering02b.pdf
-In the same way, the equivalence-based version~\cite{Maxwell04} uses the equivalence relation between networks to obtain new neighbors. This relation two networks $L_1$ and $L_2$ are equivalent if they have the same probability distribution.
+\subsubsection{Equivalence-based}
+\label{subsub:equivalencebased}
+In the same way, the initial solution $G$ is a network and uses the equivalence relation between networks to obtain new neighbors. Two networks $L_1$ and $L_2$ are equivalent if they have the same probability distribution \cite{Maxwell04}.
 
-Finally, a Order-based Greedy Search is a popular and effective solution to the problem of learning the structure of a Bayesian network. Algorithm~\ref{code:orderbased} shows its pseudocode, where the function ${swap}$ (in line~\ref{line:swap}) swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$.
+\subsubsection{Order-based}
+\label{subsub:orderbased}
+Finally, a Order-based Greedy Search is a popular and effective solution to the problem of learning the structure of a Bayesian network where the initial solution $L$ is an order of the attributes and not a network like in previous approaches. Algorithm~\ref{code:orderbased} shows its pseudocode, where the function ${swap}$ (in line~\ref{line:swap}) swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$.
 
 \begin{lstlisting}[ caption = Order-based Greedy Search , label = code:orderbased ]
 	|$L = Get\_Order( X_1 , \ldots , X_n , conf )$|
-	|$best\_score = score( L )$|
-	For a number of iterations |$K$| or until |$L$| converges do
+	For a number of iterations |$K$|
 		|$current\_sol = L$|
 		For each |$i$| = 1 to |$n-1$| do
 			|$L_i = swap( L , i , i+1 )$ \label{line:swap}|
@@ -60,9 +80,12 @@ Finally, a Order-based Greedy Search is a popular and effective solution to the 
 				|$current\_sol = L_i$|
 		if |$score( current\_sol ) > score( L )$| then
 			|$L = current\_sol$|
-	Return |$L$|
+	Return |${network}( L )$|
 \end{lstlisting}
-So we need to calculate the score for an order of the attributes and we know from subsection~\ref{subsec:definition} that, in general, to obtain the score for a network is an NP-hard problem because of the exponential number of possible sets of parents (even in the bounded case). But if we know an order of the attributes, the problem can be reduced as follows:
-	\[ G = \max_G \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}:|P|\leq d} {sc}( X_i , P ) ,\]
+So we need to calculate the score for an order of the attributes and we know from subsection~\ref{subsec:definition} that, in general, to obtain the score for a network is an NP-hard problem because of the exponential number of possible sets of parents (even in the bounded case). But if we know an order of the attributes, the problem can be reduced as follows
+	\begin{equation}
+		\label{eq:orderreduced}
+		G = \max_G \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}:|P|\leq d} {sc}( X_i , P ) ,
+	\end{equation}
 where $X_j < X_i$ means that $X_j$ appears before $X_i$ in the order of the attributes. This means that we can maximize the score for every attribute independently the other ones.\\
 In section~\ref{sec:experiments}, the Order-based Greedy Search algorithm will be used for learning structure of Bayesian networks using multiple data sets.

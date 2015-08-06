@@ -1,81 +1,94 @@
 \section{Generating informed initial solutions}
 \label{sec:improve}
 
-As stated in Section~\ref{sec:introduction}, the solutions proposed in this article are motivated by the Feedback Arc Set Problem (FASP) that will be explained at the start of this section. After that, we explain every new method to generate an initial solution for Order-based Greedy Algorithm.
+From section~\ref{subsec:greedysearch}, we already know the Greedy Search algorithm and the more popular approaches using it. It can be noticed that a very important step in the algorithm is in the first line, where an initial solution is generated because if we have a good one, the solution will converge faster. We focus in the Order-base (in~\ref{subsub:orderbased}) one. At the start of this section, the most common method will be explained. After that, we explain every new proposed method to generate an initial solution for Order-based Greedy Algorithm and the Feedback Arc Set Problem (FASP).
 
-\subsection{Feedback Arc Set Problem}
-\label{subsec:fasp}
+\subsection{Random solution}
+\label{subsec:randomapproach}
+	This is the most common and easy-to-implement approach used. An easy way to shuffle a list $L$ with size $n$ is the Fisher-Yates algorithm \cite{FisherYates98}.
+
+\subsection{DFS-based solution}
+\label{subsec:dfsapproach}
+	This is the first new method we are proposing for generating initial solutions and the main idea of the method is to eliminate possible orders that do not help to have good parent sets for every attribute.\\
+	For example, using the graph in Figure~\ref{fig:example}, we know that some orders does not generate some of the parent sets showed there. In the previous approach we have $4!$ possible orders, but if some information is given about the relations between attributes, we can eliminate some of those possible orders.
+	\begin{figure}[H]
+		\centering
+		\input{networks/example}
+		\caption{Graph $G^*$ with best parent set for 4 attributes}
+		\label{fig:example}
+	\end{figure}
+	With the information given from $G^*$ we could have field $C$ before $D$ or $A$ before $B$,$C$ or $D$ in the order generated. Having in consideration all these relations we have the following possible orders:
+	\begin{multicols}{7}
+		\begin{verbatim}
+			ABDC
+			ACDB
+			ADBC
+			ADCB
+			BDAC
+			BDCA
+			CDAB
+			CDBA
+			DABC
+			DACB
+			DBAC
+			DBCA
+			DCAB
+			DCBA
+		\end{verbatim}
+	\end{multicols}
+	In total we have 14 possible orders given that graph and $4! = 24$ possible orders in total. So we reduce the search space and also improve the possibilities that getting a good initial order because the relations are the best parent sets for each field. Also, the difference could be greater in problems with more attributes.
+	Taking into consideration the previous analysis, we propose the following algorithm to generate initial solutions:
+	\begin{enumerate}
+		\item Find the best parent set ${Pa}( X_i )$ for each field $X_i$
+		\item Build a graph $G^*$ using the relations between each field $X_i$ and ${Pa}( X_i )$ as edges
+		\item Choose a random node $X_k$ not visited
+		\item Perform a DFS on graph $G^*$ using $X_k$ as root and add each node $X_v$ visited to the order $L$
+		\item If exists node(s) to visit, go to step 3
+		\item Return $L$
+	\end{enumerate}
+	
+\subsection{FAS-based solution}
+\label{subsec:fasapproach}
+
+In this subsection, we first explained the generic problem and some variants of the Feedback Arc Set (FAS) Problem. After that, a reduction of the learning structure bayesian network problem will be explained in order to propose a new algorithm for generating initial solutions.
+
+\subsubsection{Feedback Arc Set Problem}
+\label{subsub:fasp}
 
 The generic problem is stated as: Given a graph $G = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G$, it becomes a directed acyclic graph (DAG).\\
-There are some variants of this problem, but If we focus on unweighted undirected graphs and we want to find a FAS with minimum size, the problem becomes NP-hard, but there are some approximation algorithms like the one that is below.
+There are some variants of this problem, but we only focus on weighted directed graphs and we want to find a FAS with minimum weight. Although this variant becomes NP-hard, there are some approximation algorithms like the one that is below.
 \begin{enumerate}
-	\item Select a random node $X \in V$
-	\item Do a depth-first search (DFS) on $G$ using $X$ as root
-	\item Put all the back edges encountered by the DFS in $F$. A back edge is the one that makes a cycle with size greater than two
+	\item Start with $F = \emptyset$
+	\item If there is a cycle $C$ in $G$, go to step 3, in other case, go to step 7
+	\item Find the lowest weight $w_{min}$ of the edges $e \in C$
+	\item For each edge $e \in C$, do $w_e = w_e - w_{min}$ ($w_e$ is the current weight of $e$)
+	\item If some $w_e = 0$ for some $e \in C$, then add $e$ to $F$
+	\item Go to step 2
+	\item For each edge $e \in F$, add to $G$ only if it does not build a cycle on the graph
 	\item Return $F$
 \end{enumerate}
-In the same way, another NP-hard problem is to find a minimum weight FAS from a weighted undirected graph $G$, but again we have some approximation algorithms in order to solve this problem.
-\begin{enumerate}
-	\item Negate all edge weights
-	\item Find the minimum spanning tree (MST) $M$ performing Kruskal algorithm
-	\item Edges that are not in $M$ are included in $F$
-	\item Return $F$
-\end{enumerate}
-The variants of the problem where the graph is directed (with weighted or unweighted edges) will not be explained in this article.
 
-\subsection{Informed initial solutions}
-\label{subsec:solutions}
-
-From section~\ref{subsec:greedysearch}, we already know the generic Greedy Search algorithm and the more popular approaches using it. It can be noticed that a very important step in the algorithm is in the first line, where an initial solution is generated because if we have a good one, the solution will converge faster.\\
-So if we now focus only in the Order-based one showed in Algorithm~\ref{code:orderbased}, we first explain the common approach and then we will propose two new methods for generating initial solutions using information from data motivated by the solutions in~\ref{subsec:fasp}.
-
-\subsubsection{Random solution}
-\label{subsub:random}
-	This is the most common and easy-to-implement approach used. An easy way to shuffle a list $L$ with size $n$ is the Fisher-Yates algorithm, showed in Algorithm~\ref{code:shuffle}.
-	\begin{lstlisting}[ caption = Fisher-Yates shuffle algorithm , label = code:shuffle ]
-		For |$i $| in  |$n-1$| to 1 do
-			|$j = {random}( 0 , i )$|
-			Swap |$L[ i ]$| and |$L[ j ]$|
-		Return |$L$|
-	\end{lstlisting}
-
-\subsubsection{Using FAS with unweighted edges}
-\label{subsub:fasunweighted}
-	Remembering the definition of a Bayesian network given in~\ref{subsec:definition} we have:
-		\[ G = \max_G \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) \]
-	Although the Bayesian network $G$ has the maximum sum of the scores of every field $X_i$ given their parents (${Pa}( X_i )$), this do not implies that every field have their best parents because the graph builded with them will probably not be a network as it can contain cycles. Besides that, calculating the best parents is computationally costly unless we bound the size of the parent set as mentioned in~\ref{subsec:definition}.\\
-	Knowing those concepts and the approximation algorithm for unweighted FAS problem, we can propose the following algorithm:
-	\begin{enumerate}
-		\item For each node $X_i$ : Find the ${Pa}( X_i )$ set with maximum score
-		\item Build the graph $S$ using all the relationships $X_j \implies X_i, X_j \in {Pa}( X_i )$
-		\item Choose a node $X_k$ from $S$
-		\item Start with an empty graph $G$
-		\item Perform a DFS on using $X_k$ as root with the following characteristics:
-			\begin{itemize}
-				\item Add the direct edge $e$ that encounters to $G$, unless $e$ builds a cycle
-				\item If $e$ builds a cycle, then add $e$ to the feedback arc set $F$
-			\end{itemize}
-		\item For each edge in $F$: Invert its direction
-		\item Add edges in $F$ to the DAG $G$
-		\item Return the topological order of $G$
-	\end{enumerate}
-	This solution is similar to the one for the unweighted FAS problem using the graph $S$, except that we use the tree builded by the DFS to get a network and then add the Feedback Arc Set with their directions inverted. Finally, as we want a field order, we return the topological order of the network $G$.
-
-\subsubsection{Using FAS with weighted edges}
-\label{subsub:fasweighted}
-	In this version, the edges have its weight defined as follows:
-		\[ W_{ji} = {sc}( X_i , P ) - {sc}( X_i , \{ X_j \} ) ,\]
+\subsubsection{Algorithm for initial solutions}
+\label{subsub:fasalgorithm}
+	In order to use the approximated solution for minimum cost FAS, the edges have its weight defined as follows:
+		\begin{equation}
+			\label{eq:weight}
+			W_{ji} = {sc}( X_i , P ) - {sc}( X_i , P \setminus \{ X_j \} ) ,
+		\end{equation}
 	where $W_{ji}$ is the weight of the edge that goes from $X_j$ to $X_i$ and $P$ is the best parents set for $X_i$. This formula represents the cost of getting $X_j$ out of the set $P$ and it is always a positive number. When the value is so small, it means the parent $X_j$ could be more important. On the contrary if the weight is so big, this means that $X_j$ is not so important in $P$\\
-	The algorithm for getting an initial solution is very similar to the previous one and it uses the main idea of the weighted FAS approximation algorithm.
+	Also, we have the following relation for the problem:
+		\begin{equation}
+			\label{eq:reduction}
+			G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) \leq \sum_{i=0}^{n} \max {sc}( X_i , {Pa}( X_i ) ) ,
+		\end{equation}
+	The left part is the original definition of the problem for learning structure of bayesian networks and the right part is the graph built by all the relations between the fields and their best parent sets, called $G^*$. In other words, the bayesian network $G$ could be a subgraph of $G^*$ that is acyclic. But now we know how to become a graph (possibly with cycles) to a DAG using the FAS solution given in~\ref{subsub:fasp}.
+	Then we propose the new algorithm for getting an initial solution based on FAS solution given in~\ref{subsub:fasp} as follows:
 	\begin{enumerate}
 		\item For each node $X_i$ : Find the ${Pa}( X_i )$ set with maximum score
-		\item Build the graph $S$ using all the relationships $X_j \implies X_i, X_j \in P = {Pa}( X_i )$ and put its score as $-W_ji$
-		\item Make the graph $S$ undirected and perform Kruskal algorithm for getting the MST $M$
-		\item Choose a node $X_k$ from $M$
-		\item Start with an empty graph $G$
-		\item Perform a DFS on $M$ and add the directed edges on $G$
-		\item Return the topological order of $G$
+		\item Build the graph $G^*$ using all the relationships $X_j \implies X_i, X_j \in P = {Pa}( X_i )$ and put its score as $W_{ji}$
+		\item Find the FAS $F$
+		\item Delete all edges $e \in F$ from $G^*$ to obtain a DAG
+		\item Return a topological order from $G^*$
 	\end{enumerate}
-	In step 3, we have to make the graph $S$ undirected because Kruskal algorithm can be used only in undirected weighted graphs. Finally, we perform a DFS to get a directed tree with root $X_k$ and we only have to return its topological order.
 
 These new methods for generating initial solutions will be used in next section to learn Bayesian networks with multiple data sets.

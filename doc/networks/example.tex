@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+	\tikzset{ vertex/.style = { shape = circle , draw , minimum size = 2.5em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (A) at  ( 4.5 , 0 ) { ${A}$ } ;
+	\node[ vertex ] (B) at  ( 1.5 , -1.5 ) { ${B}$ } ;
+	\node[ vertex ] (C) at  ( 4.5 , -1.5 ) { ${C}$ } ;
+	\node[ vertex ] (D) at  ( 7.5 , -1.5 ) { ${D}$ } ;
+
+	%edges
+	\draw[ edge ] (A) to (B) ;
+	\draw[ edge ] (A) to (C) ;
+	\draw[ edge ] (A) to (D) ;
+	\draw[ edge ] (C) to (D) ;
+	\draw[ edge ] (B) to[in=-150,out=-30] (D) ;
+\end{tikzpicture}

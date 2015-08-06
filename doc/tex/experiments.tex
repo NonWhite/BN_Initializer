@@ -1,7 +1,7 @@
 \section{Experiments and Results}
 \label{sec:experiments}
 
-After implementing all the approaches in section~\ref{subsec:solutions}, some experiments were done in order to compare them. First, we show the setup for all experiments and then show the final results.
+After implementing all the approaches in section~\ref{sec:improve}, some experiments were done in order to compare them. First, we show the setup for all experiments and then show the final results.
 
 \subsection{Experiments Setup}
 \label{subsec:configuration}
@@ -12,12 +12,14 @@ After implementing all the approaches in section~\ref{subsec:solutions}, some ex
 			\hline
 			Dataset & n (\#attributes) & N (\#instances) \\ \hline
 			Alarm & 37 & 1000 \\ \hline
-			Census & 15 & 45222 \\ \hline
+			Census & 15 & 30168 \\ \hline
 			Epigenetics & 30 & 72228 \\ \hline
 			Image & 20 & 2310 \\ \hline
 			Letter & 17 & 20000 \\ \hline
+			LungCancer & 57 & 27 \\ \hline
 			Mushroom & 23 & 8124 \\ \hline
 			Sensors & 25 & 5456 \\ \hline
+			Spectf & 45 & 267 \\ \hline
 			SteelPlates & 28 & 1941 \\ \hline
 		\end{tabular}
 		\caption{Data sets characteristics}
@@ -28,12 +30,13 @@ After implementing all the approaches in section~\ref{subsec:solutions}, some ex
 		\item Maximum number of parents ($d$): 3
 		\item Number of iterations in Greedy Search ($K$): 100
 		\item Scoring function used: Bayesian Criterion Information (BIC)
+		\item Number of different initial solutions generated ($S$): 100
 	\end{itemize}
-	Finally, as in subsections~\ref{subsub:fasunweighted} and~\ref{subsub:fasweighted} we have to choose a field as a root for performing the DFS, we have $n$ possible different DAGs and then $n$ possible different orders and use each one as an initial solution for Greedy Search. Also, for the random version, we generate $n$ different random orders.
+	The parameter $S$ is used to have better statistics about using every approach compared with the others. It is possible to generate such a number of different solutions with every approach because there are a lot of possible orders given a graph and also $n!$ possible orders in the random approach.
 
 \subsection{Results}
 \label{subsec:results}
-	After running the three versions explained in~\ref{subsec:solutions} for each data set, we compare the score for the best network found, the percentage of solutions that converge to the best score and the average number of iterations. The results are showed in Table~\ref{tab:comparison}.
+	After running the three versions explained in~\ref{sec:improve} for each data set, we compare the score for the best network found, the percentage of solutions that converge to the best score and the average number of iterations. The results are showed in Table~\ref{tab:comparison}.
 	
 	% Best Score, %Best solutions, Avg. Iterations,
 	\begin{table}[ h ]
@@ -41,17 +44,19 @@ After implementing all the approaches in section~\ref{subsec:solutions}, some ex
 		\begin{tabular}{ | l | c | c | c | c | c | c | c | c | c | }
 			\hline
 			Dataset & \multicolumn{3}{|c|}{Random Sol.} & \multicolumn{3}{|c|}{Unweighted Sol.} & \multicolumn{3}{|c|}{Weighted Sol.} \\ \cline{2-10}
-			& B. Sc. & \%B. Sol. & Avg.It. & B. Sc. & \%B. Sol. & Avg.It. & B. Sc. & \%B. Sol. & Avg.It. \\ \hline
-			Alarm & 14692.868 & 2.70 & 7.67 & 14692.871 & 2.70 & 7.35 & 14692.874 & 2.70 & 7.54 \\ \hline
-			Census & 569131.706 & 42.86 & 4.29 & 569131.706 & 7.14 & 4.71 & 569131.706 & 21.43 & 5.5 \\ \hline
-			Epigenetics & 214767.676 & 86.67 & 2.67 & 214767.676 & 83.33 & 3.67 & 214767.676 & 80.00 & 4.9 \\ \hline
-			Image & 23386.372 & 55.00 & 4.85 & 23386.37 & 30.00 & 5.70 & 23386.37 & 55.00 & 4.60 \\ \hline
-			Letter & 161941.091 & 88.23 & 3.71 & 161941.091 & 82.35 & 3.9 & 161941.091 & 88.23 & 3.17 \\ \hline
-			Mushroom & 79895.412 & 69.56 & 4.61 & 79895.412 & 91.30 & 3.83 & 79895.412 & 30.43 & 2.52 \\ \hline
-			Sensors & 80202.257 & 4.00 & 6.76 & 80200.719 & 4.00 & 10.24 & 80200.378 & 4.00 & 8.52 \\ \hline
-			SteelPlates & 24652.807 & 82.14 & 3.53 & 24652.807 & 64.29 & 6.14 & 24652.807 & 85.71 & 5.57 \\ \hline
+			& B. Sc. & \%Sol. & Avg.It. & B. Sc. & \%Sol. & Avg.It. & B. Sc. & \%Sol. & Avg.It. \\ \hline
+			Alarm & W & W & W & W & W & W & W & W & W \\ \hline
+			Census & -223893.767 & 9.00 & 6.03 $\pm$ 2.55 & -223893.767 & 2.00 & 4.87 $\pm$ 2.67 & -223893.767 & 3.00 & 3.07 $\pm$ 2.09 \\ \hline
+			Epigenetics & W & W & W & W & W & W & W & W & W \\ \hline
+			Image & -23749.089 & 3.00 & 7.02 $\pm$ 2.74 & -23749.089 & 6.00 & 6.96 $\pm$ 3.16 & -23749.089 & 100.00 & 1.00 $\pm$ 0.00 \\ \hline
+			Letter & -162332.183 & 5.00 & 4.30 $\pm$ 1.57 & -162332.183 & 11.00 & 4.38 $\pm$ 1.82 & -162332.183 & 51.00 & 2.25 $\pm$ 0.83 \\ \hline
+			LungCancer & W & W & W & W & W & W & W & W & W \\ \hline
+			Mushroom & -80384.174 & 3.00 & 5.30 $\pm$ 2.56 & -80384.107 & 3.00 & 5.42 $\pm$ 2.31 & -80384.174 & 74.00 & 2.11 $\pm$ 0.62 \\ \hline
+			Sensors & -80545.820 & 1.00 & 6.89 $\pm$ 2.53 & -80542.640 & 1.00 & 6.10 $\pm$ 2.55 & -80545.820 & 1.00 & 5.58 $\pm$ 2.26 \\ \hline
+			Spectf & W & W & W & W & W & W & W & W & W \\ \hline
+			SteelPlates & -25159.708 & 3.00 & 4.54 $\pm$ 1.68 & -25159.706 & 5.00 & 4.64 $\pm$ 1.64 & -25157.926 & 100.00 & 1.00 $\pm$ 0.00 \\ \hline
 		\end{tabular}
-		\caption{Best score obtained (B. Sc.), Percentage of solutions that converge to best score (\% B. Sol.) and Average number of iterations (Avg. It.) using each approach}
+		\caption{Best score obtained (B. Sc.), Percentage of solutions that converge to best score (\% Sol.) and Average number of iterations (Avg. It.) using each approach}
 		\label{tab:comparison}
 	\end{table}
 	
