@@ -8,7 +8,7 @@ from copy import deepcopy as copy
 color = [ 'b' , 'r' , 'g' ]
 #types = [ 'random' , 'unweighted' , 'weighted' ]
 #datasets = [ 'alarm' , 'census' , 'epigenetics' , 'image' , 'letter' , 'lungCancer' , 'mushroom' , 'sensors' , 'spectf' , 'steelPlates' ]
-datasets = [ 'census' , 'letter' , 'image' , 'mushroom' ]
+datasets = [ 'census' , 'letter' , 'image' , 'mushroom' , 'sensors' , 'steelPlates' , 'epigenetics' ]
 types = [ 'random' , 'unweighted' , 'weighted' ]
 SOL_DELIMITER = ' =='
 IMAGES_DIR = '../doc/images/'
@@ -70,6 +70,7 @@ def read_content( fpath , name ) :
 		avg_scores.append( sc / q )
 	data[ 'score' ] = avg_scores
 	data[ 'iterations' ] = len( avg_scores )
+	data[ 'avg_iterations' ] = avg_iterations
 	data.pop( 'solutions' )
 	return data
 
@@ -92,11 +93,12 @@ def makePlot( directory , dataname ) :
 		x = range( 1 , len( y ) + 1 )
 		col = color[ i ]
 		addCurve( x , y , col , data[ 'name' ] )
+		axvline( x = data[ 'avg_iterations' ] , linestyle = '--' , color = col )
 	legend( loc = 'lower right' )
 	xlabel( 'Iteration' )
 	ylabel( 'BIC Score' )
-	#savefig( "%s%s" % ( IMAGES_DIR , dataname ) )
-	show()
+	savefig( "%s%s" % ( IMAGES_DIR , dataname ) )
+	#show()
 	clf()
 	print ' ====================================================== '
 
