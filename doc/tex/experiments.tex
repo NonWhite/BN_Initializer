@@ -11,16 +11,16 @@ After implementing all the approaches in section~\ref{sec:improve}, some experim
 		\begin{tabular}{ | l | c | c | }
 			\hline
 			Dataset & n (\#attributes) & N (\#instances) \\ \hline
-			%Alarm & 37 & 1000 \\ \hline
 			Census & 15 & 30168 \\ \hline
-			Epigenetics & 30 & 72228 \\ \hline
-			Image & 20 & 2310 \\ \hline
 			Letter & 17 & 20000 \\ \hline
-			%LungCancer & 57 & 27 \\ \hline
+			Image & 20 & 2310 \\ \hline
 			Mushroom & 23 & 8124 \\ \hline
 			Sensors & 25 & 5456 \\ \hline
-			%Spectf & 45 & 267 \\ \hline
 			SteelPlates & 28 & 1941 \\ \hline
+			Epigenetics & 30 & 72228 \\ \hline
+			%Alarm & 37 & 1000 \\ \hline
+			%Spectf & 45 & 267 \\ \hline
+			%LungCancer & 57 & 27 \\ \hline
 		\end{tabular}
 		\caption{Data sets characteristics}
 		\label{tab:datasets}
@@ -43,51 +43,44 @@ After implementing all the approaches in section~\ref{sec:improve}, some experim
 		\begin{tabular}{|c|l|c|c|c|}
 			\hline
 			Dataset & Approach & Best Score & \% Solutions & Avg. It. \\ \hline
+			\multirow{3}{*}{Census} & Random & -223893.767 & \textbf{9.00} & 6.03 $\pm$ 2.55 \\ \cline{2-5} 
+					& DFS-based & -223893.767 & 2.00 & 4.87 $\pm$ 2.67 \\ \cline{2-5}
+					& FAS-based & -223893.767 & 3.00 & \textbf{3.07 $\pm$ 2.09} \\ \hline
+			\multirow{3}{*}{Letter} & Random & -162332.183 & 5.00 & 4.30 $\pm$ 1.57 \\ \cline{2-5} 
+					& DFS-based & -162332.183 & 11.00 & 4.38 $\pm$ 1.82 \\ \cline{2-5}
+					& FAS-based & -162332.183 & \textbf{51.00} & \textbf{2.25 $\pm$ 0.83} \\ \hline
+			\multirow{3}{*}{Image} & Random & -23749.089 & 3.00 & 7.02 $\pm$ 2.74 \\ \cline{2-5} 
+					& DFS-based & -23749.089 & 6.00 & 6.96 $\pm$ 3.16 \\ \cline{2-5}
+					& FAS-based & -23749.089 & \textbf{100.00} & \textbf{1.00 $\pm$ 0.00} \\ \hline
+			\multirow{3}{*}{Mushroom} & Random & -80384.174 & 3.00 & 5.30 $\pm$ 2.56 \\ \cline{2-5} 
+					& DFS-based & \textbf{-80384.107} & 3.00 & 5.42 $\pm$ 2.31 \\ \cline{2-5}
+					& FAS-based & -80384.174 & \textbf{74.00} & \textbf{2.11 $\pm$ 0.62} \\ \hline
+			\multirow{3}{*}{Sensors} & Random & -80545.820 & 1.00 & 6.89 $\pm$ 2.53 \\ \cline{2-5} 
+					& DFS-based & \textbf{-80542.640} & 1.00 & 6.10 $\pm$ 2.55 \\ \cline{2-5}
+					& FAS-based & -80545.820 & 1.00 & \textbf{5.58 $\pm$ 2.26} \\ \hline
+			\multirow{3}{*}{SteelPlates} & Random & -25159.708 & 3.00 & 4.54 $\pm$ 1.68 \\ \cline{2-5} 
+					& DFS-based & -25159.706 & 5.00 & 4.64 $\pm$ 1.64 \\ \cline{2-5}
+					& FAS-based & \textbf{-25157.926} & \textbf{100.00} & \textbf{1.00 $\pm$ 0.00} \\ \hline
+			\multirow{3}{*}{Epigenetics} & Random & -215563.134 & 94.00 & 3.58 $\pm$ 1.19 \\ \cline{2-5} 
+					& DFS-based & -215563.134 & 90.00 & 3.48 $\pm$ 1.18 \\ \cline{2-5}
+					& FAS-based & -215563.134 & \textbf{100.00} & \textbf{1.00 $\pm$ 0.00} \\ \hline
 			%\multirow{3}{*}{Alarm} & Random & W & W & W \\ \cline{2-5} 
 			%		& DFS-based &W & W & W \\ \cline{2-5}
 			%		& FAS-based & W & W & W \\ \hline
-			\multirow{3}{*}{Census} & Random & -223893.767 & 9.00 & 6.03 $\pm$ 2.55 \\ \cline{2-5} 
-					& DFS-based & -223893.767 & 2.00 & 4.87 $\pm$ 2.67 \\ \cline{2-5}
-					& FAS-based & -223893.767 & 3.00 & 3.07 $\pm$ 2.09 \\ \hline
-			\multirow{3}{*}{Epigenetics} & Random & -215563.134 & 94.00 & 3.58 $\pm$ 1.19 \\ \cline{2-5} 
-					& DFS-based & -215563.134 & 90.00 & 3.48 $\pm$ 1.18 \\ \cline{2-5}
-					& FAS-based & -215563.134 & 100.00 & 1.00 $\pm$ 0.00 \\ \hline
-			\multirow{3}{*}{Image} & Random & -23749.089 & 3.00 & 7.02 $\pm$ 2.74 \\ \cline{2-5} 
-					& DFS-based & -23749.089 & 6.00 & 6.96 $\pm$ 3.16 \\ \cline{2-5}
-					& FAS-based & -23749.089 & 100.00 & 1.00 $\pm$ 0.00 \\ \hline
-			
-			\multirow{3}{*}{Letter} & Random & -162332.183 & 5.00 & 4.30 $\pm$ 1.57 \\ \cline{2-5} 
-					& DFS-based & -162332.183 & 11.00 & 4.38 $\pm$ 1.82 \\ \cline{2-5}
-					& FAS-based & -162332.183 & 51.00 & 2.25 $\pm$ 0.83 \\ \hline
-			%\multirow{3}{*}{LungCancer} & Random & W & W & W \\ \cline{2-5} 
-			%		& DFS-based & W & W & W \\ \cline{2-5}
-			%		& FAS-based & W & W & W \\ \hline
-			\multirow{3}{*}{Mushroom} & Random & -80384.174 & 3.00 & 5.30 $\pm$ 2.56 \\ \cline{2-5} 
-					& DFS-based & -80384.107 & 3.00 & 5.42 $\pm$ 2.31 \\ \cline{2-5}
-					& FAS-based & -80384.174 & 74.00 & 2.11 $\pm$ 0.62 \\ \hline
-			\multirow{3}{*}{Sensors} & Random & -80545.820 & 1.00 & 6.89 $\pm$ 2.53 \\ \cline{2-5} 
-					& DFS-based & -80542.640 & 1.00 & 6.10 $\pm$ 2.55 \\ \cline{2-5}
-					& FAS-based & -80545.820 & 1.00 & 5.58 $\pm$ 2.26 \\ \hline
 			%\multirow{3}{*}{Spectf} & Random & W & W & W \\ \cline{2-5} 
 			%		& DFS-based &W & W & W \\ \cline{2-5}
 			%		& FAS-based & W & W & W \\ \hline
-			\multirow{3}{*}{SteelPlates} & Random & -25159.708 & 3.00 & 4.54 $\pm$ 1.68 \\ \cline{2-5} 
-					& DFS-based & -25159.706 & 5.00 & 4.64 $\pm$ 1.64 \\ \cline{2-5}
-					& FAS-based & -25157.926 & 100.00 & 1.00 $\pm$ 0.00 \\ \hline
+			%\multirow{3}{*}{LungCancer} & Random & W & W & W \\ \cline{2-5} 
+			%		& DFS-based & W & W & W \\ \cline{2-5}
+			%		& FAS-based & W & W & W \\ \hline
 		\end{tabular}
-		\caption{Best score obtained, Percentage of solutions that converge to best score (\% Solutions), and Average number of iterations (Avg. It.) using each approach}
+		\caption{Best score obtained, Percentage of solutions that converge to best score (\% Solutions), and Average number of iterations (Avg. It.) using each approach (best values in bold)}
 		\label{tab:comparison}
 	\end{table}
 	
 	Finally, Figure~\ref{fig:converge} shows the converge curve for each data set using each approach.
 	\begin{figure}[H]
 		\centering
-		%\begin{subfigure}{.3\textwidth}
-		%	\centering
-		%	\includegraphics[height=3.5cm]{images/alarm}
-		%	\caption{Alarm}
-		%	\label{fig:alarm}
-		%\end{subfigure}
 		\begin{subfigure}{.3\textwidth}
 			\centering
 			\includegraphics[height=3.5cm]{images/census}
@@ -96,21 +89,15 @@ After implementing all the approaches in section~\ref{sec:improve}, some experim
 		\end{subfigure}
 		\begin{subfigure}{.3\textwidth}
 			\centering
-			\includegraphics[height=3.5cm]{images/epigenetics}
-			\caption{Epigenetics}
-			\label{fig:epigenetics}
+			\includegraphics[height=3.5cm]{images/letter}
+			\caption{Letter}
+			\label{fig:letter}
 		\end{subfigure}
 		\begin{subfigure}{.3\textwidth}
 			\centering
 			\includegraphics[height=3.5cm]{images/image}
 			\caption{image}
 			\label{fig:image}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/letter}
-			\caption{Letter}
-			\label{fig:letter}
 		\end{subfigure}
 		\begin{subfigure}{.3\textwidth}
 			\centering
@@ -130,6 +117,30 @@ After implementing all the approaches in section~\ref{sec:improve}, some experim
 			\caption{SteelPlates}
 			\label{fig:steelplates}
 		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\centering
+			\includegraphics[height=3.5cm]{images/epigenetics}
+			\caption{Epigenetics}
+			\label{fig:epigenetics}
+		\end{subfigure}
+		%\begin{subfigure}{.3\textwidth}
+		%	\centering
+		%	\includegraphics[height=3.5cm]{images/alarm}
+		%	\caption{Alarm}
+		%	\label{fig:alarm}
+		%\end{subfigure}
+		%\begin{subfigure}{.3\textwidth}
+		%	\centering
+		%	\includegraphics[height=3.5cm]{images/spectf}
+		%	\caption{Alarm}
+		%	\label{fig:alarm}
+		%\end{subfigure}
+		%\begin{subfigure}{.3\textwidth}
+		%	\centering
+		%	\includegraphics[height=3.5cm]{images/lungCancer}
+		%	\caption{Alarm}
+		%	\label{fig:alarm}
+		%\end{subfigure}
 		\caption{Converge curve for datasets, vertical lines are in avg. number of iterations}
 		\label{fig:converge}
 	\end{figure}

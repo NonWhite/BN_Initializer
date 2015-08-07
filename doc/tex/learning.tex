@@ -37,7 +37,11 @@ $N$ is the number of instances in the data set, $n$ is the number of atributes, 
         		\label{eq:decomposability}
 		G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) .
 	\end{equation}
-In words, the structure learning problem is to select for each attribute the set parent attributes that maximize the local score while ensuring that the graph is acyclic. Exhaustively searching for the optimal parent set ${Pa}( X_i)$ for each attribute takes $O(2^n)$ time. To avoid the exponential blow-up we constrain the maximum number of parents to a value $d$, hence reducing the search space to $2^d$; this means $|{Pa}( X_i )| \leq d$ for all attributes. Typical values for $d$ are 3, 4 and 5, depending on the cardinality of variables. Additional speed-up can be achieved by using pruning schemes that remove suboptimal subsets of parent sets without resorting to inspection \cite{Cassio11}.
+In words, the structure learning problem is to select for each attribute the set parent attributes that maximize the local score while ensuring that the graph is acyclic. Exhaustively searching for the optimal parent set ${Pa}( X_i)$ for each attribute takes $O(2^n)$ time. To avoid the exponential blow-up we constrain the maximum number of parents to a value $d$, hence reducing the search space to $2^d$; this means $|{Pa}( X_i )| \leq d$ for all attributes. Typical values for $d$ are 3, 4 and 5, depending on the cardinality of variables. Additional speed-up can be achieved by using pruning schemes that remove suboptimal subsets of parent sets without resorting to inspection \cite{Cassio11}. Notice that $G$ is not necessarily equal to the graph $G^*$ defined in equation~\ref{eq:bestparents} because $G^*$ has for each attribute $X_i$ its best parent set $P$ (the one that maximizes ${sc}( X_i , {Pa}( X_i ) )$ ) and it can contain cycles (by definition, a network is a DAG).
+	\begin{equation}
+		\label{eq:bestparents}
+		G^* = \sum_{i=1}^{n} \max {sc}( X_i , {Pa}( X_i ) ) ,
+	\end{equation}
 
 \subsection{Greedy Search Algorithm}
 \label{subsec:greedysearch}

@@ -1,7 +1,7 @@
 \section{Generating informed initial solutions}
 \label{sec:improve}
 
-From section~\ref{subsec:greedysearch}, we already know the Greedy Search algorithm and the more popular approaches using it. In all of the approaches showed can be noticed that a very important step in the algorithm is in the first line, where an initial solution is generated because if we have a good one, the solution will converge faster. We focus in the Order-base (in~\ref{subsub:orderbased}) one. At the start of this section, the most common method will be explained. After that, we explain every new proposed method to generate an initial solution for Order-based Greedy Algorithm and the Feedback Arc Set Problem (FASP).
+From section~\ref{subsec:greedysearch}, we already know the Greedy Search algorithm and the more popular approaches using it. In all of the approaches showed can be noticed that a very important step in the algorithm is in the first line, where an initial solution is generated because if we have a good one, the solution will converge faster. We focus in the Order-based one ((in subsection~\ref{subsub:orderbased}) . At the start of this section, the most common method will be explained. After that, we explain every new proposed method to generate an initial solution for Order-based Greedy Algorithm and the Feedback Arc Set (FAS) Problem.
 
 \subsection{Random solution}
 \label{subsec:randomapproach}
@@ -9,15 +9,14 @@ From section~\ref{subsec:greedysearch}, we already know the Greedy Search algori
 
 \subsection{DFS-based solution}
 \label{subsec:dfsapproach}
-	This is the first new method we are proposing for generating initial solutions and the main idea of the method is to eliminate possible orders that do not help to have good parent sets for every attribute.\\
-	For example, using the graph in Figure~\ref{fig:example}, we know that some orders does not generate some of the parent sets showed there. In the previous approach we have $4!$ possible orders, but if some information is given about the relations between attributes, we can eliminate some of those possible orders.
+	Generating random solutions means having a huge search space ($n!$, where $n$ is the number of attributes in the dataset). In order to reduce this search space we can use a graph $G^*$ (in Figure~\ref{fig:example} that tell us some information about the relationships between the attributes.
 	\begin{figure}[H]
 		\centering
 		\input{networks/example}
-		\caption{Graph $G^*$ with best parent set for 4 attributes}
+		\caption{Graph $G^*$ built using equation~\ref{eq:bestparents} }
 		\label{fig:example}
 	\end{figure}
-	With the information given from $G^*$ we could have field $C$ before $D$ or $A$ before $B$,$C$ or $D$ in the order generated. Having in consideration all these relations we have the following possible orders:
+	From $G^*$, we know that some orders does not generate some of the parent sets showed there. For instance, we could have attribute $C$ before $D$, or $A$ before $B$,$C$ or $D$ in the order generated. Having in consideration all these relations we have the following possible orders:
 	\begin{multicols}{7}
 		\begin{verbatim}
 			ABDC
@@ -36,11 +35,11 @@ From section~\ref{subsec:greedysearch}, we already know the Greedy Search algori
 			DCBA
 		\end{verbatim}
 	\end{multicols}
-	In total we have 14 possible orders given $G^*$ and $4! = 24$ possible orders in total (the number of permutations using 4 nodes). So we reduce the search space and also improve the possibilities that getting a good initial order because the relations are the best parent sets for each field. Also, the difference could be greater in problems with more attributes.
+	As can be noticed we have 14 possible orders given $G^*$, but $4! = 24$ possible orders (the number of permutations using 4 nodes) using a random approach. So we reduce the search space and also improve the possibilities that getting a good initial order because the relations are the best parent sets for each attribute. Also, the difference could be greater in problems with more attributes.
 	Taking into consideration the previous analysis, we propose the following algorithm to generate initial solutions:
 	\begin{enumerate}
-		\item Find the best parent set ${Pa}( X_i )$ for each field $X_i$
-		\item Build a graph $G^*$ using the relations between each field $X_i$ and ${Pa}( X_i )$ as edges
+		\item Find the best parent set ${Pa}( X_i )$ for each attribute $X_i$
+		\item Build a graph $G^*$ using the relations between each attribute $X_i$ and ${Pa}( X_i )$ as edges
 		\item Start with an empty list $L$
 		\item While there are nodes not visited do
 		\begin{enumerate}
@@ -58,15 +57,19 @@ In this subsection, we first explained the generic problem and one of the varian
 \subsubsection{Feedback Arc Set Problem}
 \label{subsub:fasp}
 
-The generic problem is stated as: Given a graph $G = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G$, it becomes a directed acyclic graph (DAG).\\
-There are some variants of this problem, but we only focus on finding the minimum cost FAS from weighted directed graphs. Although this variant becomes NP-hard, there are some approximation algorithms like the one that is below.
+The generic problem is stated as: Given a graph $G^* = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G^*$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G^*$, it becomes a directed acyclic graph (DAG).\\
+There are some variants of this problem, but we only focus on finding the minimum cost FAS $F$ from a weighted directed graph $G^*$ defined in equation~\ref{eq:mincostfas}.
+\begin{equation}
+	\label{eq:mincostfas}
+	F_{G^*} = \min_{G^* becomes DAG} \sum_{(u,v) \in E} W_{uv} ,
+\end{equation}
+where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G^*$. Although this variant becomes NP-hard, there are some approximation algorithms like the one that is below.
 \begin{enumerate}
 	\item Start with $F = \emptyset$
 	\item While there is a cycle $C$ in $G$ do
 	\begin{enumerate}
 		\item Find the lowest weight $W_{min}$ of all the edges $(u,v) \in C$
-		\item For each edge $(u,v) \in C$, do $W_{uv} = W_{uv} - W_{min}$, where $W_{uv}$ is the 
-		weight of the arc from $u$ to $v$
+		\item For each edge $(u,v) \in C$, do $W_{uv} = W_{uv} - W_{min}$
 		\item If some $W_{uv} = 0$ for some edge $(u,v) \in C$, then add $(u,v)$ to $F$
 	\end{enumerate}
 	\item For each edge $(u,v) \in F$, add it to $G$ only if it does not build a cycle on the graph
@@ -75,21 +78,39 @@ There are some variants of this problem, but we only focus on finding the minimu
 
 \subsubsection{Algorithm for initial solutions}
 \label{subsub:fasalgorithm}
-	In order to use the approximated solution for minimum cost FAS, the edges have its weight defined as follows:
+	First, we have the following relation for the problem:
+		\begin{equation}
+			\label{eq:reduction}
+			G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) \leq G^* = \sum_{i=0}^{n} \max {sc}( X_i , {Pa}( X_i ) ) ,
+		\end{equation}
+	The left part is the original definition of the problem for learning structure of bayesian networks (given in equation~\ref{eq:decomposability}) and the right part is the graph $G^*$ showed in equation~\ref{eq:bestparents}. In other words, the bayesian network $G$ could be an acyclic subgraph of $G^*$. 
+	In order to prove that the relation is true, we need to define the weight edges as follows:
 		\begin{equation}
 			\label{eq:weight}
 			W_{ji} = {sc}( X_i , P ) - {sc}( X_i , P \setminus \{ X_j \} ) ,
 		\end{equation}
 	where $W_{ji}$ is the weight of the edge that goes from $X_j$ to $X_i$ and $P$ is the best parents set for $X_i$. This formula represents the cost of getting $X_j$ out of the set $P$ and it is always a positive number. When the value is so small, it means the parent $X_j$ could be more important. On the contrary if the weight is so big, this means that $X_j$ is not so important in $P$.\\
-	Also, we have the following relation for the problem:
-		\begin{equation}
-			\label{eq:reduction}
-			G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) \leq \sum_{i=0}^{n} \max {sc}( X_i , {Pa}( X_i ) ) ,
-		\end{equation}
-	The left part is the original definition of the problem for learning structure of bayesian networks (given in equation~\ref{eq:decomposability}) and the right part is the graph built by all the relations between the fields and their best parent sets, called $G^*$. In other words, the bayesian network $G$ could be an acyclic subgraph of $G^*$. But now we know how to become a graph (possibly with cycles) to a DAG using the FAS solution given in~\ref{subsub:fasp}.
-	Then we propose the new algorithm for getting an initial solution using the FAS solution given in~\ref{subsub:fasp} as follows:
+	Then we can prove that the problem can be reduce with the following equations:
+	\begin{equation}
+		\label{eq:prove1}
+		\min \sum_{i=0}^{n} W_{uv} = \min \sum_{i=0}^{n} ( {sc}( X_i , P ) - {sc}( X_i , P \setminus X_j ) )
+	\end{equation}
+	\begin{equation}
+		\label{eq:prove2}
+		\min \sum_{i=0}^{n} {sc}( X_i , P ) - \min \sum_{i=0}^{n} {sc}( X_i , P \setminus X_j )
+	\end{equation}
+	\begin{equation}
+		\label{eq:prove3}
+		\max \sum_{i=0}^{n} {sc}( X_i , P ) + \min \sum_{i=0}^{n} {sc}( X_i , P \setminus X_j )
+	\end{equation}
+	\begin{equation}
+		\label{eq:prove4}
+		{sc}( G ) + \min \sum_{i=0}^{n} {sc}( X_i , P \setminus X_j ) \approx {sc}( G^* )
+	\end{equation}
+	This means that the score of DAG $G$ plus the score of the deleted arcs of $G^*$ give an approximation, and also that $G$ could be a subgraph of $G^*$.
+	Finally, as we already know how to become $G^*$ to a DAG $G$ using the FAS solution given in~\ref{subsub:fasp}, we propose the new algorithm for getting an initial solution using it as follows:
 	\begin{enumerate}
-		\item Find the best parent set ${Pa}( X_i )$ for each field $X_i$
+		\item Find the best parent set ${Pa}( X_i )$ for each attribute $X_i$
 		\item Build the graph $G^*$ using all the relationships $X_j \implies X_i, X_j \in {Pa}( X_i )$ and put its score as $W_{ji}$
 		\item Find the minimum cost FAS $F$
 		\item Delete all edges $(u,v) \in F$ from $G^*$ to obtain a network $G$
