@@ -10,6 +10,7 @@ color = [ 'b' , 'r' , 'g' ]
 #datasets = [ 'alarm' , 'census' , 'epigenetics' , 'image' , 'letter' , 'lungCancer' , 'mushroom' , 'sensors' , 'spectf' , 'steelPlates' ]
 datasets = [ 'census' , 'letter' , 'image' , 'mushroom' , 'sensors' , 'steelPlates' , 'epigenetics' ]
 types = [ 'random' , 'unweighted' , 'weighted' ]
+labeltype = [ 'Random' , 'DFS-based' , 'FAS-based' ]
 SOL_DELIMITER = ' =='
 IMAGES_DIR = '../doc/images/'
 
@@ -83,9 +84,11 @@ def addPoint( x , y , col ) :
 
 def makePlot( directory , dataname ) :
 	networkdata = []
-	for t in types :
+	for i in xrange( len( types ) ) :
+		t = types[ i ]
+		lbl = labeltype[ i ]
 		f = "%s%s_%s.txt" % ( directory , dataname , t )
-		networkdata.append( read_content( f , t ) )
+		networkdata.append( read_content( f , lbl ) )
 	max_iterations = max( [ d[ 'iterations' ] for d in networkdata ] )
 	for i in range( len( networkdata ) ) :
 		data = networkdata[ i ]
