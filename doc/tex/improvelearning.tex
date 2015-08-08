@@ -1,11 +1,20 @@
 \section{Generating informed initial solutions}
 \label{sec:improve}
 
-From section~\ref{subsec:greedysearch}, we already know the Greedy Search algorithm and the more popular approaches using it. In all of the approaches showed can be noticed that a very important step in the algorithm is in the first line, where an initial solution is generated because if we have a good one, the solution will converge faster. We focus in the Order-based one ((in subsection~\ref{subsub:orderbased}) . At the start of this section, the most common method will be explained. After that, we explain every new proposed method to generate an initial solution for Order-based Greedy Algorithm and the Feedback Arc Set (FAS) Problem.
+As with most local search approaches, the selection of a good initial
+solution that avoids poor local maxima is crucial for finding good
+solutions. Traditionally, this is attempted by randomly generating
+initial solutions (DAGs, pDAGs or orderings) in order to cover as much
+as possible of the space. In this section, we devise methods that take
+advantage of the structure of the problem to produce better initial
+solutions. Although we focus on Order-Based search, our methods could be
+used for any of the other greedy approaches discussed.
 
-\subsection{Random solution}
-\label{subsec:randomapproach}
-	This is the most common and easy-to-implement approach used. An easy way to shuffle a list $L$ with size $n$ is the Fisher-Yates algorithm \cite{FisherYates98}.
+% From section~\ref{subsec:greedysearch}, we already know the Greedy Search algorithm and the more popular approaches using it. In all of the approaches showed can be noticed that a very important step in the algorithm is in the first line, where an initial solution is generated because if we have a good one, the solution will converge faster. We focus in the Order-based one ((in subsection~\ref{subsub:orderbased}) . At the start of this section, the most common method will be explained. After that, we explain every new proposed method to generate an initial solution for Order-based Greedy Algorithm and the Feedback Arc Set (FAS) Problem.
+
+% \subsection{Random solution}
+% \label{subsec:randomapproach}
+% 	This is the most common and easy-to-implement approach used. An easy way to shuffle a list $L$ with size $n$ is the
 
 \subsection{DFS-based solution}
 \label{subsec:dfsapproach}
@@ -13,10 +22,10 @@ From section~\ref{subsec:greedysearch}, we already know the Greedy Search algori
 	\begin{figure}[H]
 		\centering
 		\input{networks/example}
-		\caption{Graph $G^*$ built using equation~\ref{eq:bestparents} }
+		\caption{Graph $\overline{G}$ built using equation~\ref{eq:bestparents} }
 		\label{fig:example}
 	\end{figure}
-	From $G^*$, we know that some orders does not generate some of the parent sets showed there. For instance, we could have attribute $C$ before $D$, or $A$ before $B$,$C$ or $D$ in the order generated. Having in consideration all these relations we have the following possible orders:
+	From $\overline{G}$, we know that some orders does not generate some of the parent sets showed there. For instance, we could have attribute $C$ before $D$, or $A$ before $B$,$C$ or $D$ in the order generated. Having in consideration all these relations we have the following possible orders:
 	\begin{multicols}{7}
 		\begin{verbatim}
 			ABDC
@@ -35,16 +44,16 @@ From section~\ref{subsec:greedysearch}, we already know the Greedy Search algori
 			DCBA
 		\end{verbatim}
 	\end{multicols}
-	As can be noticed we have 14 possible orders given $G^*$, but $4! = 24$ possible orders (the number of permutations using 4 nodes) using a random approach. So we reduce the search space and also improve the possibilities that getting a good initial order because the relations are the best parent sets for each attribute. Also, the difference could be greater in problems with more attributes.
+	As can be noticed we have 14 possible orders given $\overline{G}$, but $4! = 24$ possible orders (the number of permutations using 4 nodes) using a random approach. So we reduce the search space and also improve the possibilities that getting a good initial order because the relations are the best parent sets for each attribute. Also, the difference could be greater in problems with more attributes.
 	Taking into consideration the previous analysis, we propose the following algorithm to generate initial solutions:
 	\begin{enumerate}
 		\item Find the best parent set ${Pa}( X_i )$ for each attribute $X_i$
-		\item Build a graph $G^*$ using the relations between each attribute $X_i$ and ${Pa}( X_i )$ as edges
+		\item Build a graph $\overline{G}$ using the relations between each attribute $X_i$ and ${Pa}( X_i )$ as edges
 		\item Start with an empty list $L$
 		\item While there are nodes not visited do
 		\begin{enumerate}
 			\item Choose a random node $X_k$ not visited
-			\item Perform a DFS on graph $G^*$ using $X_k$ as root and add each node $X_v$ visited to the order $L$
+			\item Perform a DFS on graph $\overline{G}$ using $X_k$ as root and add each node $X_v$ visited to the order $L$
 		\end{enumerate}
 		\item Return $L$
 	\end{enumerate}
@@ -54,14 +63,13 @@ From section~\ref{subsec:greedysearch}, we already know the Greedy Search algori
 
 In this subsection, we first explained the generic problem and one of the variants of the Feedback Arc Set (FAS) Problem. After that, a reduction of the learning structure bayesian network problem will be explained in order to propose a new algorithm for generating initial solutions.
 
-\subsubsection{Feedback Arc Set Problem}
-\label{subsub:fasp}
+\subsubsection{Feedback Arc Set Problem} \label{subsub:fasp}
 
-The generic problem is stated as: Given a graph $G^* = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G^*$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G^*$, it becomes a directed acyclic graph (DAG).\\
-There are some variants of this problem, but we only focus on finding the minimum cost FAS $F$ from a weighted directed graph $G^*$ defined in equation~\ref{eq:mincostfas}.
+The generic problem is stated as: Given a graph $G = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G$, it becomes a directed acyclic graph (DAG).\\
+There are some variants of this problem, but we only focus on finding the minimum cost FAS $F$ from a weighted directed graph $G$ defined in equation~\ref{eq:mincostfas}.
 \begin{equation}
 	\label{eq:mincostfas}
-	F_{G^*} = \min_{G^* becomes DAG} \sum_{(u,v) \in E} W_{uv} ,
+	F_{G} = \min_{G - F \text{ is a DAG}} \sum_{(u,v) \in E} W_{uv} ,
 \end{equation}
 where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G^*$. Although this variant becomes NP-hard, there are some approximation algorithms like the one that is below.
 \begin{enumerate}
@@ -81,10 +89,9 @@ where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G^*$. Although this
 	First, we have the following relation for the problem:
 		\begin{equation}
 			\label{eq:reduction}
-			G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) \leq G^* = \sum_{i=0}^{n} \max {sc}( X_i , {Pa}( X_i ) ) ,
+			G^* = \arg\max_{G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) \leq {sc}(\overline{G})
 		\end{equation}
-	The left part is the original definition of the problem for learning structure of bayesian networks (given in equation~\ref{eq:decomposability}) and the right part is the graph $G^*$ showed in equation~\ref{eq:bestparents}. In other words, the bayesian network $G$ could be an acyclic subgraph of $G^*$. 
-	In order to prove that the relation is true, we need to define the weight edges as follows:
+	The left part is the original definition of the problem for learning structure of bayesian networks and the right part is the upper bound graph $\overline{G}$ relaxing the acyclicity constraint. In order to prove that the relation is true, we need to define the weight edges as follows:
 		\begin{equation}
 			\label{eq:weight}
 			W_{ji} = {sc}( X_i , P ) - {sc}( X_i , P \setminus \{ X_j \} ) ,
@@ -107,13 +114,17 @@ where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G^*$. Although this
 		\label{eq:prove4}
 		{sc}( G ) + \min \sum_{i=0}^{n} {sc}( X_i , P \setminus X_j ) \approx {sc}( G^* )
 	\end{equation}
-	This means that the score of DAG $G$ plus the score of the deleted arcs of $G^*$ give an approximation, and also that $G$ could be a subgraph of $G^*$.
-	Finally, as we already know how to become $G^*$ to a DAG $G$ using the FAS solution given in~\ref{subsub:fasp}, we propose the new algorithm for getting an initial solution using it as follows:
+        This means that the score of the DAG $G$ plus the score of the
+        deleted arcs from $\overline{G}$ give an approximation for
+        $G^*$, and also that $G^*$ could be a subgraph of
+        $\overline{G}$.  We can now describe our second heuristic for
+        generating initial solutions, based on the minimum cost FAS
+        problem:
 	\begin{enumerate}
 		\item Find the best parent set ${Pa}( X_i )$ for each attribute $X_i$
-		\item Build the graph $G^*$ using all the relationships $X_j \implies X_i, X_j \in {Pa}( X_i )$ and put its score as $W_{ji}$
+		\item Build the graph $\overline{G}$ using all the relationships $X_j \implies X_i, X_j \in {Pa}( X_i )$ and put its score as $W_{ji}$
 		\item Find the minimum cost FAS $F$
-		\item Delete all edges $(u,v) \in F$ from $G^*$ to obtain a network $G$
+		\item Delete all edges $(u,v) \in F$ from $\overline{G}$ to obtain a network $G$
 		\item Return a topological order of $G$
 	\end{enumerate}
 

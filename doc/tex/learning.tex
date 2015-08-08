@@ -1,23 +1,25 @@
-\section{Learning bayesian networks}
+\section{Learning Bayesian networks}
 \label{sec:learning}
 
-In this section, we define mathematically the search-and-score approach
-to the Bayesian network learning problem and we review some popular
-solutions.
+In this section, we define the search-and-score approach learning
+Bayesian networks, and review some of its most popular techniques.
 
 \subsection{Definition of the problem}
 \label{subsec:definition}
 
-The problem of learning the structure of a Bayesian network is stated as: Given a training data set $D $, select the network (DAG) $G$ that maximizes the scoring function ${sc}( G , D )$.
-A general definition of a scoring function is as follows:
+Given a data set $D$ and a scoring function ${sc}(G)$,\footnote{The dependence of the scoring function on the data set is usually left implicitly, as for most of this explanation we can assume a fixed data set.} the Bayesian network structure learning problem is to select a score-maximizing DAG, that is to find
+\begin{equation} \label{optimal}
+  G^* = \arg\max_{G: G \text{ is a DAG}} {sc}( G ) \, .
+\end{equation}
+Most scoring functions can be rewritten in the form
 	\begin{equation}
 		\label{eq:scoringfunction}
-		{sc}( G , D ) = F( G, D ) - \varphi( N ) \times P( G ) ,
+		{sc}( G ) = F( G ) - \varphi( N ) \times P( G ) ,
 	\end{equation}
-where $N$ is the size of the data set $D$, $F( G, D )$ is a data fitness function (i.e., how well the model represents the observed data), $\varphi( N )$ is a non-decreasing function of data size and $P( G )$ measures the model complexity of $G$. For instance,  the Bayesian information criterion (BIC) is defined as
+where $N$ is the number of records in the data set $D$, $F( G )$ is a data fitness function (i.e., how well the model represents the observed data), $\varphi( N )$ is a non-decreasing function of data size and $P( G )$ measures the model complexity of $G$. One example is the Bayesian information criterion (BIC) defined as
 	\begin{equation}
 		\label{eq:bicscore}
-		{BIC}( G , D ) = {LL}( G ) - \frac{\log N}{2} {size}( G ) ,
+		{BIC}( G ) = {LL}( G ) - \frac{\log N}{2} {size}( G ) ,
 	\end{equation}
 where
 	\begin{equation}
@@ -29,24 +31,27 @@ is the data loglikelihood,
 		\label{eq:size}
 		{size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j| ,
 	\end{equation}
-represents the ``size'' of a model with structure $G$, 
-$N$ is the number of instances in the data set, $n$ is the number of atributes, $N_{ijk}$ the number of instances where attribute $X_i$ takes its $k$th value, and its parents take the $j$th configuration (for some arbitrary fixed ordering of the configurations of the parents' values), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
+is the ``size'' of a model with structure $G$, $n$ is the number of atributes, $N_{ijk}$ the number of instances where attribute $X_i$ takes its $k$th value, and its parents take the $j$th configuration (for some arbitrary fixed ordering of the configurations of the parents' values), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
+Most commonly used scoring functions, BIC included, are \emph{decomposable}, meaning
+that they can be written as a sum of local scoring functions:
+${sc}(G)=\sum_i {sc}(X_i, {Pa}(X_i))$. Provided the scoring function is decomposable, we can obtain an upper bound on the value of $sc(G^*)$ by computing $sc(\overline{G})$, where
+\begin{equation} \label{upperbound}
+ \overline{G} = \arg \sum_i \max_{{Pa}(X_i)} sc( x_i, {Pa}( X_i ) ) \, . 
+\end{equation}
+Another property often satisfied by scoring functions is
+\emph{likelihood equivalence}, which asserts that two structures with
+same loglikelihood also have the same score \cite{Maxwell04}. Likelihood
+equivalence is justified as a desirable property, since two structures
+that assign the same loglikelihood to data cannot be distinguished by
+the data alone. The BIC scoring function satisfies likelihood
+equivalence.
 
-        Most scoring functions, BIC included, are \emph{decomposable}, meaning that they can be written as a sum of local scoring functions $sc(X_i, {Pa}(X_i))$. Under the assumption of \emph{score decomposability}, the Bayesian network structure learning problem is defined as finding
-        \begin{equation}
-        		\label{eq:decomposability}
-		G = \max_{\{ {Pa}(X_i)\}_i, G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) .
-	\end{equation}
-In words, the structure learning problem is to select for each attribute the set parent attributes that maximize the local score while ensuring that the graph is acyclic. Exhaustively searching for the optimal parent set ${Pa}( X_i)$ for each attribute takes $O(2^n)$ time. To avoid the exponential blow-up we constrain the maximum number of parents to a value $d$, hence reducing the search space to $2^d$; this means $|{Pa}( X_i )| \leq d$ for all attributes. Typical values for $d$ are 3, 4 and 5, depending on the cardinality of variables. Additional speed-up can be achieved by using pruning schemes that remove suboptimal subsets of parent sets without resorting to inspection \cite{Cassio11}. Notice that $G$ is not necessarily equal to the graph $G^*$ defined in equation~\ref{eq:bestparents} because $G^*$ has for each attribute $X_i$ its best parent set $P$ (the one that maximizes ${sc}( X_i , {Pa}( X_i ) )$ ) and it can contain cycles (by definition, a network is a DAG).
-	\begin{equation}
-		\label{eq:bestparents}
-		G^* = \sum_{i=1}^{n} \max {sc}( X_i , {Pa}( X_i ) ) ,
-	\end{equation}
+Finding a score-maximizing structure is a NP-hard problem, and practitioners often resort to greedy search algorithms, which we review next.
 
 \subsection{Greedy Search Algorithm}
 \label{subsec:greedysearch}
 
-The Greedy Search algorithm is a popular heuristic method used to find an approximation for a solution of  learning Bayesian network problem using the concept of neighborhood between solutions. Depending on the focus of the algorithm this could be classified as Equivalence-based, Structure-based, Order-based, etc. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this algorithm.
+The Greedy Search algorithm is a popular heuristic method used to find an approximate solution for the Bayesian network learning. The method relies on the definition of a neighborhood space among solutions, and on local moves that search for an improving solution in the neighborhood of an incumbent solution. Different neighborhoods and local moves give rise to different methods such as Equivalence-based, Structure-based,  and Order-based methods. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this algorithm.
 
 \begin{lstlisting}[ caption = Greedy Search , label = code:greedysearch ]
 	|$G = Initial\_Solution( X_1 , \ldots , X_n , conf )$ \label{line:init}|
@@ -56,23 +61,60 @@ The Greedy Search algorithm is a popular heuristic method used to find an approx
 			|$G = best\_neighbor$|
 	Return |$G$|
 \end{lstlisting}
-The main idea of this algorithm is to generate an initial solution based on the ${conf}$ parameter (for instance, ${conf}$ can say that the solution has to be random generated). After that, for a number of iterations $K$ explore the search space and selects the best neighbor of the best solution until that moment. Then calculate its score in order to know if it is a better solution. Additionally to the stop condition could be added that the solution converges (i.e. its score does not improve). Finally, return the best solution when the stop condition holds.\\
-As mentioned before, there are lot of different approaches using this algorithm, but all of them only change lines~\ref{line:init}, ~\ref{line:neighbor} and~\ref{line:score} depending on its own way to generate an initial solution, its search space and the scoring function used, respectively.\\
+The main idea of the algorithm is to generate an initial solution based on the ${conf}$ parameter (for instance, ${conf}$ can specify that the solution has to be random generated). After that, for a number of iterations $K$ the algorithm explores the search space and selects the best neighbor of the best solution until that moment. It then updates the lower bound on the score inc case an improving solutions has been found. Additionally, an early stop condition can be added to verify whether the algorithm has reached a local optimum (i.e. if no local move can improve the lower bound). The algorithm terminates by returning the best solution found.
+Several methods can be obtained by varying the implementation of lines~\ref{line:init}, ~\ref{line:neighbor} and~\ref{line:score}, which specify how to generate an initial solution, what the search space is and how the scoring function used, respectively. 
 % Structure-based (using deletion, inversion, suppression)
 % 	http://ofrancois.tuxfamily.org/carb/node9_ct.html
 \subsubsection{Structure-based}
 \label{subsub:structurebased}
-In this version the initial solution $G$ is a network, possibly random generated, and its possible neighbors are other networks that only differs by one arc. This means that an arc can be inserted, deleted or inverted its direction to obtain a new neighbor.\\
+
+One of earliest approaches to learning Bayesian networks was to perform
+a greedy search over the space of DAGs, with local moves being the
+operations of adding, removing or reverting an edge, followed by the
+verification of acyclicity in the case of edge addition. The initial
+solution is usually obtained by randomly generating a DAG, using one of
+the many methods available in the literature. 
+
+
+%In this version the initial solution $G$ is a network, possibly random generated, and its possible neighbors are other networks that only differs by one arc. This means that an arc can be inserted, deleted or inverted its direction to obtain a new neighbor.\\
 % Equivalence-based
 % 	http://research.microsoft.com/en-us/um/people/dmax/publications/inclusion.pdf
 %	http://www.jmlr.org/papers/volume3/chickering02b/chickering02b.pdf
 \subsubsection{Equivalence-based}
 \label{subsub:equivalencebased}
-In the same way, the initial solution $G$ is a network and uses the equivalence relation between networks to obtain new neighbors. Two networks $L_1$ and $L_2$ are equivalent if they have the same probability distribution \cite{Maxwell04}.
+
+
+An alternative approach is to search within the class of
+score-equivalent DAGs. This can be efficiently achieved when the scoring
+function is likelihood equivalent by using pDAGs, which are graphs that contain both undirected and directed edges (but no directed cycles). In this case, greedy search operates on the space of pDAGs, and the neighborhood is defined by addition, removal and reversal of edges, just as in structure-based search. 
 
 \subsubsection{Order-based}
 \label{subsub:orderbased}
-Finally, a Order-based Greedy Search is a popular and effective solution to the problem of learning the structure of a Bayesian network where the initial solution $L$ is an order of the attributes and not a network like in previous approaches. Algorithm~\ref{code:orderbased} shows its pseudocode, where the function ${swap}$ (in line~\ref{line:swap}) swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$.
+Given a topological ordering $<$ of the attributes, the problem of learning a Bayesian network simplifies to 
+\begin{equation}
+  \label{eq:orderreduced}
+  G^* = \arg\max_{G \text{ consistent with } <} \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) = \arg \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}} {sc}( X_i , P ) ,
+\end{equation}
+This means the if an optimal ordering over the attributes is known, an
+optimal DAG can be found by maximizing the local scores
+independently. Since an exhaustive approach would take $O(2^n)$ time,
+the local optimization is usually constrained to the space of parents of
+cardinality at most a certain parameter $d$. For the BIC scoring
+function (as for others), limiting the cardinality of parent sets does
+not affect the optimality, as the number of maximal parents in the
+optimal BIC-maximizing DAG can be shown to be at most $\log N$ (so it
+suffices to select $d \geq \log N$).
+
+
+Order-based Greedy Search is a popular and effective solution to the
+problem of learning the structure of a Bayesian network, which consists
+of searching the spaces of topological oderings of variables. The method
+starts with a topological ordering $L$, and greedily moves to an
+improving ordering by swapping two adjacent attributes in $L$ if any
+exists. Algorithm~\ref{code:orderbased} shows a pseudocode for the
+method. The function ${swap}$ in line~\ref{line:swap} swaps the values
+$L[ i ]$ and $L[ i + 1 ]$ in the order $L$ in order to obtain a neighbor
+of the current solution.
 
 \begin{lstlisting}[ caption = Order-based Greedy Search , label = code:orderbased ]
 	|$L = Get\_Order( X_1 , \ldots , X_n , conf )$|
@@ -86,10 +128,6 @@ Finally, a Order-based Greedy Search is a popular and effective solution to the 
 			|$L = current\_sol$|
 	Return |${network}( L )$|
 \end{lstlisting}
-So we need to calculate the score for an order of the attributes and we know from subsection~\ref{subsec:definition} that, in general, to obtain the score for a network is an NP-hard problem because of the exponential number of possible sets of parents (even in the bounded case). But if we know an order of the attributes, the problem can be reduced as follows
-	\begin{equation}
-		\label{eq:orderreduced}
-		G = \max_G \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) = \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}:|P|\leq d} {sc}( X_i , P ) ,
-	\end{equation}
-where $X_j < X_i$ means that $X_j$ appears before $X_i$ in the order of the attributes. This means that we can maximize the score for every attribute independently the other ones.\\
-In section~\ref{sec:experiments}, the Order-based Greedy Search algorithm will be used for learning structure of Bayesian networks using multiple data sets.
+
+The standard approach to generate initial solutions is to sample a permutation of the attributes uniformly at random by some efficient procedure such as the Fisher-Yates algorithm \cite{FisherYates98}. In the next section, we propose new strategies to informed generation of topological orderings to be used as initial solutions in Order-Based search.
+

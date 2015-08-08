@@ -1,11 +1,7 @@
 \section{Experiments and Results}
 \label{sec:experiments}
 
-After implementing all the approaches in section~\ref{sec:improve}, some experiments were done in order to compare them. First, we show the setup for all experiments and then show the final results.
-
-\subsection{Experiments Setup}
-\label{subsec:configuration}
-	Table~\ref{tab:datasets} shows the characteristics of each data set used in the experiments.
+In order to evaluate the quality of our approaches, we learned Bayesian networks using Order-based greedy search and different initialization strategies from several data sets commonly used for benchmarking. The names and relevant characteristics of the data sets used are shown in Table~\ref{tab:datasets}.
 	\begin{table}[ h ]
 		\centering
 		\begin{tabular}{ | l | c | c | }
@@ -25,18 +21,9 @@ After implementing all the approaches in section~\ref{sec:improve}, some experim
 		\caption{Data sets characteristics}
 		\label{tab:datasets}
 	\end{table}
-	Also, the values for each general parameter are given below.
-	\begin{itemize}
-		\item Maximum number of parents ($d$): 3
-		\item Number of iterations in Greedy Search ($K$): 100
-		\item Scoring function used: Bayesian Criterion Information (BIC)
-		\item Number of different initial solutions generated ($S$): 100
-	\end{itemize}
-	The parameter $S$ is used to have better statistics about using every approach compared with the others. It is possible to generate such a number of different solutions with every approach because there are a lot of possible orders given a graph and also $n!$ possible orders in the random approach.
+The greedy search was ran with a maximum number of parents ($d=3$), a limit of 100 iterations ($K=100$) and 100 restarts ($S=100$). We used the BIC scoring in all experiments. The choice of the parameter $S$ was adopted so as to have enough data to produce statistically significant results while still being able to ran all the experiments in a restricted amount of time.
 
-\subsection{Results}
-\label{subsec:results}
-	After running the three versions explained in section~\ref{sec:improve} for each data set, we compare the score for the best network found, the percentage of solutions that converge to the best score and the average number of iterations. The results are showed in Table~\ref{tab:comparison}.
+We evaluated three different initialization strategies: Random, which randomly generates a topological ordering, DFS-based, which uses the DFS heuristic, and FAS-based, which uses the heuristic based on the minimum cost FAS. For each approach, we compared the score of the best network found, the percentage of solutions that converged to the best score and the average number of iterations that local search took to converge. The results are shown in Table~\ref{tab:comparison}.
 
 	\begin{table}[ h ]
 		\centering
@@ -78,69 +65,69 @@ After implementing all the approaches in section~\ref{sec:improve}, some experim
 		\label{tab:comparison}
 	\end{table}
 	
-	Finally, Figure~\ref{fig:converge} shows the converge curve for each data set using each approach.
-	\begin{figure}[H]
-		\centering
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/census}
-			\caption{Census}
-			\label{fig:census}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/letter}
-			\caption{Letter}
-			\label{fig:letter}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/image}
-			\caption{image}
-			\label{fig:image}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/mushroom}
-			\caption{Mushroom}
-			\label{fig:mushroom}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/sensors}
-			\caption{Sensors}
-			\label{fig:sensors}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/steelPlates}
-			\caption{SteelPlates}
-			\label{fig:steelplates}
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			\includegraphics[height=3.5cm]{images/epigenetics}
-			\caption{Epigenetics}
-			\label{fig:epigenetics}
-		\end{subfigure}
-		%\begin{subfigure}{.3\textwidth}
-		%	\centering
-		%	\includegraphics[height=3.5cm]{images/alarm}
-		%	\caption{Alarm}
-		%	\label{fig:alarm}
-		%\end{subfigure}
-		%\begin{subfigure}{.3\textwidth}
-		%	\centering
-		%	\includegraphics[height=3.5cm]{images/spectf}
-		%	\caption{Alarm}
-		%	\label{fig:alarm}
-		%\end{subfigure}
-		%\begin{subfigure}{.3\textwidth}
-		%	\centering
-		%	\includegraphics[height=3.5cm]{images/lungCancer}
-		%	\caption{Alarm}
-		%	\label{fig:alarm}
-		%\end{subfigure}
-		\caption{Converge curve for datasets, vertical lines are in avg. number of iterations}
-		\label{fig:converge}
-	\end{figure}
+	% Finally, Figure~\ref{fig:converge} shows the converge curve for each data set using each approach.
+	% \begin{figure}[H]
+	% 	\centering
+	% 	\begin{subfigure}{.3\textwidth}
+	% 		\centering
+	% 		\includegraphics[height=3.5cm]{images/census}
+	% 		\caption{Census}
+	% 		\label{fig:census}
+	% 	\end{subfigure}
+	% 	\begin{subfigure}{.3\textwidth}
+	% 		\centering
+	% 		\includegraphics[height=3.5cm]{images/letter}
+	% 		\caption{Letter}
+	% 		\label{fig:letter}
+	% 	\end{subfigure}
+	% 	\begin{subfigure}{.3\textwidth}
+	% 		\centering
+	% 		\includegraphics[height=3.5cm]{images/image}
+	% 		\caption{image}
+	% 		\label{fig:image}
+	% 	\end{subfigure}
+	% 	\begin{subfigure}{.3\textwidth}
+	% 		\centering
+	% 		\includegraphics[height=3.5cm]{images/mushroom}
+	% 		\caption{Mushroom}
+	% 		\label{fig:mushroom}
+	% 	\end{subfigure}
+	% 	\begin{subfigure}{.3\textwidth}
+	% 		\centering
+	% 		\includegraphics[height=3.5cm]{images/sensors}
+	% 		\caption{Sensors}
+	% 		\label{fig:sensors}
+	% 	\end{subfigure}
+	% 	\begin{subfigure}{.3\textwidth}
+	% 		\centering
+	% 		\includegraphics[height=3.5cm]{images/steelPlates}
+	% 		\caption{SteelPlates}
+	% 		\label{fig:steelplates}
+	% 	\end{subfigure}
+	% 	\begin{subfigure}{.3\textwidth}
+	% 		\centering
+	% 		\includegraphics[height=3.5cm]{images/epigenetics}
+	% 		\caption{Epigenetics}
+	% 		\label{fig:epigenetics}
+	% 	\end{subfigure}
+	% 	%\begin{subfigure}{.3\textwidth}
+	% 	%	\centering
+	% 	%	\includegraphics[height=3.5cm]{images/alarm}
+	% 	%	\caption{Alarm}
+	% 	%	\label{fig:alarm}
+	% 	%\end{subfigure}
+	% 	%\begin{subfigure}{.3\textwidth}
+	% 	%	\centering
+	% 	%	\includegraphics[height=3.5cm]{images/spectf}
+	% 	%	\caption{Alarm}
+	% 	%	\label{fig:alarm}
+	% 	%\end{subfigure}
+	% 	%\begin{subfigure}{.3\textwidth}
+	% 	%	\centering
+	% 	%	\includegraphics[height=3.5cm]{images/lungCancer}
+	% 	%	\caption{Alarm}
+	% 	%	\label{fig:alarm}
+	% 	%\end{subfigure}
+	% 	\caption{Converge curve for datasets, vertical lines are in avg. number of iterations}
+	% 	\label{fig:converge}
+	% \end{figure}
