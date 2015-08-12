@@ -6,9 +6,7 @@ from os.path import *
 from copy import deepcopy as copy
 
 color = [ 'b' , 'r' , 'g' ]
-#types = [ 'random' , 'unweighted' , 'weighted' ]
-#datasets = [ 'alarm' , 'census' , 'epigenetics' , 'image' , 'letter' , 'lungCancer' , 'mushroom' , 'sensors' , 'spectf' , 'steelPlates' ]
-datasets = [ 'census' , 'letter' , 'image' , 'mushroom' , 'sensors' , 'steelPlates' , 'epigenetics' ]
+datasets = [ 'census' , 'letter' , 'image' , 'mushroom' , 'sensors' , 'steelPlates' , 'epigenetics' , 'alarm' , 'spectf' , 'lungCancer' ]
 types = [ 'random' , 'unweighted' , 'weighted' ]
 labeltype = [ 'Random' , 'DFS-based' , 'FAS-based' ]
 SOL_DELIMITER = ' =='
