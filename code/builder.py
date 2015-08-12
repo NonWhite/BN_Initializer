@@ -12,6 +12,7 @@ class BNBuilder :
 		self.data = Data( source , savefilter , ommit , discretize , outfile )
 		self.data.calculatecounters()
 		self.model = Model( dataobj = self.data )
+		self.best_parents = dict( [ ( field , {} ) for field in self.data.fields ] )
 
 	def addTrainingSet( self , testfile ) :
 		self.model.addtrainingset( testfile , self.data.ommitedfields )
@@ -83,13 +84,12 @@ class BNBuilder :
 		return order
 
 	def better_order( self , order1 , order2 ) :
-		model = copy( self.model )
 		net_1 = self.find_greedy_network( order1 )
-		model.setnetwork( net_1 , train = True )
-		score1 = model.score()
+		self.model.setnetwork( net_1 , train = True )
+		score1 = self.model.score()
 		net_2 = self.find_greedy_network( order2 )
-		model.setnetwork( net_2 , train = True )
-		score2 = model.score()
+		self.model.setnetwork( net_2 , train = True )
+		score2 = self.model.score()
 		return self.isbetter( score1 , score2 )
 
 	def clean_graph( self ) :
@@ -118,7 +118,7 @@ class BNBuilder :
 		for i in xrange( len( order ) - 1 ) :
 			new_order = self.swap_fields( order , i , i + 1 )
 			network = self.find_greedy_network( new_order )
-			cur_model = copy( self.model )
+			cur_model = self.model
 			cur_model.setnetwork( network , train = True )
 			cur_score = cur_model.score()
 			if self.isbetter( cur_score , best_score ) :
@@ -132,6 +132,8 @@ class BNBuilder :
 		return new_order
 
 	def find_best_parents( self , field , options ) :
+		hash_parents = self.model.hashedarray( options )
+		if hash_parents in self.best_parents[ field ] : return self.best_parents[ field ][ hash_parents ]
 		best_parents = []
 		best_score = self.worst_score_value()
 		possible_sets = []
@@ -142,6 +144,7 @@ class BNBuilder :
 			if self.isbetter( cur_score , best_score ) :
 				best_score = cur_score
 				best_parents = copy( p )
+		self.best_parents[ field ][ hash_parents ] = best_parents
 		return best_parents
 
 	def addRelation( self , network , field , parents , score ) :
@@ -172,12 +175,12 @@ class BNBuilder :
 	def random_solutions( self ) :
 		solutions = []
 		num_fields = len( self.data.fields )
-		model = copy( self.model )
+		model = self.model
 		for k in xrange( NUM_INITIAL_SOLUTIONS ) :
 			order = shuffle( self.data.fields )
 			network = self.find_greedy_network( order )
 			model.setnetwork( network , topo_order = order , train = False )
-			solutions.append( model.topological )
+			solutions.append( copy( model.topological ) )
 		return solutions
 	
 	''' =========================== DFS APPROACH =========================== '''
