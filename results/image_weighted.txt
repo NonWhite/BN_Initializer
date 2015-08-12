@@ -302,7 +302,7 @@ BEST NETWORK:
 SCORE = 23747.2574951
 A: F
 B: E
-C: H,S,Q,G,J,O,M,R,A,T,K,P,L,B
+C: N,T,P,O,L,S,J,R,K,A,G,M,B,H,Q
 D: E
 E: 
 F: 
@@ -313,7 +313,7 @@ J:
 K: 
 L: I
 M: D
-N: C,H,S,Q,G,J,O,M,D,R,A,F,T,K,P,L,B
+N: T,P,O,L,S,J,R,K,A,F,G,M,D,B,H,Q
 O: 
 P: 
 Q: I
