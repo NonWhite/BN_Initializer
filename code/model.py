@@ -157,7 +157,7 @@ class Model :
 			resp *= len( self.data.evaluate( [ field ] ) )
 		self.sizevalues[ field ][ cond ] = resp
 		return resp
-	
+
 	def hashedarray( self , setfields ) :
 		resp = ''
 		if not setfields : return resp
