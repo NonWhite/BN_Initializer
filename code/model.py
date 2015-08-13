@@ -7,21 +7,21 @@ class Model :
 	def __init__( self , dataobj = None , modelfile = None ) :
 		if dataobj : self.data = dataobj
 		if modelfile : self.loadmodel( modelfile )
-	
+
 	def initdict( self ) :
 		self.entropyvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.bicvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
-	
+
 	def loaddata( self , data ) :
 		self.data = copy( data )
-	
+
 	def addtrainingset( self , testfile , ommit = [] ) :
 		print "Adding test rows from %s" % testfile
 		testdata = Data( testfile , ommit )
 		self.testdata = testdata.rows
 		print "TEST ROWS = %s" % len( self.testdata )
-	
+
 	def loadmodel( self , modelfile ) :
 		self.modelfile = modelfile
 		print "Loading model from %s" % modelfile
@@ -40,13 +40,13 @@ class Model :
 		print "Finding topological order for network"
 		self.topological = topological( self.network , fieldset )
 		print "Top. Order = %s" % self.topological
-	
+
 	def setnetwork( self , network , topo_order = None , train = True ) :
 		self.network = copy( network )
 		if not topo_order : self.topological = topological( self.network , self.data.fields )
 		else : self.topological = topo_order
 		if train : self.trainmodel()
-	
+
 	def trainmodel( self ) :
 		print "Training model..."
 		self.probs = dict( [ ( field , {} ) for field in self.data.fields ] )
@@ -54,7 +54,7 @@ class Model :
 			xi = [ field ]
 			pa_xi = self.network[ field ][ 'parents' ]
 			self.calculateprobabilities( xi , pa_xi )
-	
+
 	# DATA LOG_LIKELIHOOD
 	def testmodel( self ) :
 		print "Testing model with test data"
@@ -67,7 +67,7 @@ class Model :
 				loglikelihood += log( prob )
 		print "Data Log-Likelihood = %s" % loglikelihood
 		return loglikelihood
-	
+
 	def loadAndTestModel( self , modelfile ) :
 		self.loadmodel( modelfile )
 		self.trainmodel()
@@ -85,7 +85,7 @@ class Model :
 				continue
 			for y in condition :
 				self.conditional_prob( xdict , y )
-	
+
 	def conditional_prob( self , x , y ) :
 		xkey , xval = x.keys()[ 0 ] , x.values()[ 0 ]
 		cond = self.data.hashed( y )
@@ -99,7 +99,7 @@ class Model :
 		resp = float( pnum ) / float( pden )
 		self.probs[ xkey ][ xval ][ cond ] = resp
 		return resp
-	
+
 	def bdeuprior( self , setfields ) :
 		prior = 1.0
 		fieldtypes = self.data.fieldtypes
@@ -107,14 +107,14 @@ class Model :
 			tam = ( len( self.data.stats[ field ] ) if fieldtypes[ field ] == LITERAL_FIELD else 2 )
 			prior *= tam
 		return ESS / prior
-	
+
 	def score( self ) :
 		resp = 0.0
 		for field in self.data.fields :
 			resp += self.bic_score( field , self.network[ field ][ 'parents' ] )
 		self.network[ 'score' ] = resp
 		return resp
-	
+
 	def bic_score( self , xsetfield , ysetfield ) :
 		field = xsetfield
 		cond = self.hashedarray( ysetfield )
@@ -124,10 +124,12 @@ class Model :
 		H = self.entropy( xsetfield , ysetfield )
 		S = self.size( xsetfield , ysetfield )
 		resp = ( -N * H ) - ( log( N ) / 2.0 * S )
-		#print "BIC( %s | %s ) = %s" % ( xsetfield , ysetfield , resp )
-		self.bicvalues[ field ][ cond ] = -resp
-		return -resp
-	
+		if not cond :
+			#print "H( %s | %s ) = %s" % ( xsetfield , ysetfield , H )
+			print "BIC( %s | %s ) = %s" % ( xsetfield , ysetfield , resp )
+		self.bicvalues[ field ][ cond ] = resp
+		return resp
+
 	def entropy( self , xsetfield , ysetfield ) :
 		field = xsetfield
 		cond = self.hashedarray( ysetfield )
@@ -138,6 +140,11 @@ class Model :
 		resp = 0.0
 		for xdict in x :
 			xkey , xval = xdict.keys()[ 0 ] , xdict.values()[ 0 ]
+			if not y :
+				Nij = self.data.getcount( xdict ) + self.bdeuprior( xdict )
+				print "Nij( %s ) = %s" % ( xdict , Nij )
+				resp += ( Nij / N ) * log( Nij / N )
+				continue
 			for ydict in y :
 				ij = copy( ydict )
 				ijk = copy( ij )
