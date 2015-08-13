@@ -137,7 +137,7 @@ class BNBuilder :
 		best_parents = []
 		best_score = self.worst_score_value()
 		possible_sets = []
-		for tam in xrange( MAX_NUM_PARENTS ) :
+		for tam in xrange( MAX_NUM_PARENTS + 1 ) :
 			possible_sets.extend( [ list( L ) for L in itertools.combinations( options , tam ) ] )
 		for p in possible_sets :
 			cur_score = self.model.bic_score( field , p )
