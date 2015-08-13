@@ -93,7 +93,10 @@ class Data :
 		for field in self.fields :
 			if self.fieldtypes[ field ] != NUMERIC_FIELD : continue
 			for row in self.rows :
-				row[ field ] = ( 1 if float( row[ field ] ) > self.stats[ field ][ 'median' ] else 0 )
+				if compare( float( row[ field ] ) , float( self.stats[ field ][ 'median' ] ) ) >= 0 :
+					row[ field ] = 1
+				else :
+					row[ field ] = 0
 
 	def calculatecounters( self ) :
 		counter_file = "%s/%s%s" % ( os.path.dirname( self.source ) , os.path.splitext( os.path.basename( self.source ) )[ 0 ] , '_counters.txt' )
@@ -170,7 +173,10 @@ class Data :
 		field = setfields[ pos ]
 		fieldtype = self.fieldtypes[ field ]
 		if fieldtype == NUMERIC_FIELD :
-			values = [ 0 , 1 ]
+			if self.discretize :
+				values = [ 0 , 1 ]
+			else :
+				values = range( int( self.stats[ field ][ 'min' ] ) , int( self.stats[ field ][ 'max' ] ) + 1 )
 		else :
 			values = self.stats[ field ].keys()
 		resp = []
