@@ -153,7 +153,8 @@ class BNBuilder :
 		network[ 'score' ] += score
 
 	def printnetwork( self , network , printrelations = False ) :
-		self.out.write( "SCORE = %s\n" % ( network[ 'score' ] - self.base_score ) )
+		#self.out.write( "SCORE = %s\n" % ( network[ 'score' ] - self.base_score ) )
+		self.out.write( "SCORE = %s\n" % network[ 'score' ] )
 		if printrelations :
 			for field in self.data.fields :
 				self.out.write( "%s: %s\n" % ( field , ','.join( network[ field ][ 'childs' ] ) ) )
