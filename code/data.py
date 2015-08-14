@@ -93,7 +93,9 @@ class Data :
 		for field in self.fields :
 			if self.fieldtypes[ field ] != NUMERIC_FIELD : continue
 			for row in self.rows :
-				if compare( float( row[ field ] ) , float( self.stats[ field ][ 'median' ] ) ) >= 0 :
+				if compare( self.stats[ field ][ 'max' ] - self.stats[ field ][ 'min' ] , 1.0 ) == 0 :
+					continue
+				if compare( float( row[ field ] ) , float( self.stats[ field ][ 'median' ] ) ) > 0 :
 					row[ field ] = 1
 				else :
 					row[ field ] = 0
