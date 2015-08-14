@@ -318,7 +318,7 @@ if __name__ == "__main__" :
 		dataset_file , ommit_fields , out_file = sys.argv[ 1: ]
 		if ommit_fields == 'None' : ommit_fields = []
 		else : ommit_fields = [ f.strip() for f in ommit_fields.split( ',' ) ]
-		builder = BNBuilder( dataset_file , savefilter = True , ommit = ommit_fields )
+		builder = BNBuilder( dataset_file , savefilter = True , discretize = True , ommit = ommit_fields )
 
 		print "========== RUNNING WITH RANDOM PERMUTATION =========="
 		builder.setInitialSolutionType( 'random' )
