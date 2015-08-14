@@ -124,9 +124,7 @@ class Model :
 		H = self.entropy( xsetfield , ysetfield )
 		S = self.size( xsetfield , ysetfield )
 		resp = ( -N * H ) - ( log( N ) / 2.0 * S )
-		if not cond :
-			#print "H( %s | %s ) = %s" % ( xsetfield , ysetfield , H )
-			print "BIC( %s | %s ) = %s" % ( xsetfield , ysetfield , resp )
+		#print "BIC( %s | %s ) = %s" % ( xsetfield , ysetfield , resp )
 		self.bicvalues[ field ][ cond ] = resp
 		return resp
 
@@ -142,7 +140,6 @@ class Model :
 			xkey , xval = xdict.keys()[ 0 ] , xdict.values()[ 0 ]
 			if not y :
 				Nij = self.data.getcount( xdict ) + self.bdeuprior( xdict )
-				print "Nij( %s ) = %s" % ( xdict , Nij )
 				resp += ( Nij / N ) * log( Nij / N )
 				continue
 			for ydict in y :
