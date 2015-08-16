@@ -132,11 +132,13 @@ class BNBuilder :
 		return new_order
 
 	def find_best_parents( self , field , options ) :
+		# Verify if it has been already calculated
 		hash_parents = self.model.hashedarray( options )
 		if hash_parents in self.best_parents[ field ] : return self.best_parents[ field ][ hash_parents ]
 		best_parents = []
 		best_score = self.worst_score_value()
 		possible_sets = []
+		# Find best parent set
 		for tam in xrange( MAX_NUM_PARENTS + 1 ) :
 			possible_sets.extend( [ list( L ) for L in itertools.combinations( options , tam ) ] )
 		for p in possible_sets :
@@ -144,6 +146,16 @@ class BNBuilder :
 			if self.isbetter( cur_score , best_score ) :
 				best_score = cur_score
 				best_parents = copy( p )
+		# Memoize best parents for subsets of best parent set
+		diff_set = [ f for f in options if f not in best_parents ]
+		le = len( diff_set )
+		possible_sets = []
+		for tam in xrange( 1 , le ) : possible_sets.extend( [ list( L ) for L in itertools.combinations( diff_set , tam ) ] )
+		for p in possible_sets :
+			p.extend( best_parents )
+			h = self.model.hashedarray( p )
+			self.best_parents[ field ][ h ] = best_parents
+		# Save best parent set for field
 		self.best_parents[ field ][ hash_parents ] = best_parents
 		return best_parents
 
