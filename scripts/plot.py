@@ -39,7 +39,6 @@ def read_content( fpath , name ) :
 			if idx >= len( lines ) or lines[ idx ].startswith( 'BEST' ) : break
 	best_sc = [ s[ 'score' ][ -1 ] for s in data[ 'solutions' ] ]
 	max_sc = max( best_sc )
-	stdev_sc = statistics.stdev( best_sc )
 	num_sols = sum( [ 1 for s in data[ 'solutions' ] if s[ 'score' ][ -1 ] == max_sc ] )
 	total_sols = len( data[ 'solutions' ] )
 	perc_sols = float( num_sols ) / total_sols * 100.0
@@ -49,14 +48,13 @@ def read_content( fpath , name ) :
 	stdev_iterations = statistics.stdev( all_it )
 	print name.upper()
 	print "MAX SCORE = %s" % max_sc
-	print "STDEV MAX SCORE = %s" % stdev_sc
 	print "TOTAL NUM SOLUTIONS = %s" % total_sols
 	print "NUM OF SOLUTIONS WITH MAX SCORE = %s" % num_sols
 	print "PERCENTAGE WITH MAX SCORE = %s" % perc_sols
 	print "MAX NUM ITERATIONS = %s" % max_iterations
 	print "AVG NUM ITERATIONS = %s" % avg_iterations
 	print "STDEV NUM ITERATIONS = %s" % stdev_iterations
-	print "%.3f +/- %.2f & %.2f & %.2f +/- %.2f" % ( max_sc , stdev_sc , perc_sols , avg_iterations , stdev_iterations )
+	print "%.3f & %.2f & %.2f +/- %.2f" % ( max_sc , perc_sols , avg_iterations , stdev_iterations )
 	max_length = max( [ len( s[ 'score' ] ) for s in data[ 'solutions' ] ] )
 	avg_scores = []
 	for i in xrange( max_length ) :
