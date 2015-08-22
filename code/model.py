@@ -5,13 +5,50 @@ from math import log
 
 class Model :
 	def __init__( self , dataobj = None , modelfile = None ) :
-		if dataobj : self.data = dataobj
-		if modelfile : self.loadmodel( modelfile )
+		if dataobj :
+			self.data = dataobj
+			self.initialize()
+		if modelfile :
+			self.loadmodel( modelfile )
 
-	def initdict( self ) :
+	def initialize( self ) :
 		self.entropyvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.sizevalues = dict( [ ( field , {} ) for field in self.data.fields ] )
 		self.bicvalues = dict( [ ( field , {} ) for field in self.data.fields ] )
+		self.bestparents = dict( [ ( field , [] ) for field in self.data.fields ] )
+		self.precalculate_scores()
+	
+	def precalculate_scores( self ) :
+		score_file = "%s/%s%s" % ( os.path.dirname( self.data.source ) , os.path.splitext( os.path.basename( self.data.source ) )[ 0 ] , '_scores.txt' )
+		if os.path.isfile( score_file ) :
+			print "Reading from %s all scores" % score_file
+			with open( score_file , 'r' ) as f :
+				for line in f :
+					field , par , sc = line.split()
+					if par == '_' : par = ''
+					self.bicvalues[ field ][ par ] = float( sc )
+					self.bestparents[ field ].append( par.split() )
+		else :
+			print "Pre-calculating all scores from model"
+			self.subconj = []
+			for i in xrange( 0 , MAX_NUM_PARENTS + 1 ) :
+				self.subconj.extend( [ list( x ) for x in itertools.combinations( self.data.fields , i ) ] )
+			for field in self.data.fields :
+				for sub in self.subconj :
+					if field in sub : continue
+					self.bic_score( field , sub )
+			with open( score_file , 'w' ) as f :
+				for field in self.data.fields :
+					lstparents = [ ( self.bicvalues[ field ][ p ] , p ) for p in self.bicvalues[ field ] ]
+					lstparents.sort( reverse = True )
+					''' START POINTER FUNCTION '''
+					append = self.bestparents[ field ].append
+					''' END POINTER FUNCTION '''
+					for ( sc , p ) in lstparents :
+						par = copy( p )
+						if not par : par = '_'
+						f.write( "%s %s %s\n" % ( field , par , self.bicvalues[ field ][ p ] ) )
+						append( p )
 
 	def loaddata( self , data ) :
 		self.data = copy( data )
@@ -48,22 +85,30 @@ class Model :
 		if train : self.trainmodel()
 
 	def trainmodel( self ) :
-		print "Training model..."
-		self.probs = dict( [ ( field , {} ) for field in self.data.fields ] )
+		#print "Training model..."
+		''' START POINTER FUNCTIONS '''
+		calc_probs = self.calculateprobabilities
+		lstfields = self.data.fields
+		''' END POINTER FUNCTIONS '''
+		self.probs = dict( [ ( field , {} ) for field in lstfields ] )
 		for field in self.data.fields :
 			xi = [ field ]
 			pa_xi = self.network[ field ][ 'parents' ]
-			self.calculateprobabilities( xi , pa_xi )
+			calc_probs( xi , pa_xi )
 
 	# DATA LOG_LIKELIHOOD
 	def testmodel( self ) :
 		print "Testing model with test data"
 		loglikelihood = 0.0
+		''' START POINTER FUNCTIONS '''
+		lstfields = self.data.fields
+		cond_prob = self.conditional_prob
+		''' END POINTER FUNCTIONS '''
 		for row in self.testdata :
-			for field in self.data.fields :
+			for field in lstfields :
 				xi = { field : row[ field ] }
 				pa_xi = dict( [ ( pai , row[ pai ] ) for pai in self.network[ field ][ 'parents' ] ] )
-				prob = self.conditional_prob( xi , pa_xi )
+				prob = cond_prob( xi , pa_xi )
 				loglikelihood += log( prob )
 		print "Data Log-Likelihood = %s" % loglikelihood
 		return loglikelihood
@@ -136,18 +181,22 @@ class Model :
 		y = self.data.evaluate( ysetfield )
 		N = len( self.data.rows )
 		resp = 0.0
+		''' START POINTER FUNCTIONS '''
+		getcount = self.data.getcount
+		bdeuprior = self.bdeuprior
+		''' END POINTER FUNCTIONS '''
 		for xdict in x :
 			xkey , xval = xdict.keys()[ 0 ] , xdict.values()[ 0 ]
 			if not y :
-				Nij = self.data.getcount( xdict ) + self.bdeuprior( xdict )
+				Nij = getcount( xdict ) + bdeuprior( xdict )
 				resp += ( Nij / N ) * log( Nij / N )
 				continue
 			for ydict in y :
 				ij = copy( ydict )
 				ijk = copy( ij )
 				ijk[ xkey ] = xval
-				Nijk = self.data.getcount( ijk ) + self.bdeuprior( ijk )
-				Nij = self.data.getcount( ij ) + self.bdeuprior( ij )
+				Nijk = getcount( ijk ) + bdeuprior( ijk )
+				Nij = getcount( ij ) + bdeuprior( ij )
 				resp += ( Nijk / N * log( Nijk / Nij ) )
 		self.entropyvalues[ field ][ cond ] = -resp
 		return -resp
@@ -163,9 +212,5 @@ class Model :
 		return resp
 
 	def hashedarray( self , setfields ) :
-		resp = ''
-		if not setfields : return resp
-		for field in self.data.fields :
-			if field not in setfields : continue
-			resp += "%s, " % field
-		return resp[ :-2 ]
+		setfields.sort()
+		return ','.join( setfields )
