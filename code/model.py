@@ -27,7 +27,7 @@ class Model :
 					field , par , sc = line.split()
 					if par == '_' : par = ''
 					self.bicvalues[ field ][ par ] = float( sc )
-					self.bestparents[ field ].append( par.split() )
+					self.bestparents[ field ].append( par.split( ',' ) )
 		else :
 			print "Pre-calculating all scores from model"
 			self.subconj = []
