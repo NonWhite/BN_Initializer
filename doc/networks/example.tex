@@ -8,9 +8,9 @@
 	\node[ vertex ] (D) at  ( 7.5 , -1.5 ) { ${D}$ } ;
 
 	%edges
-	\draw[ edge ] (A) to (B) ;
-	\draw[ edge ] (A) to (C) ;
-	\draw[ edge ] (A) to (D) ;
-	\draw[ edge ] (C) to (D) ;
-	\draw[ edge ] (B) to[in=-150,out=-30] (D) ;
+	\draw[ edge ] (A) to node[sloped,anchor=south]{5} (B) ;
+	\draw[ edge ] (A) to node[sloped,anchor=south]{1.7} (C) ;
+	\draw[ edge ] (A) to node[sloped,anchor=south]{84} (D) ;
+	\draw[ edge ] (C) to node[sloped,anchor=south]{2} (D) ; 
+	\draw[ edge ] (B) to[in=-150,out=-30] node[sloped,anchor=south]{315} (D) ;
 \end{tikzpicture}

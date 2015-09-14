@@ -1,25 +1,7 @@
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
 
-Learning Bayesian networks from data is notably difficult problem, and practitioners often resort to approximate solutions such as greedy search. The quality of the solutions produced by greedy approaches strongly depends on the initial solution. In this work, we proposed new heuristics for producing good initial solutions to be fed into greedy Bayesian network structure search methods.
-
-Experiments with benchmark data sets showed that our heuristics
-occasionally lead to better solutions, and that in most cases it leads
-to faster convergence with a small overhead (compared to the commonly
-used methods of generating initial solutions). The advantage of our
-heuristics grows with the size of the data set.
-
-Our heuristics can also be exploited by branch-and-bound solvers that
-find optimal solutions. This is left for future work.
-
-
- % (i) although all the approaches converge to the same score in most cases, the new methods could converge to a better solution
- %        \item The new methods converge in less or equal number of iterations, in average
- %        \item DFS-based approach improve, in some cases, the percentage number of solutions that converge to the maximum compared to the random approach, but the difference is not significantly
- %        \item DFS-based approach converges to a better solution as in mushroom and sensors dataset
- %        \item FAS-based approach take less iterations than the other ones and take significantly less iterations to converge (in average)
- %        \item FAS-based approach has a greater percentage of good initial solutions that has the best score, in lot of cases they do not need to perform a local search
- %        \item The new methods explained in this article could be used in other types of Greedy Search doing some modifications
- %        \item The scoring function could be changed to another one in order to compare robustness between them and BIC score
- %        \item Experiments could be done with bigger datasets (more than 60 attributes) in order to compare the efficiency of the methods
-%\end{itemize}
+Learning Bayesian networks from data is a notably difficult problem, and practitioners often resort to approximate solutions such as greedy search. The quality of the solutions produced by greedy approaches strongly depends on the initial solution. In this work, we proposed new heuristics for producing good initial solutions to be fed into greedy Bayesian network structure search methods.\\
+Experiments with benchmark data sets showed that our heuristics lead to better solutions while the size of the datasets increases, and that in most cases it leads to faster convergence with a small overhead (compared to the commonly used methods of generating initial solutions). The advantage of our heuristics grows with the size of the data set.\\
+Also these methods could be adapted to be used for Structure-based and Equivalence-based methods because they does not affect the search method, but only the initial solution generated. The DFS heuristic change from saving a list to saving the DFS directed tree built and the FAS heuristic return the DAG obtained from removing the FAS instead of returning its topological order. Our heuristics can also be exploited by branch-and-bound solvers that find optimal solutions. These are left for future work.
+\vspace{-4mm}

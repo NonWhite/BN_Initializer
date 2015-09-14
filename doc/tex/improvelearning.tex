@@ -1,131 +1,88 @@
 \section{Generating informed initial solutions}
 \label{sec:improve}
 
-As with most local search approaches, the selection of a good initial
-solution that avoids poor local maxima is crucial for finding good
-solutions. Traditionally, this is attempted by randomly generating
-initial solutions (DAGs, pDAGs or orderings) in order to cover as much
-as possible of the space. In this section, we devise methods that take
-advantage of the structure of the problem to produce better initial
-solutions. Although we focus on Order-Based search, our methods could be
-used for any of the other greedy approaches discussed.
-
-% From section~\ref{subsec:greedysearch}, we already know the Greedy Search algorithm and the more popular approaches using it. In all of the approaches showed can be noticed that a very important step in the algorithm is in the first line, where an initial solution is generated because if we have a good one, the solution will converge faster. We focus in the Order-based one ((in subsection~\ref{subsub:orderbased}) . At the start of this section, the most common method will be explained. After that, we explain every new proposed method to generate an initial solution for Order-based Greedy Algorithm and the Feedback Arc Set (FAS) Problem.
+As with most local search approaches, the selection of a good initial solution that avoids poor local maxima is crucial for finding good solutions. Traditionally, this is attempted by randomly generating initial solutions (DAGs, pDAGs or orderings) in order to cover as much as possible of the space. In this section, we devise methods that take advantage of the structure of the problem to produce better initial solutions. Although we focus on Order-Based search, our methods could be used for any of the other greedy approaches discussed in Section~\ref{sec:learning} doing some modifications that will be explained in Section~\ref{sec:conclusions}.
 
 % \subsection{Random solution}
 % \label{subsec:randomapproach}
-% 	This is the most common and easy-to-implement approach used. An easy way to shuffle a list $L$ with size $n$ is the
+% 	This is the most common and easy-to-implement approach used.
 
 \subsection{DFS-based solution}
 \label{subsec:dfsapproach}
-	Generating random solutions means having a huge search space ($n!$, where $n$ is the number of attributes in the dataset). In order to reduce this search space we can use a graph $G^*$ (in Figure~\ref{fig:example} that tell us some information about the relationships between the attributes.
+	It can be noticed that generating random solutions means having a huge search space ($n!$) for datasets with $n > 10$, but this search space can be reduced using the graph $\overline G$ (defined in equation~\ref{eq:bestparents}). This graph tell us some information about if it is good that a variable $X_j \in {Pa}( X_i )$ should be before $X_i$ in an order, because it has as relationships the best parent set for each $X_i$.\\
+	For instance, Figure~\ref{fig:dfsorders} shows the possible orders consistent with the relationships in the graph $\overline G$ (Figure~\ref{fig:example}). As can be noticed we have 14 possible orders given $\overline{G}$, but $4! = 24$ possible orders using a random approach. So we reduce the search space and also improve the possibilities that getting a good initial order. Also, the difference could be greater in problems with more variables.
 	\begin{figure}[H]
-		\centering
-		\input{networks/example}
-		\caption{Graph $\overline{G}$ built using equation~\ref{eq:bestparents} }
-		\label{fig:example}
+	 	\centering
+	 	\begin{subfigure}{.48\textwidth}
+	 		\centering
+			\input{networks/example}
+			\caption{}
+			\label{fig:example}
+	 	\end{subfigure}
+	 	\begin{subfigure}{.48\textwidth}
+	 		\centering
+			\includegraphics[height=3cm]{images/dfsorders}
+			\caption{}
+			\label{fig:dfsorders}
+	 	\end{subfigure}
+		\caption{(a) Graph $\overline{G}$. (b) Possible orders for graph $\overline G$}
 	\end{figure}
-	From $\overline{G}$, we know that some orders does not generate some of the parent sets showed there. For instance, we could have attribute $C$ before $D$, or $A$ before $B$,$C$ or $D$ in the order generated. Having in consideration all these relations we have the following possible orders:
-	\begin{multicols}{7}
-		\begin{verbatim}
-			ABDC
-			ACDB
-			ADBC
-			ADCB
-			BDAC
-			BDCA
-			CDAB
-			CDBA
-			DABC
-			DACB
-			DBAC
-			DBCA
-			DCAB
-			DCBA
-		\end{verbatim}
-	\end{multicols}
-	As can be noticed we have 14 possible orders given $\overline{G}$, but $4! = 24$ possible orders (the number of permutations using 4 nodes) using a random approach. So we reduce the search space and also improve the possibilities that getting a good initial order because the relations are the best parent sets for each attribute. Also, the difference could be greater in problems with more attributes.
+	% \input{addons/dfs_orders}
 	Taking into consideration the previous analysis, we propose the following algorithm to generate initial solutions:
-	\begin{enumerate}
-		\item Find the best parent set ${Pa}( X_i )$ for each attribute $X_i$
-		\item Build a graph $\overline{G}$ using the relations between each attribute $X_i$ and ${Pa}( X_i )$ as edges
-		\item Start with an empty list $L$
-		\item While there are nodes not visited do
-		\begin{enumerate}
-			\item Choose a random node $X_k$ not visited
-			\item Perform a DFS on graph $\overline{G}$ using $X_k$ as root and add each node $X_v$ visited to the order $L$
-		\end{enumerate}
-		\item Return $L$
-	\end{enumerate}
+	\begin{lstlisting}[ caption = DFS-based method , label = code:dfsbased ]
+	DFS_Based( Graph |$\overline G$| ) : return Order |$L$| consistent with |$\overline G$|
+	   |$L$| = empty list
+	   While there are nodes not visited on |$\overline G$| do
+		|$X_k$| = random not visited node
+		|${DFS}( \overline G , X_k , L )$|
+	   Return |$L$|
+	\end{lstlisting}
+	Where ${DFS}$ performs a depth-first search on $\overline G$ using $X_k$ as root and add each node $X_v$ visited to the order $L$.
 	
 \subsection{FAS-based solution}
 \label{subsec:fasapproach}
 
-In this subsection, we first explained the generic problem and one of the variants of the Feedback Arc Set (FAS) Problem. After that, a reduction of the learning structure bayesian network problem will be explained in order to propose a new algorithm for generating initial solutions.
+In this subsection, we first explained the generic problem and one of the variants of the Feedback Arc Set (FAS) Problem. After that, a reduction of the learning structure Bayesian network problem will be explained in order to propose a new algorithm for generating initial solutions.
 
 \subsubsection{Feedback Arc Set Problem} \label{subsub:fasp}
 
-The generic problem is stated as: Given a graph $G = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G$, it becomes a directed acyclic graph (DAG).\\
+The generic problem is stated as: given a graph $G = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G$, it becomes a DAG~\cite{DF01}.\\
 There are some variants of this problem, but we only focus on finding the minimum cost FAS $F$ from a weighted directed graph $G$ defined in equation~\ref{eq:mincostfas}.
 \begin{equation}
 	\label{eq:mincostfas}
 	F_{G} = \min_{G - F \text{ is a DAG}} \sum_{(u,v) \in E} W_{uv} ,
 \end{equation}
-where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G^*$. Although this variant becomes NP-hard, there are some approximation algorithms like the one that is below.
-\begin{enumerate}
-	\item Start with $F = \emptyset$
-	\item While there is a cycle $C$ in $G$ do
-	\begin{enumerate}
-		\item Find the lowest weight $W_{min}$ of all the edges $(u,v) \in C$
-		\item For each edge $(u,v) \in C$, do $W_{uv} = W_{uv} - W_{min}$
-		\item If some $W_{uv} = 0$ for some edge $(u,v) \in C$, then add $(u,v)$ to $F$
-	\end{enumerate}
-	\item For each edge $(u,v) \in F$, add it to $G$ only if it does not build a cycle on the graph
-	\item Return $F$
-\end{enumerate}
+where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G$. Although this variant becomes NP-hard, there are some approximation algorithms like the one that is below.
+\begin{lstlisting}[ caption = FAS approximation , label = code:fasapprox ]
+	MinimumCostFAS( Graph |$G$| ) : Return FAS |$F$|
+	   |$F$| = empty set
+	   While there is a cycle |$C$| on |$G$| do
+	   	|$W_{min}$| = lowest weight of all edges in |$C$|
+		For each edge |$(u,v) \in C$| do
+		   |$W_{uv} = W_{uv} - W_{min}$|
+		   If |$W_{uv} = 0$| add to |$F$|
+	   For each edge in |$F$|, add it to |$G$| if does not build a cycle
+	   Return |$F$|
+\end{lstlisting}
 
 \subsubsection{Algorithm for initial solutions}
 \label{subsub:fasalgorithm}
-	First, we have the following relation for the problem:
-		\begin{equation}
-			\label{eq:reduction}
-			G^* = \arg\max_{G \text{ is acyclic}} \sum_{i=1}^n {sc}( X_i , {Pa}( X_i ) ) \leq {sc}(\overline{G})
-		\end{equation}
-	The left part is the original definition of the problem for learning structure of bayesian networks and the right part is the upper bound graph $\overline{G}$ relaxing the acyclicity constraint. In order to prove that the relation is true, we need to define the weight edges as follows:
+	A possible problem with the previous method (DFS-based) is that uses $\overline G$ and generate orders consistent with it using a random node as root, but does not consider that some edges are more important than others and could be better to keep them on the graph because they maximize the score. It also means that some nodes could be more important than others in the best parent set of a variable. This importance of an edge could be represented as follows:
 		\begin{equation}
 			\label{eq:weight}
 			W_{ji} = {sc}( X_i , P ) - {sc}( X_i , P \setminus \{ X_j \} ) ,
 		\end{equation}
-	where $W_{ji}$ is the weight of the edge that goes from $X_j$ to $X_i$ and $P$ is the best parents set for $X_i$. This formula represents the cost of getting $X_j$ out of the set $P$ and it is always a positive number. When the value is so small, it means the parent $X_j$ could be more important. On the contrary if the weight is so big, this means that $X_j$ is not so important in $P$.\\
-	Then we can prove that the problem can be reduce with the following equations:
-	\begin{equation}
-		\label{eq:prove1}
-		\min \sum_{i=0}^{n} W_{uv} = \min \sum_{i=0}^{n} ( {sc}( X_i , P ) - {sc}( X_i , P \setminus X_j ) )
-	\end{equation}
-	\begin{equation}
-		\label{eq:prove2}
-		\min \sum_{i=0}^{n} {sc}( X_i , P ) - \min \sum_{i=0}^{n} {sc}( X_i , P \setminus X_j )
-	\end{equation}
-	\begin{equation}
-		\label{eq:prove3}
-		\max \sum_{i=0}^{n} {sc}( X_i , P ) + \min \sum_{i=0}^{n} {sc}( X_i , P \setminus X_j )
-	\end{equation}
-	\begin{equation}
-		\label{eq:prove4}
-		{sc}( G ) + \min \sum_{i=0}^{n} {sc}( X_i , P \setminus X_j ) \approx {sc}( G^* )
-	\end{equation}
-        This means that the score of the DAG $G$ plus the score of the
-        deleted arcs from $\overline{G}$ give an approximation for
-        $G^*$, and also that $G^*$ could be a subgraph of
-        $\overline{G}$.  We can now describe our second heuristic for
-        generating initial solutions, based on the minimum cost FAS
-        problem:
-	\begin{enumerate}
-		\item Find the best parent set ${Pa}( X_i )$ for each attribute $X_i$
-		\item Build the graph $\overline{G}$ using all the relationships $X_j \implies X_i, X_j \in {Pa}( X_i )$ and put its score as $W_{ji}$
-		\item Find the minimum cost FAS $F$
-		\item Delete all edges $(u,v) \in F$ from $\overline{G}$ to obtain a network $G$
-		\item Return a topological order of $G$
-	\end{enumerate}
+	where $W_{ji}$ is the weight of the edge that goes from $X_j$ to $X_i$ and $P$ is the best parents set for $X_i$. This formula represents the cost of getting $X_j$ out of the set $P$ and it is always a positive number because $P$ maximizes the score for $X_i$. When the value is so small, it means the parent $X_j$ could be more important. On the contrary if the weight is so big, this means that $X_j$ is not so important in $P$. For instance, graph $\overline G$ in Figure~\ref{fig:example} shows that $C$ is more important than $B$ and $A$ as a parent of $D$ because that edge has a lower value.\\
+	%Using this weight edge, we can prove that the problem can be reduce with the following equations:
+	%\input{addons/fasprove}
+        %This means that the score of the DAG $G^*$ plus the score of the deleted arcs from $\overline{G}$ give an approximation for $G^*$, and also that $G^*$ could be a subgraph of $\overline{G}$. 
+        We can now describe our second heuristic for generating initial solutions, based on the minimum cost FAS problem:
+	\begin{lstlisting}[ caption = FAS-based method , label = code:fasbased ]
+	FAS_Based( Graph |$\overline G$| ) : return Order consistent with |$\overline G$|
+	   Add weights |$W_{ji}$| to edges in |$\overline G$|
+	   |$F$| = MinimumCostFAS( |$\overline G$| )
+	   |$G = \overline G - F$|
+	   Return topological( |$G$| )
+	\end{lstlisting}
 
 These new methods for generating initial solutions will be used in next section to learn Bayesian networks with multiple data sets.

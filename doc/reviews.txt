@@ -2,39 +2,9 @@
 OVERALL EVALUATION: 1 (weak accept)
 REVIEWER'S CONFIDENCE: 3 (medium)
 
-The paper proposes a heuristic to choose  to initialize a well-known algorithm greedy algorithm for extracting a bayesian network structure from a dataset.
-Despite the fact that the paper is hard to read and  assumes the reader has a strong background on bayesian network concepts, the general idea is clear. It would be important that the strategy be compared with different strategies proposed in the literature to extract Bayesian network from data.
-The reference:
-Cooper, G. F. and Dietterich, T. A bayesian method for the induction of probabilistic networks from data. In Machine Learning. pp. 309–347, 1992.
-should be cited since it proposes a similar technique (the algorithm K2), with a different score function. In that paper, the results are not very good (the authors recognized that the algorithm is only a first step towards extracting a network from data). It would be interesting to use their score function with your strategies and compare the results with K2. Or vice-versa, use your score function with K2 and evaluate the quality of the network produced.
 It would also be interesting to compare the quality of the networks produced by each version of your strategy with the one produced by other strategies found in the literature such as:
 - genetic programming: Pedro Larrafiaga, Mike Poza, Yosu Yurramendi, Roberto H. Murga, and Cindy M.H. Kuijpers Structure Learning of Bayesian Networks by Genetic Algorithms: Performance Analysis of Control Parameters.
 - IEEE TRANSACTIONS ON PATTERN ANALYSIS AND MACHINE INTELLIGENCE, VOL. 18, NO. 9, SEPTEMBER 1996
-- Minimum Description Length
-- BIC
-
-Some minor problems:
-1. Page 3. paragraph below Algorithm 1. The sentence starting in "It then updates... has been found " is awkward and should be rephrased. Last line of this paragraph: ... how the scoring function used ??? respectively (rephrase It - il lacks sense).
-2. Page 4. paragraph below equation (8): This means the (that ???)
-3. Next paragraph, line 2: o
-oderings --> orderings
-4. page 5. Subtitle of Figure 1: Graph $\overline{G}$ (maybe G*) built using equation 0???
-
-========================================================================================================================================================================================================
-
------------------------ REVIEW 2 ---------------------
-OVERALL EVALUATION: 1 (weak accept)
-REVIEWER'S CONFIDENCE: 3 (medium)
-
------------ REVIEW -----------
-The paper focuses on bayesian structure learning and proposes a method to initialize the search.
-The idea seems interesting although the obtained results are not so good. It seems that the approach need a deeper analysis to propose improvements.
-The introduction need reviews and to include the appropriate references in the first paragraph of page 2.
-
-Review some sentences
-this means the if
-oderings
-fig 1 ??
 
 ========================================================================================================================================================================================================
 
@@ -43,36 +13,4 @@ OVERALL EVALUATION: 0 (borderline paper)
 REVIEWER'S CONFIDENCE: 5 (expert)
 
 ----------- REVIEW -----------
-The paper devises two heuristics for defining an initial ordering of the random variables of a data set, so that this initial ordering can be used as the input for methods that learn the structure of Bayesian networks using a topological ordering approach. The heuristics are compared to a randomly generated initial ordering with competitive results. There are some details that need be better explained and/or justified in the paper, as follows.
-- The methods developed in the paper and the derivation of the likelihood function seems to address only complete dataset (no missing values). This should be clear in the paper.
-- As the heuristics propose an initial ordering of the variables, it seems that the methods are applicable to order-based search only. However, it is said that they could be used as an initial step of any greedy approach. Please, clarify how this could be achieved, particularly regarding the Equivalence-based methods.
-- It is not clear at all how the graph \overline(G) in Fig. 1 is created. Actually, the two first  lines of DFS solution need to be carefully explained: how the best parents of a variable are found? Is the graph created from such relations? How efficient is the solution?
-- Concerning the FACS heuristics, how the best parents of a variable are defined, since they are used to find the weights of Fg? It is not clear how the graph G is defined in the approximation algorithm, and it is an input to the procedure, as far as I understood, since the main loop continues while there is a cycle on it. In fact, it is not clear the need of presenting such algorithm.
 - It would be nice to see the running time of each approach, together and without the structure  learning algorithm used (which is also not mentioned in the paper).
-- Which features in the dataset make the proposed heuristics behave better than the random initialization?
-- Related work is missing. Also, how could you compare the proposed heuristics to a less naive approach than just randomly initialize the graph?
-
-Minors:
-	  atributtes/atributes -> attributes
-	  the nodes of a BN encode random variables and not just attributes of a data set
-	  prefer most common that commonest
-	  please specify which space you refer as space of structures (this is too general)
-	  avoinding -> avoiding
-	  Please provide reference to FASP, structure-based methods, equivalence-based methods and order-based methods.
-	  please use lower case after :
-	  Please, cite the constraint-based methods to learn BN's structure as well, making clear the reason for choosing the score-based methods.
-	  some orders does not -> do not
-	  Equation 0???
-	  G* -> \overline{G} ?
-
-
-========================================================================================================================================================================================================
-
------------------------ REVIEW 4 ---------------------
-OVERALL EVALUATION: -1 (weak reject)
-REVIEWER'S CONFIDENCE: 2 (low)
-
------------ REVIEW -----------
-This contribution is clearly organized when it comes to the initial parts of the text. Section 1 clearly introduces the problem, while Sect. 2  provides some background to the techniques used in the paper.
-However, I feel that sect. 4 does not explore the approach and gives the impression that the paper was produced in a rush. It is not acceptable to simply make a ref. to results in a table (II in this case). The reader expects you to analyse your results (what do we learn from them? how do they compare to others?)
-I am not an expert in this area thus I am wondering how the proposed technique compares to existing literature. What are the results given that you have used benchmark datasets?
