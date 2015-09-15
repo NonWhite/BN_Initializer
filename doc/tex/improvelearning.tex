@@ -59,9 +59,6 @@ where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G$. Even though the
 	   Return |$F$|
 \end{lstlisting}
 
-%Using this weight edge, we can prove that the problem can be reduce with the following equations:
-%\input{addons/fasprove}
-%This means that the score of the DAG $G^*$ plus the score of the deleted arcs from $\overline{G}$ give an approximation for $G^*$, and also that $G^*$ could be a subgraph of $\overline{G}$. 
 We can now describe our second heuristic for generating initial solutions, based on the minimum cost FAS problem: having the graph $\overline G$ as input, add weights $W_{ji}$ to the arcs on the graph using Equation~\ref{eq:weight}. Then, find the min-cost FAS $F_G$ and remove its arcs from $\overline G$ to make it a DAG. Finally, return a topological order of the obtained graph $\overline G - F_G$.
 	%\input{addons/fasalgorithm}
 
