@@ -1,34 +1,42 @@
 \section{Learning Bayesian networks}
 \label{sec:learning}
 
-In this section, we define the score-based approach learning of Bayesian networks, and review some of its most popular techniques.
+In this section, we formally define the score-based approach learning of Bayesian networks, and review some of the most popular techniques for solving the problem.
 
 \subsection{Definition of the problem}
 \label{subsec:definition}
 
-Given a data set $D$ and a scoring function ${sc}(G)$\footnote{The dependence of the scoring function on the data set is usually left implicitly, as for most of this explanation we can assume a fixed data set.}, the Bayesian network structure learning problem is to select a score-maximizing DAG, that is to find
-	\begin{equation}
-		\label{eq:optimal}
-		G^* = \arg\max_{G: G \text{ is a DAG}} {sc}( G ) \, .
-	\end{equation}
-Most scoring functions can be rewritten in the form
-	\begin{equation}
-		\label{eq:scoringfunction}
-		{sc}( G ) = F( G ) - \varphi( N ) \times P( G ) ,
-	\end{equation}
-where $N$ is the number of records in the data set $D$, $F( G )$ is a data fitness function (i.e., how well the model represents the observed data), $\varphi( N )$ is a non-decreasing function of data size and $P( G )$ measures the model complexity of $G$. One example is the Bayesian information criterion (BIC) defined as ${BIC}( G ) = {LL}( G ) - \frac{\log N}{2} {size}( G )$, where ${LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}}$ is the data loglikelihood, ${size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j|$ is the ``size'' of a model with structure $G$, $n$ is the number of attributes on $D$, $N_{ijk}$ the number of instances where attribute $X_i$ takes its $k$th value, and its parents take the $j$th configuration (for some arbitrary fixed ordering of the configurations of the parents' values), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
-Most commonly used scoring functions, BIC included, are \emph{decomposable}, meaning that they can be written as a sum of local scoring functions: ${sc}(G)=\sum_i {sc}(X_i, {Pa}(X_i))$. Provided the scoring function is decomposable, we can obtain an upper bound on the value of $sc(G^*)$ by computing $sc(\overline{G})$, where
-	\begin{equation}
-		\label{eq:bestparents}
-		\overline{G} = \arg \sum_i \max_{{Pa}(X_i)} sc( X_i, {Pa}( X_i ) ) \, . 
-	\end{equation}
-is the directed graph such that each ${Pa}( X_i )$ is the parent set that maximizes the score ${sc}( X_i , {Pa}( X_i ) )$, also called \emph{best parent set}. Note that $\overline G$ usually contains cycles, and it is thus not a solution to Equation~\ref{eq:optimal}.
-Another property often satisfied by scoring functions is \emph{likelihood equivalence}, which asserts that two structures with same loglikelihood also have the same score \cite{Maxwell04}. Likelihood equivalence is justified as a desirable property, since two structures that assign the same loglikelihood to data cannot be distinguished by the data alone. The BIC scoring function satisfies likelihood equivalence.
+A Bayesian network specification contains a DAG \( G = ( V , E ), \) where $V = \{ X_1 , X_2 , \ldots , X_n \}$ is the set of (discrete) variables, and a collection of conditional probability distributions \( P( X_i \mid {Pa}_G( X_i ) ) \), $i=1,\ldots,n$, where ${Pa}_G( X_i )$ is the set of variables that are parents of $X_i$ in $G$. This definition shows that the number of numerical parameters (i.e., local conditional probability values) grows exponentially with the number of parents (in-degree) of a node (assuming the values are organized in tables). A Bayesian network induces a joint probability distribution over all the variables through the equation
+%\begin{equation}
+%  \label{eq:jointdist}
+$  P( X_1 , X_2 , \ldots , X_n ) = \prod_{i=1}^{n} P( X_i \mid {Pa}_G( X_i ) ) $.
+%\end{equation}
+Hence, Bayesian networks with sparse DAGs succinctly represent joint probability distributions over many variables.
+
+A \emph{scoring function} ${sc}(G)$ assigns a real-value to any DAG indicating its goodness in representing a given data set.\footnote{The dependence of the scoring function on the data set is usually left implicitly, as for most of this explanation we can assume a fixed data set. We assume here that the dataset contains no missing values.} Most scoring functions can be written in the form
+%\begin{equation*}
+%  \label{eq:scoringfunction}
+$  {sc}( G ) = F( G ) - \varphi( N ) \times P( G ) $,
+%\end{equation}
+where $N$ is the number of records in the data set $D$, $F( G )$ is a data fitness function (i.e., how well the model represents the observed data), $\varphi( N )$ is a non-decreasing function of data size and $P( G )$ measures the model complexity of $G$. For example, he Bayesian information criterion (BIC) is defined as ${BIC}( G ) = {LL}( G ) - \frac{\log N}{2} {size}( G )$, where ${LL}( G ) = \sum_{i=1}^{n} \sum_{k} \sum_{j} N_{ijk} \log \frac{N_{ijk}}{N_{ij}}$ is the data loglikelihood, ${size}( G ) = \sum_{i=1}^{n} ( |\Omega_i| - 1 ) \prod_{X_j \in {Pa}( X_i )} |\Omega_j|$ is the ``size'' of a model with structure $G$, $n$ is the number of attributes on $D$, $N_{ijk}$ the number of instances where attribute $X_i$ takes its $k$th value, and its parents take the $j$th configuration (for some arbitrary fixed ordering of the configurations of the parents' values), and similarly  for $N_{ij}$, and $\Omega_i$ is the set of possible values for the attribute $X_i$.
+Most commonly used scoring functions, BIC included, are \emph{decomposable}, meaning that they can be written as a sum of local scoring functions: ${sc}(G)=\sum_i {sc}(X_i, {Pa}(X_i))$. Another property often satisfied by scoring functions is \emph{likelihood equivalence}, which asserts that two structures with same loglikelihood also have the same score \cite{Maxwell04}. Likelihood equivalence is justified as a desirable property, since two structures that assign the same loglikelihood to data cannot be distinguished by the data alone. The BIC scoring function satisfies likelihood equivalence.
+
+Given scoring function ${sc}(G)$, the score-based Bayesian network structure learning problem is to compute the DAG
+\begin{equation}
+  \label{eq:optimal}
+  G^* = \arg\max_{G: G \text{ is a DAG}} {sc}( G ) \, .
+\end{equation}
+Provided the scoring function is decomposable, we can obtain an upper bound on the value of $sc(G^*)$ by computing $sc(\overline{G})$, where
+\begin{equation}
+  \label{eq:bestparents}
+  \overline{G} = \arg \sum_i \max_{{Pa}(X_i)} sc( X_i, {Pa}( X_i ) ) 
+\end{equation}
+is the directed graph where the parents ${Pa}( X_i )$ of each node $X_i$ are selected so as to maximize the local score ${sc}( X_i , {Pa}( X_i ) )$. We call the parents of a variable in $\overline{G}$ the \emph{best parent set} (for $X_i$. Note that $\overline{G}$ usually contains cycles, and it is thus not a solution to Equation~\ref{eq:optimal}.
 
 \subsection{Greedy Search Approaches}
 \label{subsec:greedysearch}
 
-Greedy Search is a popular approach used to finding an approximate solution. The method relies on the definition of a neighborhood space among solutions, and on local moves that search for an improving solution in the neighborhood of an incumbent solution. Different neighborhoods and local moves give rise to different methods such as Equivalence-based, Structure-based,  and Order-based methods. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this approach.
+Greedy Search is a popular approach used to finding an approximate solution to \eqref{eq:optimal}. The method relies on the definition of a neighborhood space among solutions, and on local moves that search for an improving solution in the neighborhood of an incumbent solution. Different neighborhoods and local moves give rise to different methods such as Equivalence-based, Structure-based,  and Order-based methods. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this approach.
 
 \begin{lstlisting}[ caption = Greedy Search , label = code:greedysearch ]
 	GreedySearch( Dataset |$D$| ) : return a BN |$G$|
@@ -39,7 +47,7 @@ Greedy Search is a popular approach used to finding an approximate solution. The
 		   |$G = best\_neighbor$|
 	   Return |$G$|
 \end{lstlisting}
-The main idea of the approach is to start with an initial solution (e.g., a random generated one), and for a number of iterations $K$, explore the search space by selecting the best neighbor of the incumbent solution. Additionally, an early stop condition can be added to verify whether the algorithm has reached a local optimum (i.e., if no local move can improve the lower bound).
+The main idea of the approach is to start with an initial solution (e.g., a randomly generated one), and for a number of iterations $K$, explore the search space by selecting the best neighbor of the incumbent solution. Additionally, an early stop condition can be added to verify whether the algorithm has reached a local optimum (i.e., if no local move can improve the lower bound).
 Several methods can be obtained by varying the implementation of lines~\ref{line:init}, ~\ref{line:neighbor} and~\ref{line:score}, which specify how to generate an initial solution, what the search space is and what the scoring function is, respectively.
 
 % Structure-based (using deletion, inversion, suppression)
@@ -55,16 +63,16 @@ An alternative approach is to search within the class of score-equivalent DAGs. 
 % Order-based
 \subsubsection{Order-based}
 \label{subsub:orderbased}
-Order-based Greedy Search is a popular and effective approach, which is based on the observation that the problem of learning a Bayesian network can be written as
+Order-Based Greedy Search is a popular and effective approach, which is based on the observation that the problem of learning a Bayesian network can be written as
 	\begin{equation}
 		\label{eq:orderreduced}
 		G^* = \arg \max_{<} \max_{G \text{ consistent with } <} \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) = \arg \max_{<} \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}} {sc}( X_i , P ) ,
 	\end{equation}
-which means that if an optimal ordering over the attributes is known, an optimal DAG can be found by maximizing the local scores independently~\cite{TK05}. This can be made efficiently if we assume $G^*$ is sparse and this can be shown to be true for many scoring functions~\cite{Cassio11}.
+which means that if an optimal ordering over the variables is known, an optimal DAG can be found by maximizing the local scores independently~\cite{BD95,FNP99,TK05}. This can be made efficiently if we assume $G^*$ is sparse, which is true for many scoring functions~\cite{Cassio11}.
 
-The method starts with a topological ordering $L$, and greedily moves to an improving ordering by swapping two adjacent attributes in $L$ if any exists. Algorithm~\ref{code:orderbased} shows a pseudocode for the method. The function ${swap}$ in line~\ref{line:swap} swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$ to obtain a neighbor of the incumbent solution.
+Order-Based Search starts with a topological ordering $L$, and greedily moves to an improving ordering by swapping two adjacent attributes in $L$ if any exists. Algorithm~\ref{code:orderbased} shows a pseudocode for the method. The function ${swap}$ in line~\ref{line:swap} swaps the values $L[ i ]$ and $L[ i + 1 ]$ in the order $L$ to obtain a neighbor of the incumbent solution.
 
-\begin{lstlisting}[ caption = Order-based Greedy Search , label = code:orderbased ]
+\begin{lstlisting}[ caption = Order-Based Greedy Search , label = code:orderbased ]
 	OrderBasedGreedySearch( Dataset |$D$| ) : return a BN
 	   |$L = Get\_Order( X_1 , \ldots , X_n )$|
 	   For a number of iterations |$K$|
