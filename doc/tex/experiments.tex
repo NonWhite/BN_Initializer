@@ -27,10 +27,9 @@ We compared our proposed initialization strategies, which we call DFS- and FAS-b
 	\input{addons/results}
 The results show that in most of the datasets with less than 25 attributes, the Random strategy finds the highest-scoring networks over all runs, even though it finds worse networks on average. The best initial solutions are found by the FAS-based strategy followed by the DFS-based strategy. For datasets with more than 25 variables, Random is less effective in finding high-scoring networks, except for the LungCancer (which has very little data). These results suggest that more informed approaches to generating initial orderings might be more effective in high dimensionality domains, or when the number of restarts is limited e.g.~for computational reasons. The proposed strategies are also more robust, which can be seen by the smaller variance of the average initial and best scores. 
 
-The results also suggest that the proposed strategies are more effective than Random in datasets for which the graph $\overline G$ is sparser (smaller  density), showing that pruning the space of orderings can be effective in those cases. The initial orderings provided by the proposed strategies speed up convergence of the local search, as can be seen by the smaller number of average iterations for those strategies in the Table.
+The results also suggest that the proposed strategies are more effective than Random in datasets for which the graph $\overline G$ is sparser (smaller  density), showing that pruning the space of orderings can be effective in those cases. The initial orderings provided by the proposed strategies speed up convergence of the local search, as can be seen by the smaller number of average iterations for those strategies in the table.
 
-Overall, the new heuristics are able to improve the accuracy of Order-Based Greedy Search with only a small overhead. Although the differences observed in our experiments were small, we expect greater differences in domains of higher dimensionality
-
+Overall, the new heuristics are able to improve the accuracy of Order-Based Greedy Search with only a small overhead. Although the differences observed in our experiments were small, we expect greater differences in domains of higher dimensionality.
 
 % Converge curves
 % \input{addons/curves}

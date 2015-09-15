@@ -31,12 +31,12 @@ Provided the scoring function is decomposable, we can obtain an upper bound on t
   \label{eq:bestparents}
   \overline{G} = \arg \sum_i \max_{{Pa}(X_i)} sc( X_i, {Pa}( X_i ) ) 
 \end{equation}
-is the directed graph where the parents ${Pa}( X_i )$ of each node $X_i$ are selected so as to maximize the local score ${sc}( X_i , {Pa}( X_i ) )$. We call the parents of a variable in $\overline{G}$ the \emph{best parent set} (for $X_i$. Note that $\overline{G}$ usually contains cycles, and it is thus not a solution to Equation~\ref{eq:optimal}.
+is the directed graph where the parents ${Pa}( X_i )$ of each node $X_i$ are selected so as to maximize the local score ${sc}( X_i , {Pa}( X_i ) )$. We call the parents of a variable in $\overline{G}$ the \emph{best parent set} (for $X_i$). Note that $\overline{G}$ usually contains cycles, and it is thus not a solution to equation~\ref{eq:optimal}.
 
 \subsection{Greedy Search Approaches}
 \label{subsec:greedysearch}
 
-Greedy Search is a popular approach used to finding an approximate solution to \eqref{eq:optimal}. The method relies on the definition of a neighborhood space among solutions, and on local moves that search for an improving solution in the neighborhood of an incumbent solution. Different neighborhoods and local moves give rise to different methods such as Equivalence-based, Structure-based,  and Order-based methods. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this approach.
+Greedy Search is a popular approach used to finding an approximate solution to equation~\eqref{eq:optimal}. The method relies on the definition of a neighborhood space among solutions, and on local moves that search for an improving solution in the neighborhood of an incumbent solution. Different neighborhoods and local moves give rise to different methods such as Equivalence-based, Structure-based,  and Order-based methods. Algorithm~\ref{code:greedysearch} shows a general pseudocode for this approach.
 
 \begin{lstlisting}[ caption = Greedy Search , label = code:greedysearch ]
 	GreedySearch( Dataset |$D$| ) : return a BN |$G$|
