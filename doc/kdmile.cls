@@ -1023,10 +1023,10 @@ to\hsize{\if@nfeven\else\hfil\fi\box\@tempboxa\if@nfeven\hfil\fi}
 \def\sectionmark##1{}\def\subsectionmark##1{}}
 \def\@runningfoot{}
 %\def\runningfoot{\def\@runningfoot{\@journalName, Vol.\ \@kdmileVolume, No.\ \@kdmileNumber, \@kdmileMonth\ 20\@kdmileYear.}}
-\def\runningfoot{\def\@runningfoot{\@journalName, KDMILE 2014.}}
+\def\runningfoot{\def\@runningfoot{\@journalName, KDMILE 2015.}}
 \def\@firstfoot{}
 %\def\firstfoot{\def\@firstfoot{\@journalName, Vol.\ \@kdmileVolume, No.\ \@kdmileNumber, \@kdmileMonth\ 20\@kdmileYear, Pages \pages.}}
-\def\firstfoot{\def\@firstfoot{\@journalName, KDMILE 2014.}}
+\def\firstfoot{\def\@firstfoot{\@journalName, KDMILE 2015.}}
 \def\ps@titlepage{\let\@mkboth\@gobbletwo
 \def\@oddhead{}\def\@oddfoot{\hbox{}\hfill
 \tiny\@firstfoot}\def\@evenhead{}\def\@evenfoot{\tiny\@firstfoot\hfill\hbox{}}}
