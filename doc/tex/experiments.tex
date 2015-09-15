@@ -2,69 +2,78 @@
 \label{sec:experiments}
 
 In order to evaluate the quality of our approaches, we learned Bayesian networks using Order-based greedy search and different initialization strategies from several data sets commonly used for benchmarking. The names and relevant characteristics of the data sets\footnote{These datasets were extracted from http://urlearning.org/datasets.html} used are shown in Table~\ref{tab:datasets}.
+	% Explicar como se calcula Density
 	\begin{table}[ h ]
 		\centering
-		\begin{tabular}{ | l | c | c | }
+		\begin{tabular}{ | l | c | c | c | }
 			\hline
-			Dataset & n (\#attributes) & N (\#instances) \\ \hline
-			Census & 15 & 30168 \\ \hline
-			Letter & 17 & 20000 \\ \hline
-			Image & 20 & 2310 \\ \hline
-			Mushroom & 23 & 8124 \\ \hline
-			Sensors & 25 & 5456 \\ \hline
-			SteelPlates & 28 & 1941 \\ \hline
-			Epigenetics & 30 & 72228 \\ \hline
-			Alarm & 37 & 1000 \\ \hline
-			Spectf & 45 & 267 \\ \hline
-			LungCancer & 57 & 27 \\ \hline
+			Dataset & n (\#attributes) & N (\#instances) & Density of $\overline G$ \\ \hline
+			Census & 15 & 30168 & 2.85 \\ \hline
+			Letter & 17 & 20000 & 2.41 \\ \hline
+			Image & 20 & 2310 & 2.45 \\ \hline
+			Mushroom & 23 & 8124 & 2.91 \\ \hline
+			Sensors & 25 & 5456 & 3.00 \\ \hline
+			SteelPlates & 28 & 1941 & 2.18 \\ \hline
+			Epigenetics & 30 & 72228 & 1.87 \\ \hline
+			Alarm & 37 & 1000 & 1.98 \\ \hline
+			Spectf & 45 & 267 & 1.76 \\ \hline
+			LungCancer & 57 & 27 & 1.44 \\ \hline
 		\end{tabular}
 		\caption{Data sets characteristics}
 		\label{tab:datasets}
 	\end{table}
-The greedy search was ran with a maximum number of parents ($d=3$), a limit of 100 iterations ($K=100$), and 1000 restarts ($S=100$). We used the BIC scoring in all experiments and the parent sets were calculated by exhaustive search in all cases. The choice of the parameter $S$ was adopted so as to have enough data to produce statistically significant results while still being able to ran all the experiments in a restricted amount of time.
+The greedy search was ran with a maximum number of parents ($d=3$), a limit of 100 iterations ($K=100$), and 1000 restarts ($S=1000$), except for LungCancer dataset where the running total time is big to perform such as number of restarts. We used the BIC scoring in all experiments and the parent sets were calculated by exhaustive search in all cases. The choice of the parameter $S$ was adopted so as to have enough data to produce statistically significant results while still being able to ran all the experiments in a restricted amount of time.
 
 We evaluated three different initialization strategies: random, which randomly generates a topological ordering, DFS-based, which uses the DFS heuristic, and FAS-based, which uses the heuristic based on the minimum cost FAS. For each approach, we compared the score of the best network found, the percentage of solutions that converged to the best score and the average number of iterations that local search took to converge. The results are shown in Table~\ref{tab:comparison}.
 	\begin{table}[ h ]
 		\centering
-		\begin{tabular}{|c|l|c|c|c|}
+		\begin{tabular}{| c | l | c | c | c | c | }
 			\hline
-			Dataset & Approach & Best Score & \% Solutions & Avg. It. \\ \hline
-			\multirow{3}{*}{Census} & Random & \textbf{-212186.787} & 0.30 & 7.26 $\pm$ 2.90 \\ \cline{2-5} 
-					& DFS-based & -212190.051 & 0.20 & 5.90 $\pm$ 2.61 \\ \cline{2-5}
-					& FAS-based & -212191.642 & \textbf{51.85} & \textbf{3.28 $\pm$ 1.67} \\ \hline
-			\multirow{3}{*}{Letter} & Random & -138652.663 & 4.30 & 6.07 $\pm$ 2.50 \\ \cline{2-5} 
-					& DFS-based & -138652.663 & \textbf{6.70} & 5.75 $\pm$ 2.35 \\ \cline{2-5}
-					& FAS-based & -138652.663 & 0.34 & \textbf{2.24 $\pm$ 0.96} \\ \hline
-			\multirow{3}{*}{Image} & Random & \textbf{-12826.077} & 0.10 & 7.59 $\pm$ 2.71 \\ \cline{2-5} 
-					& DFS-based & -12829.104 & \textbf{0.40} & 7.10 $\pm$ 2.47 \\ \cline{2-5}
-					& FAS-based & -12829.104 & 0.14 & \textbf{5.05 $\pm$ 1.72} \\ \hline
-			\multirow{3}{*}{Mushroom} & Random & \textbf{-55513.382} & 0.10 & 7.59 $\pm$ 2.76 \\ \cline{2-5} 
-					& DFS-based & \textbf{-55513.382} & 0.10 & 7.75 $\pm$ 2.58 \\ \cline{2-5}
-					& FAS-based & -55574.713 & \textbf{0.20} & \textbf{4.65 $\pm$ 1.63} \\ \hline
-			\multirow{3}{*}{Sensors} & Random & \textbf{-62062.128} & 0.10 & 9.22 $\pm$ 2.94 \\ \cline{2-5} 
-					& DFS-based & -62083.211 & 0.10 & 9.65 $\pm$ 3.12 \\ \cline{2-5}
-					& FAS-based & -62074.876 & \textbf{0.11} & \textbf{5.17 $\pm$ 2.24} \\ \hline
-			\multirow{3}{*}{SteelPlates} & Random & -13336.138 & 0.10 & 8.96 $\pm$ 3.43 \\ \cline{2-5} 
-					& DFS-based & \textbf{-13332.908} & 0.10 & 9.30 $\pm$ 3.38 \\ \cline{2-5}
-					& FAS-based & -13341.731 & \textbf{0.30} & \textbf{7.77 $\pm$ 2.24} \\ \hline
-			\multirow{3}{*}{Epigenetics} & Random & -56873.763 & 0.10 & 5.89 $\pm$ 2.67 \\ \cline{2-5} 
-					& DFS-based & \textbf{-56868.869} & \textbf{0.20} & 6.42 $\pm$ 2.47 \\ \cline{2-5}
-					& FAS-based & \textbf{-56868.869} & 0.10 & \textbf{5.33 $\pm$ 2.28} \\ \hline
-			\multirow{3}{*}{Alarm} & Random & -13218.222 & 0.10 & 10.92 $\pm$ 3.24 \\ \cline{2-5} 
-					& DFS-based & \textbf{-13217.970} & 0.10 & \textbf{4.32 $\pm$ 2.32} \\ \cline{2-5}
-					& FAS-based & -13220.548 & \textbf{0.80} & 6.34 $\pm$ 1.74 \\ \hline
-			\multirow{3}{*}{Spectf} & Random & -8176.805 & 1.00 & 7.20 $\pm$ 2.17 \\ \cline{2-5} 
-					& DFS-based & \textbf{-8172.366} & 1.00 & 7.86 $\pm$ 2.49 \\ \cline{2-5}
-					& FAS-based & -8172.507 & 1.00 & \textbf{2.27 $\pm$ 1.11} \\ \hline
-			\multirow{3}{*}{LungCancer} & Random & \textbf{-711.228} & 1.00 & 5.46 $\pm$ 1.78 \\ \cline{2-5} 
-					& DFS-based & -711.358 & 1.00 & 5.02 $\pm$ 1.50 \\ \cline{2-5}
-					& FAS-based & -711.392 & 1.00 & \textbf{2.73 $\pm$ 1.79} \\ \hline
+			Dataset & Approach & Best Score & Avg. Initial Score & Avg. Best Score & Avg. It. \\ \hline
+			\multirow{3}{*}{Census} & Random & \textbf{-212186.79} & -213074.18 $\pm$ 558.43 & -212342.26 $\pm$ 174.21 & 7.26 $\pm$ 2.90 \\ \cline{2-6} 
+					& DFS-based & -212190.05 & -212736.80 $\pm$ 379.96 & -212339.83 $\pm$ 152.26 & 5.90 $\pm$ 2.61 \\ \cline{2-6}
+					& FAS-based & -212191.64 & \textbf{-212287.99 $\pm$ 92.54} & \textbf{-212222.12 $\pm$ 70.99} & \textbf{3.28 $\pm$ 1.67} \\ \hline
+
+			\multirow{3}{*}{Letter} & Random & -138652.66 & -139774.54 $\pm$ 413.74 & -139107.13 $\pm$ 329.15 & 6.07 $\pm$ 2.50 \\ \cline{2-6} 
+					& DFS-based & -138652.66 & -139521.38 $\pm$ 396.61 & \textbf{-138999.84 $\pm$ 310.06} & 5.75 $\pm$ 2.35 \\ \cline{2-6}
+					& FAS-based & -138652.66 & \textbf{-139050.43 $\pm$ 70.55} & -139039.26 $\pm$ 87.97 & \textbf{2.24 $\pm$ 0.96} \\ \hline
+
+			\multirow{3}{*}{Image} & Random & \textbf{-12826.08} & -13017.13 $\pm$ 44.35 & -12924.24 $\pm$ 41.39 & 7.59 $\pm$ 2.71 \\ \cline{2-6} 
+					& DFS-based & -12829.10 & -12999.09 $\pm$ 38.56 & -12921.13 $\pm$ 37.88 & 7.10 $\pm$ 2.47 \\ \cline{2-6}
+					& FAS-based & -12829.10 & \textbf{-12930.63 $\pm$ 20.83} & \textbf{-12882.30 $\pm$ 26.43} & \textbf{5.05 $\pm$ 1.72} \\ \hline
+
+			\multirow{3}{*}{Mushroom} & Random & \textbf{-55513.38} & -58450.72 $\pm$ 1016.54 & -56563.84 $\pm$ 616.59 & 7.59 $\pm$ 2.76 \\ \cline{2-6} 
+					& DFS-based & \textbf{-55513.38} & -58367.11 $\pm$ 871.25 & -56472.72 $\pm$ 546.19 & 7.75 $\pm$ 2.58 \\ \cline{2-6}
+					& FAS-based & -55574.71 & \textbf{-56450.49 $\pm$ 154.54} & \textbf{-56198.66 $\pm$ 174.64} & \textbf{4.65 $\pm$ 1.63} \\ \hline
+
+			\multirow{3}{*}{Sensors} & Random & \textbf{-62062.13} & -63476.33 $\pm$ 265.46 & -62726.60 $\pm$ 251.26 & 9.22 $\pm$ 2.94 \\ \cline{2-6} 
+					& DFS-based & -62083.21 & -63392.60 $\pm$ 255.90 & -62711.50 $\pm$ 257.79 & 9.65 $\pm$ 3.12 \\ \cline{2-6}
+					& FAS-based & -62074.88 & \textbf{-62530.26 $\pm$ 133.44} & \textbf{-62330.94 $\pm$ 121.82} & \textbf{5.17 $\pm$ 2.24} \\ \hline
+
+			\multirow{3}{*}{SteelPlates} & Random & -13336.14 & -13566.50 $\pm$ 65.80 & -13429.13 $\pm$ 52.14 & 8.96 $\pm$ 3.43 \\ \cline{2-6} 
+					& DFS-based & \textbf{-13332.91} & -13572.77 $\pm$ 81.12 & -13432.30 $\pm$ 57.57 & 9.30 $\pm$ 3.38 \\ \cline{2-6}
+					& FAS-based & -13341.73 & \textbf{-13485.26 $\pm$ 38.27} & \textbf{-13397.08 $\pm$ 29.53} & \textbf{7.77 $\pm$ 2.24} \\ \hline
+
+			\multirow{3}{*}{Epigenetics} & Random & -56873.76 & -57722.30 $\pm$ 228.44 & -57357.60 $\pm$ 222.12 & 5.89 $\pm$ 2.67 \\ \cline{2-6} 
+					& DFS-based & \textbf{-56868.87} & \textbf{-57615.36 $\pm$ 189.17} & \textbf{-57308.93 $\pm$ 165.18} & 6.42 $\pm$ 2.47 \\ \cline{2-6}
+					& FAS-based & \textbf{-56868.87} & -57660.09 $\pm$ 146.45 & -57379.59 $\pm$ 148.42 & \textbf{5.33 $\pm$ 2.28} \\ \hline
+
+			\multirow{3}{*}{Alarm} & Random & -13218.22 & -13324.52 $\pm$ 30.49 & -13245.43 $\pm$ 15.63 & 10.92 $\pm$ 3.24 \\ \cline{2-6} 
+					& DFS-based & \textbf{-13217.97} & -13250.72 $\pm$ 17.70 & -13236.71 $\pm$ 12.02 & \textbf{4.32 $\pm$ 2.32} \\ \cline{2-6}
+					& FAS-based & -13220.55 & \textbf{-13249.77 $\pm$ 2.57} & \textbf{-13233.98 $\pm$ 6.19} & 6.34 $\pm$ 1.74 \\ \hline
+
+			\multirow{3}{*}{Spectf} & Random & -8176.81 & -8202.03 $\pm$ 5.23 & -8189.69 $\pm$ 4.65 & 7.20 $\pm$ 2.17 \\ \cline{2-6} 
+					& DFS-based & \textbf{-8172.37} & -8200.04 $\pm$ 4.08 & -8187.29 $\pm$ 4.91 & 7.86 $\pm$ 2.49 \\ \cline{2-6}
+					& FAS-based & -8172.51 & \textbf{-8176.98 $\pm$ 2.01} & \textbf{-8176.07 $\pm$ 2.05} & \textbf{2.27 $\pm$ 1.11} \\ \hline
+					
+			\multirow{3}{*}{LungCancer} & Random & \textbf{-711.23} & -723.79 $\pm$ 2.69 & -718.03 $\pm$ 2.84 & 5.46 $\pm$ 1.78 \\ \cline{2-6} 
+					& DFS-based & -711.36 & -720.47 $\pm$ 2.51 & \textbf{-715.29 $\pm$ 1.86} & 5.02 $\pm$ 1.50 \\ \cline{2-6}
+					& FAS-based & -711.39 & \textbf{-716.13 $\pm$ 0.89} & -715.67 $\pm$ 1.19 & \textbf{2.73 $\pm$ 1.79} \\ \hline
 		\end{tabular}
-		\caption{Best score obtained, Percentage of solutions that converge to best score (\% Solutions), and Average number of iterations (Avg. It.) using each approach (best values in bold)}
+		\caption{Best score obtained, Average best score obtained, Average initial score generated, Average number of iterations (Avg. It.) using each approach (best values in bold)}
 		\label{tab:comparison}
 	\end{table}
 	\vspace{-4mm}
-	% Consider to put 'Average initial score' as replacement for %Solutions
 The experiment shows that in most of the datasets with less than 25 attributes, the random approach finds Bayesian networks with greater or equal score than the methods proposed, but it does not hold for bigger datasets where DFS-based method obtain better scores than FAS-based one. Moreover, the percentage of solutions obtained with best score is always greater using FAS-based method independently of the number of attributes of the dataset ($n$), but as stated before, these best scores are not always the best possible ones. Finally, the relation between the average number of iterations needed to converge from DFS-based method and random approach is increasing while $n$ increases. However, FAS-method initial solutions converge faster than in any of the methods with a considerable difference, it means that these initial solutions are close to a local maxima, even for the biggest datasets. So in general, the new methods work better with bigger datasets than smaller ones.
 
 	% ========== START COMMENTS ==========

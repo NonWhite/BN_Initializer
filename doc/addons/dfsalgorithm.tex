@@ -1,0 +1,8 @@
+\begin{lstlisting}[ caption = DFS-based method , label = code:dfsbased ]
+DFS_Based( Graph |$\overline G$| ) : return Order |$L$| consistent with |$\overline G$|
+   |$L$| = empty list
+   While there are nodes not visited on |$\overline G$| do
+	|$X_k$| = random not visited node
+	|${DFS}( \overline G , X_k , L )$|
+   Return |$L$|
+\end{lstlisting}

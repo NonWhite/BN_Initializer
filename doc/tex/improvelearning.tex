@@ -9,7 +9,7 @@ As with most local search approaches, the selection of a good initial solution t
 
 \subsection{DFS-based solution}
 \label{subsec:dfsapproach}
-	It can be noticed that generating random solutions means having a huge search space ($n!$) for datasets with $n > 10$, but this search space can be reduced using the graph $\overline G$ (defined in equation~\ref{eq:bestparents}). This graph tell us some information about if it is good that a variable $X_j \in {Pa}( X_i )$ should be before $X_i$ in an order, because it has as relationships the best parent set for each $X_i$.\\
+	The structure of a problem instance provided by the graph $\overline G$ (defined in equation~\ref{eq:bestparents}) can be used to prune the space of topological ordering by avoiding generating ordering which are guaranteed sub-optimal as follows. This graph tell us some information about if it is good that a variable $X_j \in {Pa}( X_i )$ should be before $X_i$ in an order, because it has as relationships the best parent set for each $X_i$. This means that if a variable $X_j \not \in {Pa}( X_i )$ for some variable $X_i$, it does not maximize the score for that variable and could be better to appear after $X_i$.\\
 	For instance, Figure~\ref{fig:dfsorders} shows the possible orders consistent with the relationships in the graph $\overline G$ (Figure~\ref{fig:example}). As can be noticed we have 14 possible orders given $\overline{G}$, but $4! = 24$ possible orders using a random approach. So we reduce the search space and also improve the possibilities that getting a good initial order. Also, the difference could be greater in problems with more variables.
 	\begin{figure}[H]
 	 	\centering
@@ -28,31 +28,25 @@ As with most local search approaches, the selection of a good initial solution t
 		\caption{(a) Graph $\overline{G}$. (b) Possible orders for graph $\overline G$}
 	\end{figure}
 	% \input{addons/dfs_orders}
-	Taking into consideration the previous analysis, we propose the following algorithm to generate initial solutions:
-	\begin{lstlisting}[ caption = DFS-based method , label = code:dfsbased ]
-	DFS_Based( Graph |$\overline G$| ) : return Order |$L$| consistent with |$\overline G$|
-	   |$L$| = empty list
-	   While there are nodes not visited on |$\overline G$| do
-		|$X_k$| = random not visited node
-		|${DFS}( \overline G , X_k , L )$|
-	   Return |$L$|
-	\end{lstlisting}
-	Where ${DFS}$ performs a depth-first search on $\overline G$ using $X_k$ as root and add each node $X_v$ visited to the order $L$.
+	Taking into consideration the previous analysis, we propose the following algorithm to generate initial solutions. Having as input the graph $\overline G$ and starting with an empty list $L$, choose a node $X_k$ not visited until that moment and perform a depth-first search (DFS) using $X_k$ as root. Every node visited during the DFS is added to list $L$. Repeat these steps while exists some node not visited, then return $L$.
+	%\input{addons/dfsalgorithm}
 	
 \subsection{FAS-based solution}
 \label{subsec:fasapproach}
+The DFS approach can be seen as removing edges from $\overline G$ such as to make it a DAG, and then extract a consistent topological ordering. A weakness with that approach is that it uses $\overline G$ and generate orders consistent with $\overline G$ using a random node as root, but does not consider that some arcs are more relevant than others and could be better to keep them on the graph because they maximize the score. It also means that some nodes could be more relevant than others in the best parent set of a variable. The weakness is that it considers all arcs equally (ir)relevant when obtaining a DAG out of $\overline G$, but we can estimate the relevance of an arc using Equation~\ref{eq:weight}.
+	\begin{equation}
+		\label{eq:weight}
+		W_{ji} = {sc}( X_i , P ) - {sc}( X_i , P \setminus \{ X_j \} ) ,
+	\end{equation}
+where $W_{ji}$ is the weight of the edge that goes from $X_j$ to $X_i$ and $P$ is the best parent set for $X_i$. This formula represents the cost of getting $X_j$ out of the set $P$ and it is always a positive number because $P$ maximizes the score for $X_i$. A small value means the parent $X_j$ is not very relevant to $X_i$, whereas a big value means that $X_j$ is relevant. For instance, graph $\overline G$ in Figure~\ref{fig:example} shows that $C$ is less relevant than $B$ and $A$ as a parent of $D$ because that edge has a lower value.\\
+Another weakness is that the DFS-based method is that it is safe in the sense that it only prune non-optimal orderings, but it could be of little use if $\overline G$ is not sparse. When this is the case, the problem could relaxed by obtaining a sparser version of $\overline G$ removing the less relevant arcs.
+This problem is called Minimum Cost Feedback Arc Set Problem (min-cost FAS) that is stated as: given a weighted directed graph $G = ( V , E )$, a set $F \subseteq E$ is called a minimum cost Feedback Arc Set if every cycle of $G$ has at least one edge in $F$. In other words, $F$ is an edge set that if removed makes the graph $G$ acyclic~\cite{DF01}. So this problem is to find a min-cost FAS $F_G$ such that:
+	\begin{equation}
+		\label{eq:mincostfas}
+		F_{G} = \min_{G - F \text{ is a DAG}} \sum_{(u,v) \in E} W_{uv} ,
+	\end{equation}
+where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G$. Even though the problem is NP-hard, there are some efficient approximation algorithms like the one described in Algorithm~\ref{code:fasapprox}.
 
-In this subsection, we first explained the generic problem and one of the variants of the Feedback Arc Set (FAS) Problem. After that, a reduction of the learning structure Bayesian network problem will be explained in order to propose a new algorithm for generating initial solutions.
-
-\subsubsection{Feedback Arc Set Problem} \label{subsub:fasp}
-
-The generic problem is stated as: given a graph $G = ( V , E )$, a set $F \subseteq E$ is called the Feedback Arc Set (FAS) if every cycle of $G$ has at least one edge in $F$. In other words, $F$ is the edge set that if you put if off the graph $G$, it becomes a DAG~\cite{DF01}.\\
-There are some variants of this problem, but we only focus on finding the minimum cost FAS $F$ from a weighted directed graph $G$ defined in equation~\ref{eq:mincostfas}.
-\begin{equation}
-	\label{eq:mincostfas}
-	F_{G} = \min_{G - F \text{ is a DAG}} \sum_{(u,v) \in E} W_{uv} ,
-\end{equation}
-where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G$. Although this variant becomes NP-hard, there are some approximation algorithms like the one that is below.
 \begin{lstlisting}[ caption = FAS approximation , label = code:fasapprox ]
 	MinimumCostFAS( Graph |$G$| ) : Return FAS |$F$|
 	   |$F$| = empty set
@@ -65,24 +59,10 @@ where $W_{uv}$ is the weight of the edge from $u$ to $v$ on $G$. Although this v
 	   Return |$F$|
 \end{lstlisting}
 
-\subsubsection{Algorithm for initial solutions}
-\label{subsub:fasalgorithm}
-	A possible problem with the previous method (DFS-based) is that uses $\overline G$ and generate orders consistent with it using a random node as root, but does not consider that some edges are more important than others and could be better to keep them on the graph because they maximize the score. It also means that some nodes could be more important than others in the best parent set of a variable. This importance of an edge could be represented as follows:
-		\begin{equation}
-			\label{eq:weight}
-			W_{ji} = {sc}( X_i , P ) - {sc}( X_i , P \setminus \{ X_j \} ) ,
-		\end{equation}
-	where $W_{ji}$ is the weight of the edge that goes from $X_j$ to $X_i$ and $P$ is the best parents set for $X_i$. This formula represents the cost of getting $X_j$ out of the set $P$ and it is always a positive number because $P$ maximizes the score for $X_i$. When the value is so small, it means the parent $X_j$ could be more important. On the contrary if the weight is so big, this means that $X_j$ is not so important in $P$. For instance, graph $\overline G$ in Figure~\ref{fig:example} shows that $C$ is more important than $B$ and $A$ as a parent of $D$ because that edge has a lower value.\\
-	%Using this weight edge, we can prove that the problem can be reduce with the following equations:
-	%\input{addons/fasprove}
-        %This means that the score of the DAG $G^*$ plus the score of the deleted arcs from $\overline{G}$ give an approximation for $G^*$, and also that $G^*$ could be a subgraph of $\overline{G}$. 
-        We can now describe our second heuristic for generating initial solutions, based on the minimum cost FAS problem:
-	\begin{lstlisting}[ caption = FAS-based method , label = code:fasbased ]
-	FAS_Based( Graph |$\overline G$| ) : return Order consistent with |$\overline G$|
-	   Add weights |$W_{ji}$| to edges in |$\overline G$|
-	   |$F$| = MinimumCostFAS( |$\overline G$| )
-	   |$G = \overline G - F$|
-	   Return topological( |$G$| )
-	\end{lstlisting}
+%Using this weight edge, we can prove that the problem can be reduce with the following equations:
+%\input{addons/fasprove}
+%This means that the score of the DAG $G^*$ plus the score of the deleted arcs from $\overline{G}$ give an approximation for $G^*$, and also that $G^*$ could be a subgraph of $\overline{G}$. 
+We can now describe our second heuristic for generating initial solutions, based on the minimum cost FAS problem: having the graph $\overline G$ as input, add weights $W_{ji}$ to the arcs on the graph using Equation~\ref{eq:weight}. Then, find the min-cost FAS $F_G$ and remove its arcs from $\overline G$ to make it a DAG. Finally, return a topological order of the obtained graph $\overline G - F_G$.
+	%\input{addons/fasalgorithm}
 
 These new methods for generating initial solutions will be used in next section to learn Bayesian networks with multiple data sets.

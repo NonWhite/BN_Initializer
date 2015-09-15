@@ -1,0 +1,7 @@
+\begin{lstlisting}[ caption = FAS-based method , label = code:fasbased ]
+FAS_Based( Graph |$\overline G$| ) : return Order consistent with |$\overline G$|
+   Add weights |$W_{ji}$| to edges in |$\overline G$|
+   |$F$| = MinimumCostFAS( |$\overline G$| )
+   |$G = \overline G - F$|
+   Return topological( |$G$| )
+\end{lstlisting}
