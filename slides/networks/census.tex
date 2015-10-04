@@ -1,0 +1,19 @@
+\begin{tikzpicture}[ scale = 0.6 ]
+	\tikzset{ vertex/.style = { shape = circle , draw , minimum size = 2em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (A) at  ( 0 , 6 ) { ${A}$ } ;
+	\node[ vertex ] (G) at  ( 2 , 6 ) { ${G}$ } ;
+	\node[ vertex ] (E) at  ( 1 , 4 ) { ${E}$ } ;
+	\node[ vertex ] (O) at  ( 0 , 2 ) { ${O}$ } ;
+	\node[ vertex ] (C) at  ( 2 , 2 ) { ${C}$ } ;
+	\node[ vertex ] (T) at  ( 1 , 0 ) { ${T}$ } ;
+
+	%edges
+	\draw[ edge ] (A) to (E) ;
+	\draw[ edge ] (G) to (E) ;
+	\draw[ edge ] (E) to (O) ;
+	\draw[ edge ] (E) to (C) ;
+	\draw[ edge ] (O) to (T) ;
+	\draw[ edge ] (C) to (T) ;
+\end{tikzpicture}

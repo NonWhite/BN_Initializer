@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+	\tikzset{ vertex/.style = { shape = circle , draw , minimum size = 2em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (I) at  ( 0 , 2 ) { ${I}$ } ;
+	\node[ vertex ] (C) at  ( 4 , 2 ) { ${C}$ } ;
+	\node[ vertex ] (S) at  ( 2 , 0 ) { ${S}$ } ;
+	\node[ vertex ] (A) at  ( 2 , -2 ) { ${A}$ } ;
+
+	%edges
+	\draw[ edge ] (I) to (S) ;
+	\draw[ edge ] (C) to (S) ;
+	\draw[ edge ] (S) to (A) ;
+\end{tikzpicture}

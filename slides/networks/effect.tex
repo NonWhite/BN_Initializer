@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+	\tikzset{ vertex/.style = { shape = circle , draw , minimum size = 2em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (X) at  ( 0 , 1 ) { ${X}$ } ;
+	\node[ vertex ] (Y) at  ( 1 , 0 ) { ${Y}$ } ;
+	\node[ vertex ] (Z) at  ( 2 , 1 ) { ${Z}$ } ;
+
+	%edges
+	\draw[ edge ] (X) to (Y) ;
+	\draw[ edge ] (Z) to (Y) ;
+\end{tikzpicture}

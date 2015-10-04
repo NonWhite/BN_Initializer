@@ -6,14 +6,19 @@
 	\usefonttheme{default}  % or try serif, structurebold, ...
 	\setbeamertemplate{navigation symbols}{}
 	\setbeamertemplate{caption}[numbered]
+	\setbeamertemplate{footline}[frame number]
 }
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 
+\setcounter{tocdepth}{1}
+
+\renewcommand{\P}{\mathbb{P}}
+
 % Setup TikZ
 \usepackage{tikz}
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows,shadows,calc}
 \tikzstyle{block}=[draw opacity=0.7,line width=1.4cm]
 
 \usepackage{listings}

@@ -1,1 +1,136 @@
 \section{Bayesian Network}
+
+\subsection{Markov property}
+	\begin{frame}
+		\begin{block}{Markov property}
+			Given its parents, every variable is conditionally independent from its non-descendants non-parents
+		\end{block}
+		\begin{block}{Factorization property}
+			\[ \P( X_1 , \ldots , X_n ) = \prod_{i=1}^n \P( X_i \mid {Pa}( X_i ) ) \]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\begin{figure}
+	 		\centering
+			\input{networks/example}
+		\end{figure}
+		\begin{block}{}
+			The directed acyclic graph (DAG) above has joint probability distribution:
+			\[ \P( I , C , S , A ) = \P( I ) \P( C \mid I ) \P( S \mid C , I ) \P( A \mid S , C , I ) \]
+			\[ = \P( I ) \P( C ) \P( S \mid C , I ) \P( A \mid S ) \]
+		\end{block}
+	\end{frame}
+
+\subsection{Definition}
+	\begin{frame}
+		A Bayesian Network consists of
+		\begin{itemize}
+			\item A DAG $G$ over a set of variables $X_1 , \ldots , X_n$
+			\item \alert{Probability constraints}: $\P( X_i = k \mid {Pa}( X_i ) = j ) = \theta_{ijk}$
+		\end{itemize}
+		\begin{block}{Joint Probability Distribution}
+			There is a unique probability function consistent with a BN:
+			\[ \P( X_1 , \ldots , X_n ) = \prod_{i=1}^n \P( X_i \mid {Pa}( X_i ) ) = \prod_{i=1}^n \theta_{ijk} \]
+		\end{block}
+	\end{frame}
+
+\subsection{Example}
+	\begin{frame}
+		\begin{itemize}
+			\item Age (A): young, adult, old
+			\item Gender (G): male, female
+			\item Education (E): primary, high school, university
+			\item Occupation (O): employee, self-employed
+			\item City size (C): big, small
+			\item Transport (T): private (car), public (bus, train, etc)
+		\end{itemize}
+	\end{frame}
+	\begin{frame}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{networks/census}
+				\end{figure}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\begin{itemize}
+					\item Education rates have been increasing over years; young people are more likely to have university degrees than old people
+					\item Women are more likely to invest in their education than men; women outnumber men in the vast majority of university-level courses
+					\item High education levels is key to getting prestigious professions; jobs requiring university degrees are more easily available in big cities
+					\item Preferred means of transport depends on occupation and city size
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	\begin{frame}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{networks/census}
+				\end{figure}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				$\P( A = young ) = 0.3$\\
+				$\P( A = adult ) = 0.5$\\
+				$\P( A = old ) = 0.2$\\
+				$\P( E = high \mid A = young , G = F ) = 0.7$\\
+				$\vdots$\\
+				$\P( C = small \mid E = high ) = 0.25$
+				$\vdots$
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+\subsection{Causal Interpretation}
+	\begin{frame}
+		An arc $X \rightarrow Y$ can be interpreted as "$X$ causes $Y$"
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{networks/chain}
+				\end{figure}
+				causal chain
+			\end{column}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{networks/cause}
+				\end{figure}
+				common cause
+			\end{column}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{networks/effect}
+				\end{figure}
+				common effect
+			\end{column}
+		\end{columns}
+		\vskip2em
+		Defining and verifying causality is difficult and controversial: We can loosely define $X$ causes $Y$ if $X$ temporarily precedes and direct influences $Y$
+	\end{frame}
+	
+\subsection{Complete probabilistic model}
+	\begin{frame}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{networks/census}
+				\end{figure}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				We can query a Bayesian Network about unspecified probabilities
+				\begin{itemize}
+					\item Are women more likely to prefer public transport over men:\\
+						$\P( T = public \mid G = F ) > \P( T = public \mid G )$?
+					\item What is the distribution of ages for people who use private means of transport:\\
+						$\P( A \mid T = private )$?
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
