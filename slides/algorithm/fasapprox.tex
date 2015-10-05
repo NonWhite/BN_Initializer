@@ -1,0 +1,15 @@
+\defverbatim
+\fasapprox{
+\begin{lstlisting}
+	MinimumCostFAS( Graph |$G$| ) : Return FAS |$F$|
+		|$F$| = empty set
+		While there is a cycle |$C$| on |$G$| do
+			|$W_{min}$| = lowest weight of all edges in |$C$|
+			For each edge |$(u,v) \in C$| do
+				|$W_{uv} = W_{uv} - W_{min}$|
+			If |$W_{uv} = 0$| add to |$F$|
+		For each edge in |$F$|, add it to |$G$| if does not build a cycle
+		Return |$F$|
+\end{lstlisting}
+}
+\fasapprox
