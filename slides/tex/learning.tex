@@ -1,1 +1,61 @@
 \section{Learning BN}
+
+\subsection{BN Structure Learning Approaches}
+	\begin{frame}
+		\begin{block}{Constraint-based approaches}
+			Perform multiple conditional independence hypothesis testing in order to build a DAG
+		\end{block}
+		\vskip2em
+		\begin{block}{Score-based approaches}
+			Associate every DAG with a polynomial-time computable score value and search for structure with high score values
+		\end{block}
+	\end{frame}
+
+\subsection{Score-based Structure Learning}
+	\begin{frame}
+		\begin{block}{Learning as optimization}
+			Given dataset $D$, select $G$ that maximizes \alert{decomposable} score function ${sc}( G , D )$
+		\end{block}
+		\begin{itemize}
+			\item Score ${sc}( G , D )$ is usually a mix of data fitness $F$ and model complexity $P$:
+				\[ {sc}( G , D ) = F( G ) + \psi( N ) \times P( G ) \]
+				with $\psi( N ) \geq 0$ is a function of data size $|D| = N$
+			\item We usually ommit dependence on $D$: ${sc}( G)$
+		\end{itemize}
+	\end{frame}
+	\begin{frame}
+		\begin{block}{Learning as optimization}
+			Select $G$ that maximizes \alert{decomposable score function}
+			\[ G^* = arg \max_{G: G \text{ is a DAG}} {sc}( G ) \]
+			\[ G^* = arg \max_G \sum_i {sc}( X_i , {Pa}( X_i ) ) \]
+		\end{block}
+	\end{frame}
+	
+\subsection{Greedy Search Approach}
+	\begin{frame}[fragile]
+		Greedy Search is a popular approach to find an approximate solution. It relies on the definition of a neighborhood space among solutions and on local moves that search for improving solution in the neighborhood of an incumbent solution
+		\vskip1.5em
+		\input{algorithm/greedysearch}
+	\end{frame}
+	\begin{frame}
+		Different neighborhoods and local moves rise to different methods such as:
+		\begin{itemize}
+			\item Structure-based
+			\item Equivalence-based
+			\item Order-based
+		\end{itemize}
+	\end{frame}
+	
+\subsection{Order-based Greedy Search}
+	\begin{frame}
+		Based on the observation that the problem of learning a Bayesian network can be written as
+			\[ G^* = \arg \max_{<} \max_{G \text{ consistent with } <} \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) \]
+			\[ G^* = \arg \max_{<} \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}} {sc}( X_i , P ) \]
+		which means that if an optimal ordering over the variables is known, an optimal DAG can be found by maximizing the local scores \alert{independently}
+	\end{frame}
+	\begin{frame}
+		\input{algorithm/orderbased}
+		where ${swap}( L , i , i + 1 )$ swaps the values $L[ i ]$ and $L[ i + 1 ]$
+		\vskip1em
+		Usually ${Get\_Order}$ generates a random order, which means that it has $n!$ possibilities.
+	\end{frame}

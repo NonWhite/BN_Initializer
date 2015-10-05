@@ -1,0 +1,17 @@
+\defverbatim
+\orderbased{
+\begin{lstlisting}
+	OrderBasedGreedySearch( Dataset |$D$| ) : return a BN
+		|$L = Get\_Order( X_1 , \ldots , X_n )$|
+		For a number of iterations |$K$|
+			|$current\_sol = L$|
+			For each |$i$| = 1 to |$n-1$| do
+				|$L_i = swap( L , i , i+1 )$|
+				if |$score( L_i ) > score( current\_sol )$|
+					|$current\_sol = L_i$|
+			if |$score( current\_sol ) > score( L )$| then
+				|$L = current\_sol$|
+		Return |${network}( L )$|
+\end{lstlisting}
+}
+\orderbased

@@ -1,0 +1,13 @@
+\defverbatim
+\greedysearch{
+\begin{lstlisting}
+	GreedySearch( Dataset |$D$| ) : return a BN |$G$|
+		|$G = Initial\_Solution( X_1 , \ldots , X_n )$|
+		For a number of iterations |$K$|
+			|$best\_neighbor = find\_best\_neighbor( G )$|
+			if |$score( best\_neighbor ) > score( G )$| then
+				|$G = best\_neighbor$|
+		Return |$G$|
+\end{lstlisting}
+}
+\greedysearch
