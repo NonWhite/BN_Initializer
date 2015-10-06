@@ -1,0 +1,15 @@
+\begin{tikzpicture}[ scale = 0.4 ]
+	\tikzset{ vertex/.style = { shape = rectangle , draw , minimum size = 2em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (A) at  ( 0 , 4 ) { ${A}$ } ;
+	\node[ vertex ] (B) at  ( 4 , 4 ) { ${B}$ } ;
+	\node[ vertex ] (C) at  ( 0 , 0 ) { ${C}$ } ;
+	\node[ vertex ] (D) at  ( 4 , 0 ) { ${D}$ } ;
+
+	%edges
+	\draw[ edge ] (A) to (B) ;
+	\draw[ edge ] (A) to (C) ;
+	\draw[ edge ] (A) to (D) ;
+	\draw[ edge ] (B) to (D) ;
+\end{tikzpicture}

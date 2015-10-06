@@ -1,0 +1,21 @@
+\subsection{Markov property}
+	\begin{frame}
+		\begin{block}{Markov property}
+			Given its parents, every variable is conditionally independent from its non-descendants non-parents
+		\end{block}
+		\begin{block}{Factorization property}
+			\[ \P( X_1 , \ldots , X_n ) = \prod_{i=1}^n \P( X_i \mid {Pa}( X_i ) ) \]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\begin{figure}
+	 		\centering
+			\input{graphs/example}
+		\end{figure}
+		\begin{block}{}
+			The directed acyclic graph (DAG) above has joint probability distribution:
+			\[ \P( I , C , S , A ) = \P( I ) \P( C \mid I ) \P( S \mid C , I ) \P( A \mid S , C , I ) \]
+			\[ = \P( I ) \P( C ) \P( S \mid C , I ) \P( A \mid S ) \]
+		\end{block}
+	\end{frame}

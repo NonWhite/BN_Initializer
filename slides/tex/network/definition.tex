@@ -1,0 +1,13 @@
+\subsection{Definition}
+	\begin{frame}
+		A Bayesian Network consists of
+		\begin{itemize}
+			\item A DAG $G$ over a set of variables $X_1 , \ldots , X_n$
+			\item \alert{Markov Property}: Given its parents, every variable is conditionally independent from its non-descendant non-parents
+			\item \alert{Probability constraints}: $\P( X_i = k \mid {Pa}( X_i ) = j ) = \theta_{ijk}$
+		\end{itemize}
+		\begin{block}{Joint Probability Distribution}
+			There is a unique probability function consistent with a BN:
+			\[ \P( X_1 , \ldots , X_n ) = \prod_{i=1}^n \P( X_i \mid {Pa}( X_i ) ) = \prod_{i=1}^n \theta_{ijk} \]
+		\end{block}
+	\end{frame}

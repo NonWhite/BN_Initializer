@@ -1,0 +1,19 @@
+\begin{tikzpicture}[ scale = 0.6 ]
+	\tikzset{ vertex/.style = { shape = rectangle , draw , minimum size = 2em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (B) at  ( 4 , 4 ) { ${Buying}$ } ;
+	\node[ vertex ] (D) at  ( 2 , 2 ) { ${Doors}$ } ;
+	\node[ vertex ] (P) at  ( 6 , 2 ) { ${Persons}$ } ;
+	\node[ vertex ] (M) at  ( 0 , 0 ) { ${Mantain}$ } ;
+	\node[ vertex ] (S) at  ( 4 , 0 ) { ${Safety}$ } ;
+	\node[ vertex ] (L) at  ( 8 , 0 ) { ${Luggage}$ } ;
+
+	%edges
+	\draw[ edge ] (B) to (D) ;
+	\draw[ edge ] (B) to (P) ;
+	\draw[ edge ] (D) to (M) ;
+	\draw[ edge ] (D) to (S) ;
+	\draw[ edge ] (P) to (S) ;
+	\draw[ edge ] (P) to (L) ;
+\end{tikzpicture}

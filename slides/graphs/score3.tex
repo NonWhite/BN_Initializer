@@ -1,0 +1,19 @@
+\begin{tikzpicture}[ scale = 0.6 ]
+	\tikzset{ vertex/.style = { shape = rectangle , draw , minimum size = 1em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (A) at  ( 0 , 6 ) { \scriptsize Age } ;
+	\node[ vertex ] (G) at  ( 2 , 6 ) { \scriptsize Gender } ;
+	\node[ vertex ] (E) at  ( 1 , 4 ) { \scriptsize Education } ;
+	\node[ vertex ] (O) at  ( 1 , 0 ) { \scriptsize Occupation } ;
+	\node[ vertex ] (C) at  ( 2.5 , 2 ) { \scriptsize City size } ;
+	\node[ vertex ] (T) at  ( -0.5 , 2 ) { \scriptsize Transport } ;
+
+	%edges
+	\draw[ edge ] (A) to (E) ;
+	\draw[ edge ] (G) to (E) ;
+	\draw[ edge ] (E) to (T) ;
+	\draw[ edge ] (E) to (C) ;
+	\draw[ edge ] (C) to (O) ;
+	\draw[ edge ] (C) to (T) ;
+\end{tikzpicture}

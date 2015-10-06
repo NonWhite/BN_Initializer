@@ -1,0 +1,9 @@
+\subsection{Model Complexity}
+	\begin{frame}
+		The presence of independences reduces the number of probability values to specify:
+		\begin{itemize}
+			\item \alert{No independences}: $\P( A , B , C )$, $k^3$ values
+			\item $A$, $B$ and $C$ are \alert{dependent}, and $A$ and $B$ are \alert{conditionally independent} given $C$: $\P( A , B \mid C ) = \P( A \mid C ) \P( B \mid C )$ , $k + 2k^2$ values
+			\item $A$, $B$ and $C$ are \alert{independent}: $\P( A , B , C ) = \P( A ) \P( B ) \P( C )$ , $3k$ values
+		\end{itemize}
+	\end{frame}

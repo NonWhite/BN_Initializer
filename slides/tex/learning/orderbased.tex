@@ -1,0 +1,27 @@
+\subsection{Order-based Greedy Search}
+	\begin{frame}
+		Based on the observation that the problem of learning a Bayesian network can be written as
+			\[ G^* = \arg \max_{<} \max_{G \text{ consistent with } <} \sum_{i=1}^{n} {sc}( X_i , {Pa}( X_i ) ) \]
+			\[ G^* = \arg \max_{<} \sum_{i=1}^{n} \max_{P \subseteq \{ X_j < X_i \}} {sc}( X_i , P ) \]
+		An optimal DAG can be found by maximizing the local scores \alert{independently} given an order of the variables
+	\end{frame}
+	
+	\begin{frame}
+		\input{algorithm/orderbased}
+		where ${swap}( L , i , i + 1 )$ swaps the values $L[ i ]$ and $L[ i + 1 ]$
+	\end{frame}
+	
+	\begin{frame}
+		Imagine incumbent solution is
+			\[ [ A , G , E , C , O , T ] \]
+		with ${sc} = -8891.52$
+		\begin{block}{Neighborhood}
+			\begin{itemize}
+				\item $[ G , A , E , C , O , T ]$, $sc = -7593.82$
+				\item $[ A , E , G , C , O , T ]$, $sc = -8891.48$
+				\item $[ A , G , C , E , O , T ]$, $sc = -9149.13$
+				\item $[ A , G , E , O , C , T ]$, $sc = -6917.23$
+				\item $[ A , G , E , C , T , O ]$, $sc = -6999.99$
+			\end{itemize}
+		\end{block}
+	\end{frame}

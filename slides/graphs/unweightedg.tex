@@ -1,0 +1,18 @@
+\begin{tikzpicture}[ scale = 0.6 ]
+	\tikzset{ vertex/.style = { shape = circle , draw , minimum size = 1.5em } }
+	\tikzset{ edge/.style = { ->,> = latex' } }
+	% vertices
+	\node[ vertex ] (A) at  ( 3 , 4 ) { ${A}$ } ;
+	\node[ vertex ] (B) at  ( 0 , 0 ) { ${B}$ } ;
+	\node[ vertex ] (C) at  ( 3 , 0 ) { ${C}$ } ;
+	\node[ vertex ] (D) at  ( 6 , 0 ) { ${D}$ } ;
+
+	%edges
+	\draw[ edge ] (A) to (B) ;
+%	\draw[ edge ] (B) to[in=180,out=90] (A) ;
+	\draw[ edge ] (A) to (C) ;
+	\draw[ edge ] (A) to (D) ;
+%	\draw[ edge ] (D) to[in=0,out=90] (A) ;
+	\draw[ edge ] (C) to (D) ; 
+	\draw[ edge ] (B) to[in=-135,out=-45] (D) ;
+\end{tikzpicture}

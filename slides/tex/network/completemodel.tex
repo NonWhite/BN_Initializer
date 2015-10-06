@@ -1,0 +1,20 @@
+\subsection{Complete probabilistic model}
+	\begin{frame}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/census}
+				\end{figure}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				We can query a Bayesian Network about unspecified probabilities
+				\begin{itemize}
+					\item Are women more likely to prefer public transport over men:\\
+						$\P( T = public \mid G = F ) > \P( T = public \mid G )$?
+					\item What is the distribution of ages for people who use private means of transport:\\
+						$\P( A \mid T = private )$?
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}

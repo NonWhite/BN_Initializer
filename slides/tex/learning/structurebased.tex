@@ -1,0 +1,35 @@
+\subsection{Structure-based Greedy Search}
+	\begin{frame}[fragile]
+		Imagine incumbent solution is
+		\begin{figure}
+			\centering
+			\input{graphs/original}
+		\end{figure}
+		Neighboorhood:
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/structureadd}
+				\end{figure}
+				\centering
+				Add an edge
+			\end{column}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/structureremove}
+				\end{figure}
+				\centering
+				Remove an edge
+			\end{column}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/structureinvert}
+				\end{figure}
+				\centering
+				Invert an edge's direction
+			\end{column}
+		\end{columns}
+	\end{frame}

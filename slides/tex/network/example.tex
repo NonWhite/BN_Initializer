@@ -1,0 +1,24 @@
+\subsection{Examples}
+	\begin{frame}
+		From the previous example:\\
+		\begin{block}{}
+			$\P( B , M , D , P , L , S ) = \P( B ) \P( D \mid B ) \P( P \mid B ) \P( M \mid D ) \P( S \mid D , P ) \P( L \mid P )$
+		\end{block}
+		This requires $4 + (4 \times 4) + (3 \times 4) + (4 \times 4) + (3 \times 4 \times 3) + (3 \times 3) = 93$ probabilities
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\begin{columns}
+			\begin{column}{.3\linewidth}
+				Imagine each variable has $k$ values:\\
+				We requires $k^{33}$ probabilities without independences.
+			\end{column}
+			\begin{column}{.6\linewidth}
+				\begin{figure}
+					\centering
+					\includegraphics[height=17em]{images/complexbn}
+				\end{figure}
+			\end{column}
+		\end{columns}
+		
+	\end{frame}

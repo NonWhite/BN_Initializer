@@ -1,0 +1,19 @@
+\subsection{Discussion}
+	\begin{frame}
+		The results show that:
+		\begin{itemize}
+			\item In most of the datasets with less than 25 attributes, the Random strategy finds the highest-scoring networks over all runs, even though it finds worse networks on average
+			\item The best initial solutions are found by the FAS-based strategy followed by the DFS-based strategy
+			\item For datasets with more than 25 variables, Random is less effective in finding high-scoring networks, except for the LungCancer (which has very little data)
+			\item These results suggest that more informed approaches to generating initial orderings might be more effective in high dimensionality domains, or when the number of restarts is limited
+		\end{itemize}
+	\end{frame}
+	\begin{frame}
+		The results show that:
+		\begin{itemize}
+			\item The proposed strategies are also more robust, which can be seen by the smaller variance of the average initial and best scores
+			\item The results also suggest that the proposed strategies are more effective than Random in datasets for which the graph G is sparser (smaller density), showing that pruning the space of orderings can be effective in those cases
+			\item The initial orderings provided by the proposed strategies speed up convergence of the local search, as can be seen by the smaller number of average iterations for those strategies in the table
+			\item It is expected better results with datasets with higher dimensionality
+		\end{itemize}
+	\end{frame}

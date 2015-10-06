@@ -1,0 +1,32 @@
+\subsection{Setup}
+	\begin{frame}{Configuration}
+		For each dataset considered:
+		\begin{itemize}
+			\item Limit parent set size to 3
+			\item Perform 1000 runs of Order-based Greedy Search
+			\item At most 100 iterations ($K = 100$)
+			\item Use BIC score
+			\item Find best parent sets by exhaustive search
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Datasets}
+		\begin{table}
+			\centering
+			\begin{tabular}{ | l | c | c | c | }
+				\hline
+				Dataset & n (\#attributes) & N (\#instances) & Density of $\overline G$ \\ \hline
+				Census & 15 & 30168 & 2.85 \\ \hline
+				Letter & 17 & 20000 & 2.41 \\ \hline
+				Image & 20 & 2310 & 2.45 \\ \hline
+				Mushroom & 23 & 8124 & 2.91 \\ \hline
+				Sensors & 25 & 5456 & 3.00 \\ \hline
+				SteelPlates & 28 & 1941 & 2.18 \\ \hline
+				Epigenetics & 30 & 72228 & 1.87 \\ \hline
+				Alarm & 37 & 1000 & 1.98 \\ \hline
+				Spectf & 45 & 267 & 1.76 \\ \hline
+				LungCancer & 57 & 27 & 1.44 \\ \hline
+			\end{tabular}
+			\caption{Data sets characteristics}
+			\label{tab:datasets}
+		\end{table}
+	\end{frame}

@@ -1,0 +1,9 @@
+\subsection{Chain Rule}
+	\begin{frame}
+		By definition of conditional probability:
+			\[ \P( \alpha \mid \beta ) \P( \beta ) = \P( \alpha \cap \beta ) \]
+		For events $\alpha_1 , \ldots , \alpha_n$ it follows that
+			\[ \P( \alpha_1 \cap \ldots \cap \alpha_n ) = \P( \alpha_1 ) \prod_{i=2}^{n} \P( \alpha_i \mid \alpha_1 \cap \ldots \cap \alpha_{i-1} ) \]
+		In terms of variables:
+			\[ \P( A , B , C ) = \P( A ) \P( B \mid A ) \P( C \mid B , A ) \]
+	\end{frame}

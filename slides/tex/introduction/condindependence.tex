@@ -1,0 +1,13 @@
+\subsection{Conditional Independence}
+	\begin{frame}
+		Events $\alpha$ and $\beta$ are independent conditional on event $\gamma$ if:
+			\[ \P( \alpha \cap \beta \mid \gamma ) = \P( \alpha \mid \gamma ) \P( \beta \mid \gamma ) \]
+		The following are equivalent definitions:
+		\begin{itemize}
+			\item Either $\P( \alpha \mid \beta , \gamma ) = \P( \alpha \mid \gamma ) \text{ or } \P( \beta \mid \gamma ) = 0$
+			\item Either $\P( \beta \mid \alpha , \gamma ) = \P( \beta \mid \gamma ) \text{ or } \P( \alpha \mid \gamma ) = 0$
+		\end{itemize}
+		Analogously, variables $A$ and $B$ are conditionally independent given $C$ if
+			\[ \P( A , B \mid C ) = \P( A \mid C ) \P( B \mid C ) \]
+		for every assignment to $A$, $B$ and $C$
+	\end{frame}

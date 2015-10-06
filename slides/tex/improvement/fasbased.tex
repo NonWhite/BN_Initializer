@@ -1,0 +1,58 @@
+\subsection{FAS-based approach}
+	\begin{frame}
+		\begin{block}{Disadvantage of DFS approach}
+			This approach can be seen as removing edges from $\overline G$ such as to make it a DAG and then extract a topological order. But not all edges are \alert{equally relevant} in terms of avoiding poor local maxima.
+		\end{block}		
+	\end{frame}
+	
+	\begin{frame}
+		\begin{block}{Estimating the relevance}
+			We can estimate the relevance of an edge $X_j \rightarrow X_i$ by
+			\[ W_{ji} = {sc}( X_i , {Pa}^*( X_i ) ) - {sc}( X_i , {Pa}^*( X_i ) \setminus \{ X_j \} ) \]
+			where ${Pa}^*( X_i )$ represents the \alert{best parent set} for $X_i$.\\
+		\end{block}
+		We then wish to find a topological ordering of $\overline G$ that violates the least cost of edges.
+	\end{frame}
+	
+	\begin{frame}{Example}
+		\begin{columns}
+			\begin{column}{.4\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/weightedg}
+				\end{figure}
+				\centering
+				Graph $\overline G$
+			\end{column}
+			\begin{column}{.5\textwidth}
+				\begin{itemize}
+					\item $C$ is not very relevant as parent to $D$
+					\item $B$ is the most relevant parent of $D$
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{block}{Min-Cost Feedback Arc Set}
+			 Given a weighted directed graph $G = ( V , E )$, a set $F \subseteq E$ is called a Min-Cost Feedback Arc Set (min-cost FAS) if every (directed) cycle of $G$ contains at least one edge in $F$ and the sum of weights is minimum.
+				\[ F = \min_{G-F \text{ is a DAG}} \sum_{X_j \rightarrow X_j \in E} W_{ij} \]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Finding FAS $F$}
+		The following algorithm find an approximate solution:
+		\vskip1em
+		\input{algorithm/fasapprox}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{block}{The algorithm}
+			\begin{itemize}
+				\item Take the weighted graph $\overline G$ with weights $W_{ij}$ as input
+				\item Find min-cost FAS $F$
+				\item Remove the edges in $F$ from $\overline G$
+				\item Return a topological order from $\overline G - F$
+			\end{itemize}
+		\end{block}
+	\end{frame}

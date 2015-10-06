@@ -1,0 +1,43 @@
+\subsection{Score-based Structure Learning}
+	\begin{frame}
+		\begin{block}{Learning as optimization}
+			Given dataset $D$, select $G$ that maximizes \alert{decomposable} score function:
+				\[ {sc}( G , D ) = F( G ) + \psi( N ) \times P( G ) \]
+		\end{block}
+	\end{frame}
+	\begin{frame}
+		\begin{block}{Learning as optimization}
+			Select $G$ that maximizes \alert{decomposable score function}
+			\[ G^* = arg \max_{G: G \text{ is a DAG}} {sc}( G ) \]
+			\[ G^* = arg \max_G \sum_i {sc}( X_i , {Pa}( X_i ) ) \]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/score1}
+				\end{figure}
+				\centering
+				${sc}( G^* ) = -9508.34$
+			\end{column}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/score2}
+				\end{figure}
+				\centering
+				${sc}( G^* ) = -6917.23$
+			\end{column}
+			\begin{column}{.3\textwidth}
+				\begin{figure}
+					\centering
+					\input{graphs/score3}
+				\end{figure}
+				\centering
+				${sc}( G^* ) = -8891.52$
+			\end{column}
+		\end{columns}
+	\end{frame}
