@@ -1,8 +1,9 @@
 \defverbatim
 \orderbased{
 \begin{lstlisting}
-	OrderBasedGreedySearch( Dataset |$D$| ) : return a BN
-		|$L = Get\_Order( X_1 , \ldots , X_n )$|
+	OrderBasedGreedySearch( Dataset |$D$| , Order |$L_0$| ) :
+	return a BN
+		|$L = L_0$|
 		For a number of iterations |$K$|
 			|$current\_sol = L$|
 			For each |$i$| = 1 to |$n-1$| do

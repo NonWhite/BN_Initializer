@@ -11,17 +11,72 @@
 		where ${swap}( L , i , i + 1 )$ swaps the values $L[ i ]$ and $L[ i + 1 ]$
 	\end{frame}
 	
-	\begin{frame}
-		Imagine incumbent solution is
-			\[ [ A , G , E , C , O , T ] \]
-		with ${sc} = -8891.52$
-		\begin{block}{Neighborhood}
-			\begin{itemize}
-				\item $[ G , A , E , C , O , T ]$, $sc = -7593.82$
-				\item $[ A , E , G , C , O , T ]$, $sc = -8891.48$
-				\item $[ A , G , C , E , O , T ]$, $sc = -9149.13$
-				\item $[ A , G , E , O , C , T ]$, $sc = -6917.23$
-				\item $[ A , G , E , C , T , O ]$, $sc = -6999.99$
-			\end{itemize}
-		\end{block}
+	\begin{frame}[fragile]
+		\begin{columns}
+			\begin{column}{.5\linewidth}
+				Consider incumbent solution is
+					\[ [ A , G , C , E , O , T ] \]
+				\begin{figure}
+					\centering
+					\input{graphs/score4}
+				\end{figure}
+				\[ {sc} = -13192.33 \]
+			\end{column}
+			\begin{column}{.4\linewidth}
+				Neighborhood:
+				\begin{itemize}
+					\item $[ G , A , E , C , O , T ]$\\$sc = -10593.82$
+					\item $[ A , C , G , E , O , T ]$\\$sc = -10891.48$
+					\item \alert{$[ A , G , E , C , O , T ]$\\$sc = -8991.52$}
+					\item $[ A , G , C , O , E , T ]$\\$sc = -9917.23$
+					\item $[ A , G , C , E , T , O ]$\\$sc = -9158.42$
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\begin{columns}
+			\begin{column}{.5\linewidth}
+				Now, incumbent solution is
+					\[ [ A , G , E , C , O , T ] \]
+				\begin{figure}
+					\centering
+					\input{graphs/score3}
+				\end{figure}
+				\[ {sc} = -8991.52 \]
+			\end{column}
+			\begin{column}{.4\linewidth}
+				\begin{itemize}
+					\item $[ G , A , E , C , O , T ]$\\$sc = -7593.82$
+					\item $[ A , E , G , C , O , T ]$\\$sc = -8891.48$
+					\item $[ A , G , C , E , O , T ]$\\$sc = -13192.33$
+					\item \alert{$[ A , G , E , O , C , T ]$\\$sc = -6917.23$}
+					\item $[ A , G , E , C , T , O ]$\\$sc = -6999.99$
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\begin{columns}
+			\begin{column}{.5\linewidth}
+				Now, incumbent solution is
+					\[ [ A , G , E , O , C , T ] \]
+				\begin{figure}
+					\centering
+					\input{graphs/score2}
+				\end{figure}
+				\[ {sc} = -6917.23 \]
+			\end{column}
+			\begin{column}{.4\linewidth}
+				\begin{itemize}
+					\item $[ G , A , E , O , C , T ]$\\$sc = -8593.82$
+					\item $[ A , E , G , O , C , T ]$\\$sc = -7289.48$
+					\item $[ A , G , O , E , C , T ]$\\$sc = -9145.13$
+					\item $[ A , G , E , C , O , T ]$\\$sc = -8991.52$
+					\item $[ A , G , E , O , T , C ]$\\$sc = -6991.08$
+				\end{itemize}
+			\end{column}
+		\end{columns}
 	\end{frame}
