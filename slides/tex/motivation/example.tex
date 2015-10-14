@@ -1,51 +1,52 @@
 \subsection{Example}
-	\begin{frame}
-		\begin{block}{Car Evaluation Dataset}
-			\begin{itemize}
-				\item Buying price (B): v-high, high, med, low
-				\item Maintain cost (M): v-high, high, med, low
-				\item Doors (D): two, three, four, more
-				\item Persons (P): two, four, more
-				\item Luggage boot (L): small, medium, big
-				\item Safety (S): low, medium, high
-			\end{itemize}
-		\end{block}
-		%Using First-order Logic we have:
-		%\begin{block}{}
-		%	\begin{itemize}
-		%		\item $\forall c, {Buying}( c , high ) \rightarrow {Doors}( c , four ) \land {Persons}( c , more )$
-		%		\item $\forall c, {Maintain}( c , low ) \rightarrow {Safety}( c , high )$
-		%	\end{itemize}
-		%\end{block}
-		%But, how to represent:
-		Represent:
-		\begin{block}{}
-			\begin{itemize}
-				\item Half of cars that have four doors have a medium luggage boot
-				\item 15\% of cars are low safety, 77\% medium safety and 8\% high safety
-			\end{itemize}
-		\end{block}
-	\end{frame}
+
+\begin{frame}
+	\begin{block}{Car Evaluation Dataset}
+		\begin{itemize}
+			\item Buying price (B): v-high, high, med, low
+			\item Maintain cost (M): v-high, high, med, low
+			\item Doors (D): two, three, four, more
+			\item Persons (P): two, four, more
+			\item Luggage boot (L): small, medium, big
+			\item Safety (S): low, medium, high
+		\end{itemize}
+	\end{block}
+	%Using First-order Logic we have:
+	%\begin{block}{}
+	%	\begin{itemize}
+	%		\item $\forall c, {Buying}( c , high ) \rightarrow {Doors}( c , four ) \land {Persons}( c , more )$
+	%		\item $\forall c, {Maintain}( c , low ) \rightarrow {Safety}( c , high )$
+	%	\end{itemize}
+	%\end{block}
+	%But, how to represent:
+	Represent:
+	\begin{block}{}
+		\begin{itemize}
+			\item Half of cars that have four doors have a medium luggage boot
+			\item 15\% of cars are low safety, 77\% medium safety and 8\% high safety
+		\end{itemize}
+	\end{block}
+\end{frame}
 	
-	\begin{frame}
-		Using a probabilistic model of knowledge to represent all possible relations we have:
-		\begin{block}{}
-			\[ \P( B , M , D , P , L , S ) \]
-		\end{block}
-		This requires $4 \times 4 \times 4 \times 3 \times 3 \times 3 = 1728$ probabilities hard to estimate, but we can drastically reduce this number by assuming (conditional) independences
-	\end{frame}
+\begin{frame}
+	Using a probabilistic model of knowledge to represent all possible relations we have:
+	\begin{block}{}
+		\[ \P( B , M , D , P , L , S ) \]
+	\end{block}
+	This requires $4 \times 4 \times 4 \times 3 \times 3 \times 3 = 1728$ probabilities hard to estimate, but we can drastically reduce this number by assuming (conditional) independences
+\end{frame}
 	
-	\begin{frame}[fragile]
-		For example:
-		\begin{figure}
-			\centering
-			\input{graphs/car}
-		\end{figure}
-		\begin{block}{}
-			\begin{itemize}
-				\item \alert{Doors} and \alert{Persons} are independent given \alert{Buying}: $\P( D , P \mid B ) = \P( D \mid B ) \P( P \mid B )$
-				\item \alert{Mantain} and \alert{Safety} are independent given \alert{Doors}: $\P( M , S \mid D ) = \P( M \mid D ) \P( S \mid D )$
-				\\$\vdots$
-			\end{itemize}
-		\end{block}
-	\end{frame}
+\begin{frame}[fragile]
+	For example:
+	\begin{figure}
+		\centering
+		\input{graphs/car}
+	\end{figure}
+	\begin{block}{}
+		\begin{itemize}
+			\item \alert{Doors} and \alert{Persons} are independent given \alert{Buying}: $\P( D , P \mid B ) = \P( D \mid B ) \P( P \mid B )$
+			\item \alert{Mantain} and \alert{Safety} are independent given \alert{Doors}: $\P( M , S \mid D ) = \P( M \mid D ) \P( S \mid D )$
+			\\$\vdots$
+		\end{itemize}
+	\end{block}
+\end{frame}

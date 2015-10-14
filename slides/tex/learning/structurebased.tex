@@ -1,35 +1,36 @@
 \subsection{Structure-based Greedy Search}
-	\begin{frame}[fragile]
-		Consider incumbent solution is
-		\begin{figure}
+
+\begin{frame}[fragile]
+	Consider incumbent solution is
+	\begin{figure}
+		\centering
+		\input{graphs/original}
+	\end{figure}
+	Neighboorhood:
+	\begin{columns}
+		\begin{column}{.3\textwidth}
+			\begin{figure}
+				\centering
+				\input{graphs/structureadd}
+			\end{figure}
 			\centering
-			\input{graphs/original}
-		\end{figure}
-		Neighboorhood:
-		\begin{columns}
-			\begin{column}{.3\textwidth}
-				\begin{figure}
-					\centering
-					\input{graphs/structureadd}
-				\end{figure}
+			Add an edge
+		\end{column}
+		\begin{column}{.3\textwidth}
+			\begin{figure}
 				\centering
-				Add an edge
-			\end{column}
-			\begin{column}{.3\textwidth}
-				\begin{figure}
-					\centering
-					\input{graphs/structureremove}
-				\end{figure}
+				\input{graphs/structureremove}
+			\end{figure}
+			\centering
+			Remove an edge
+		\end{column}
+		\begin{column}{.3\textwidth}
+			\begin{figure}
 				\centering
-				Remove an edge
-			\end{column}
-			\begin{column}{.3\textwidth}
-				\begin{figure}
-					\centering
-					\input{graphs/structureinvert}
-				\end{figure}
-				\centering
-				Revert an edge's direction
-			\end{column}
-		\end{columns}
-	\end{frame}
+				\input{graphs/structureinvert}
+			\end{figure}
+			\centering
+			Revert an edge's direction
+		\end{column}
+	\end{columns}
+\end{frame}
