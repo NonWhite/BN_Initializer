@@ -1,3 +1,4 @@
+import sys
 from copy import deepcopy as copy
 from utils import *
 from data import Data
@@ -214,3 +215,9 @@ class Model :
 	def hashedarray( self , setfields ) :
 		setfields.sort()
 		return ','.join( setfields )
+
+if __name__ == '__main__' :
+	fpath , variable , parents = sys.argv[ 1: ]
+	data = Data( fpath )
+	model = Model( data )
+	print "%s" % model.bic_score( variable , parents.split( ',' ) )
