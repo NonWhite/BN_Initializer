@@ -217,7 +217,9 @@ class Model :
 		return ','.join( setfields )
 
 if __name__ == '__main__' :
-	fpath , variable , parents = sys.argv[ 1: ]
+	fpath , variable = sys.argv[ 1 ] , sys.argv[ 2 ]
+	parents = []
+	if len( sys.argv ) > 3 : parents = sys.argv[ 3 ].split( ',' )
 	data = Data( fpath )
 	model = Model( data )
-	print "%s" % model.bic_score( variable , parents.split( ',' ) )
+	print "%s" % model.bic_score( variable , parents )
